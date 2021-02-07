@@ -24,12 +24,12 @@ Feature: Lingo Trainer
 
     Examples:
 
-    | word | hint | guess | feedback
-    | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BERGEN | INVALID, INVALID, INVALID, INVALID, INVALID, INVALID |
-    | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BONJE | CORRECT, ABSENT, ABSENT, ABSENT, ABSENT, ABSENT |
-    | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BARST | CORRECT, CORRECT, PRESENT, ABSENT, ABSENT |
-    | BAARD | ‘B’, ‘A’, ‘.’, ‘.’, ‘.’ | DRAAD | ABSENT, PRESENT, CORRECT, PRESENT, CORRECT |
-    | BAARD | ‘B’, ‘A’, ‘A’, ‘.’, ‘D’ | BAARD | CORRECT, CORRECT, CORRECT, CORRECT, CORRECT |
+      | word | hint | guess | feedback
+      | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BERGEN | INVALID, INVALID, INVALID, INVALID, INVALID, INVALID |
+      | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BONJE | CORRECT, ABSENT, ABSENT, ABSENT, ABSENT |
+      | BAARD | ‘B’, ‘.’, ‘.’, ‘.’, ‘.’ | BARST | CORRECT, CORRECT, PRESENT, ABSENT, ABSENT |
+      | BAARD | ‘B’, ‘A’, ‘.’, ‘.’, ‘.’ | DRAAD | ABSENT, PRESENT, CORRECT, PRESENT, CORRECT |
+      | BAARD | ‘B’, ‘A’, ‘A’, ‘.’, ‘D’ | BAARD | CORRECT, CORRECT, CORRECT, CORRECT, CORRECT |
 
     #Sucess path
     Given The word has been guessed in five turns
@@ -53,10 +53,10 @@ Feature: Lingo Trainer
     Then the word to guess has "<next length>" letters and the word hasn't been guessed in the game yet
 
     Examples:
-    | previous length | next length |
-    | 5               | 6           |
-    | 6               | 7           |
-    | 7               | 5           |
+      | previous length | next length |
+      | 5               | 6           |
+      | 6               | 7           |
+      | 7               | 5           |
 
     # Failure path
     Given I am playing a game
