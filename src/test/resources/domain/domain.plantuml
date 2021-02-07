@@ -16,11 +16,9 @@ Class Game {
 
 Class Round {
     word : Word
-    guesses : List<Word>
 }
 
 class RoundDTO {
-    guesses : List<Word>
 }
 
 enum Role <<Enumeration>> {
@@ -81,11 +79,11 @@ Game }o--|| Person : games <
 Game ||--|{ Round : rounds >
 Round ||--|| RoundDTO : roundDTO >
 Feedback ||--o{ FeedbackItem : feedbackItems >
-Feedback }o--|| Round : feedbacks >
-Feedback }o--|| RoundDTO : feedbacks >
+Feedback }o--|| Round : feedbacks <
+Feedback }o--|| RoundDTO : feedbacks <
 Letter "5...7" --o| Word: letters <
-Word "1...5" --|| Round : hints
-Word "1...5" --|| RoundDTO: hints
-Word "1...5" --|| Round : guesses
-Word "1...5" --|| RoundDTO: guesses
+Word "1...5" }|--|| Round : hints <
+Word "1...5" }|--|| RoundDTO: hints <
+Word "1...5" }|--|| Round : guesses <
+Word "1...5" }|--|| RoundDTO: guesses <
 @enduml
