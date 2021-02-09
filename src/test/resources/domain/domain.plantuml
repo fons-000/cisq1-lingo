@@ -2,7 +2,7 @@
 hide circle
 
 Class Account {
-    username : String
+    username: String
     password: String
 }
 
@@ -11,20 +11,21 @@ Class Person {
 }
 
 Class Game {
-    score : int
+    score: int
 }
 
 Class Round {
-    word : Word
+    id: int
+    word: Word
 }
 
 class RoundDTO {
 }
 
 enum Role <<Enumeration>> {
-    Player
-    Administrator
-    HeadAdministrator
+    PLAYER
+    ADMINISTRATOR
+    HEAD_ADMINISTRATOR
 }
 
 enum FeedbackItem <<Enumeration>> {
@@ -79,11 +80,11 @@ Game }o--|| Person : games <
 Game ||--|{ Round : rounds >
 Round ||--|| RoundDTO : roundDTO >
 Feedback ||--o{ FeedbackItem : feedbackItems >
-Feedback }o--|| Round : feedbacks <
-Feedback }o--|| RoundDTO : feedbacks <
+Feedback }o--|| Round : feedback <
+Feedback }o--|| RoundDTO : feedback <
 Letter "5...7" --o| Word: letters <
-Word "1...5" }|--|| Round : hints <
-Word "1...5" }|--|| RoundDTO: hints <
-Word "1...5" }|--|| Round : guesses <
-Word "1...5" }|--|| RoundDTO: guesses <
+Word "1...5" }|--|| Round : hint <
+Word "1...5" }|--|| RoundDTO: hint <
+Word "1...5" }|--|| Round : guess <
+Word "1...5" }|--|| RoundDTO: guess <
 @enduml
