@@ -27,7 +27,7 @@ public class Turn {
         return true;
     }
 
-    public boolean generateHint() {
-        //Genereert een hint
-    }
+//    public boolean generateHint() {
+//        //Genereert een hint
+//    }
 }

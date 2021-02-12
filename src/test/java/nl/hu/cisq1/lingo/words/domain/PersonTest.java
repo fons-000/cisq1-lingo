@@ -87,14 +87,14 @@ public class PersonTest {
         assertNotEquals(person, person2);
     }
 
-//    @Test
-//    @DisplayName("Addgame function works")
-//    void addGame() {
-//        ArrayList<Game> gamesList = person.getGames();
-//        assertEquals(0, gamesList.size());
-//        Game game = new Game(200);
-//        assertTrue(person.addGame(game));
-//        assertEquals(1, gamesList.size());
-//        assertEquals(200, gamesList.get(0).getScore());
-//    }
+    @Test
+    @DisplayName("Addgame function works")
+    void addGame() {
+        ArrayList<Game> gamesList = person.getGames();
+        assertEquals(0, gamesList.size());
+        Game game = new Game(200);
+        assertTrue(person.addGame(game));
+        assertEquals(1, gamesList.size());
+        assertEquals(200, gamesList.get(0).getScore());
+    }
 }

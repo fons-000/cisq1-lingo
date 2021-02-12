@@ -78,12 +78,14 @@ public class GameTest {
     }
 
     @Test
-    @DisplayName("Addround function works")
+    @DisplayName("Add round function works")
     void addRound() {
         ArrayList<Round> roundsList = game.getRounds();
         assertEquals(0, roundsList.size());
         Word word = new Word("Firefighter");
-        Round round = new Round(word);
+        int currentRounds = roundsList.size();
+        int nextRoundId = currentRounds + 1;
+        Round round = new Round(word, nextRoundId);
         assertTrue(game.addRound(round));
         assertEquals(1, roundsList.size());
         assertSame("Firefighter", roundsList.get(0).getWord().getValue());
