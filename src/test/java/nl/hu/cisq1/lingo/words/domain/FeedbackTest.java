@@ -7,19 +7,13 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PersonTest {
-    //PersonTest
+public class FeedbackTest {
+    //Feedbacktest
     //
-    //1. Gaat een persoon aanmaken goed, zitten de juiste waardes erin?
-    //2. Zitten de juiste waardes er in na een set?
-    //3. Werkt de equals functie?
-    //	3.1 Hetzelfde object => goed
-    //	3.2 Is null => fout
-    //	3.3 andere klasse => fout
-    //	3.4 Goede klasse, met goede waardes => goed
-    //	3.5 Goede klasse, met foute waardes => fout
-    //4. Werkt de addGame functie?
+    //1. Gaat feedback aanmaken goed, zitten de juiste waardes erin?
+    //2. Gaat het toevoegen van een feedbackitem goed?
     Person person = new Person("FS Fons", "8743", "Fons", Role.PLAYER);
 
     @AfterEach
@@ -50,8 +44,6 @@ public class PersonTest {
         person.setRole(Role.ADMINISTRATOR);
         assertSame("Ruben", person.getName());
         assertSame(Role.ADMINISTRATOR, person.getRole());
-        person.setName("Casper");
-        person.setRole(Role.HEAD_ADMINISTRATOR);
     }
 
     @Test
@@ -87,14 +79,14 @@ public class PersonTest {
         assertNotEquals(person, person2);
     }
 
-//    @Test
-//    @DisplayName("Addgame function works")
-//    void addGame() {
-//        ArrayList<Game> gamesList = person.getGames();
-//        assertEquals(0, gamesList.size());
-//        Game game = new Game(200);
-//        assertTrue(person.addGame(game));
-//        assertEquals(1, gamesList.size());
-//        assertEquals(200, gamesList.get(0).getScore());
-//    }
+    @Test
+    @DisplayName("Addgame function works")
+    void addGame() {
+        ArrayList<Game> gamesList = person.getGames();
+        assertEquals(0, gamesList.size());
+        Game game = new Game(200);
+        assertTrue(person.addGame(game));
+        assertEquals(1, gamesList.size());
+        assertEquals(200, gamesList.get(0).getScore());
+    }
 }

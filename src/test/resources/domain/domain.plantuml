@@ -19,6 +19,9 @@ Class Round {
     word: Word
 }
 
+class Turn {
+}
+
 class RoundDTO {
 }
 
@@ -80,11 +83,9 @@ Game }o--|| Person : games <
 Game ||--|{ Round : rounds >
 Round ||--|| RoundDTO : roundDTO >
 Feedback ||--o{ FeedbackItem : feedbackItems >
-Feedback }o--|| Round : feedback <
-Feedback }o--|| RoundDTO : feedback <
 Letter "5...7" --o| Word: letters <
-Word "1...5" }|--|| Round : hint <
-Word "1...5" }|--|| RoundDTO: hint <
-Word "1...5" }|--|| Round : guess <
-Word "1...5" }|--|| RoundDTO: guess <
+Turn }o--|| Word : hint >
+Turn }o--|| Word : guess >
+Turn }o--|| Feedback : feedback >
+Round ||-- "1...5" Turn : turns >
 @enduml
