@@ -138,7 +138,7 @@ public class FeedbackTest {
         Word word = new Word("HAMER");
         Word guess = new Word("HAMSTER");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -172,7 +172,7 @@ public class FeedbackTest {
         Word word = new Word("KAMER");
         Word guess = new Word("KAM");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -199,7 +199,7 @@ public class FeedbackTest {
         Word word = new Word("GEBAK");
         Word guess = new Word("GEBAK");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -231,7 +231,7 @@ public class FeedbackTest {
         Word word = new Word("BLOOT");
         Word guess = new Word("BOOST");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -262,7 +262,7 @@ public class FeedbackTest {
         Word word = new Word("BAAN");
         Word guess = new Word("BANG");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -290,7 +290,7 @@ public class FeedbackTest {
         Word word = new Word("OPZICHT");
         Word guess = new Word("OORFLAP");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
@@ -325,7 +325,7 @@ public class FeedbackTest {
         Word word = new Word("AHAHA");
         Word guess = new Word("HAHAH");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
-        //Throwed als de feedback present is
+        //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 

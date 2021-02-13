@@ -15,11 +15,12 @@ Class Game {
 }
 
 Class Round {
-    id: int
-    word: Word
+    roundOfGame: int
 }
 
 class Turn {
+'Fix voor word deze zit namelijk in Round
+'Mogelijk pas fixen bij aanmaak service?
 }
 
 class RoundDTO {
@@ -86,6 +87,9 @@ Feedback ||--o{ FeedbackItem : feedbackItems >
 Letter "5...7" --o| Word: letters <
 Turn }o--|| Word : hint >
 Turn }o--|| Word : guess >
+Turn }o--|| Word : word >
 Turn }o--|| Feedback : feedback >
+Round }o--|| Word : word >
+Round }o--|| Word : firstHint >
 Round ||-- "1...5" Turn : turns >
 @enduml

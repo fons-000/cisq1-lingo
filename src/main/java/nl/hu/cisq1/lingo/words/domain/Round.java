@@ -1,20 +1,23 @@
 package nl.hu.cisq1.lingo.words.domain;
 
+import java.util.ArrayList;
+
 public class Round {
     private int roundOfGame;
     private Word word;
-    private Word guess;
-    private Word hint;
+    private Word firstHint;
+    private ArrayList<Turn> turns = new ArrayList<Turn>();
 
     public Round(Word word, int roundOfGame) {
         this.roundOfGame = roundOfGame;
         this.word = word;
-        this.hint = generateHint(word);
     }
 
-    public Word generateHint(Word word) {
-        //RETURN BEGINLETTER + ALLEEN MAAR *
-        return word;
+    public Word returnFirstHint() {
+        char firstLetter = this.word.getValue().charAt(0);
+        String firstHintValue = String.valueOf(firstLetter);
+        Word firstHint = new Word(firstHintValue);
+        return firstHint;
     }
 
     public Word getWord() {
@@ -25,19 +28,15 @@ public class Round {
         this.word = word;
     }
 
-    public Word getGuess() {
-        return guess;
+    public void setFirstHint(Word firstHint) {
+        this.firstHint = firstHint;
     }
 
-    public void setGuess(Word guess) {
-        this.guess = guess;
+    public Word getFirstHint() {
+        return firstHint;
     }
 
-    public Word getHint() {
-        return hint;
-    }
-
-    public void setHint(Word hint) {
-        this.hint = hint;
+    public boolean addTurn(Turn turn) {
+        return this.turns.add(turn);
     }
 }
