@@ -10,6 +10,9 @@ public class Turn {
     //word moet later verwijderd worden als er een service laag is!
     private Word word;
 
+    public Turn() {
+    }
+
     public Turn(Word hint, Word guess, Word word) {
         this.hint = hint;
         this.guess = guess;

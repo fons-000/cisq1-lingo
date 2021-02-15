@@ -9,8 +9,8 @@ public class Round {
     private ArrayList<Turn> turns = new ArrayList<Turn>();
 
     public Round(Word word, int roundOfGame) {
-        this.roundOfGame = roundOfGame;
         this.word = word;
+        this.roundOfGame = roundOfGame;
     }
 
     public Word returnFirstHint() {
@@ -28,15 +28,26 @@ public class Round {
         this.word = word;
     }
 
-    public void setFirstHint(Word firstHint) {
-        this.firstHint = firstHint;
+    public boolean setFirstHint(Word firstHint) {
+        if(new Word(String.valueOf(word.getValue().charAt(0))).equals(firstHint)) {
+            this.firstHint = firstHint;
+            return true;
+        }
+        return false;
     }
 
     public Word getFirstHint() {
         return firstHint;
     }
 
+    public ArrayList<Turn> getTurns() {
+        return turns;
+    }
+
     public boolean addTurn(Turn turn) {
-        return this.turns.add(turn);
+        if(this.word.equals(turn.getWord()) && this.turns.size() < 5 && !this.word.equals(turn.getGuess())) {
+            return this.turns.add(turn);
+        }
+        return false;
     }
 }
