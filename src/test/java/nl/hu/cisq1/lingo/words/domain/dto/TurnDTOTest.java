@@ -1,13 +1,24 @@
-package nl.hu.cisq1.lingo.words.domain;
+package nl.hu.cisq1.lingo.words.domain.dto;
 
+import nl.hu.cisq1.lingo.words.domain.Feedback;
+import nl.hu.cisq1.lingo.words.domain.FeedbackItem;
+import nl.hu.cisq1.lingo.words.domain.Turn;
+import nl.hu.cisq1.lingo.words.domain.Word;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TurnTest {
+public class TurnDTOTest {
+    //TurnDTO
+    //Voor TurnDTO gaan we alle use cases van turn langs, en kijken we of TurnDTO de verwachte turnvalues heeft.
+    //Zie onder alle use cases (waardes) die een Turn kan hebben. Omdat de returnCurrentFeedback testen,
+    //alle use cases bevatten van een huidig gevulde Turn, zijn dit de tests die we gebruiken en relevant zijn voor
+    //de conversie naar TurnDTO.
+
     //Turn
     //1. Kan turn goed gemaakt worden en werken de sets? This is already tested in other tests.
     //2. Kijk of het generen van feedback voor de volgende turn mogelijk is
@@ -76,12 +87,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("HAMER", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("HAM", hintTurnString);
         assertSame("HAMSTER", guessTurnString);
 
@@ -117,12 +128,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("KAMER", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("K", hintTurnString);
         assertSame("KAM", guessTurnString);
 
@@ -150,12 +161,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("GEBAK", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("GEB", hintTurnString);
         assertSame("GEBAK", guessTurnString);
 
@@ -188,12 +199,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("BLOOT", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("B", hintTurnString);
         assertSame("BOOST", guessTurnString);
 
@@ -226,12 +237,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("BAAN", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("B", hintTurnString);
         assertSame("BANG", guessTurnString);
 
@@ -262,12 +273,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("OPZICHT", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("OOR", hintTurnString);
         assertSame("OORFLAP", guessTurnString);
 
@@ -304,12 +315,12 @@ public class TurnTest {
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        String wordTurnString = turn.getWord().getValue();
-        String hintTurnString = turn.getHint().getValue();
-        String guessTurnString = turn.getGuess().getValue();
-        Feedback feedbackTurn = turn.getFeedback();
+        TurnDTO turnDTO = new TurnDTO(turn);
 
-        assertSame("AHAHA", wordTurnString);
+        String hintTurnString = turnDTO.getHint().getValue();
+        String guessTurnString = turnDTO.getGuess().getValue();
+        Feedback feedbackTurn = turnDTO.getFeedback();
+
         assertSame("AH", hintTurnString);
         assertSame("HAHAH", guessTurnString);
 
@@ -328,122 +339,5 @@ public class TurnTest {
         assertSame(FeedbackItem.PRESENT, feedbackItem3);
         assertSame(FeedbackItem.PRESENT, feedbackItem4);
         assertSame(FeedbackItem.ABSENT, feedbackItem5);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#1 -> Test #1 - to long.")
-    void returnHint1() {
-        Word word = new Word("HAMER");
-        Word hint = new Word("HAM..");
-        Word guess = new Word("HAMSTER");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("HAM..", newHintValue);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#1 -> Test #2 - to short.")
-    void returnHint2() {
-        Word word = new Word("KAMER");
-        Word hint = new Word("K....");
-        Word guess = new Word("KAM");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("K....", newHintValue);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#2 -> the word has been guessed correctly!")
-    void returnHint3() {
-        Word word = new Word("GEBAK");
-        Word hint = new Word("GEB..");
-        Word guess = new Word("GEBAK");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        //When a word is guessed, it can't generate a new hint => because there is no next turn
-        assertThrows(NullPointerException.class, () -> {
-                Word newHint = turn.returnHintForNextTurn();
-        });
-    }
-
-    @Test
-    @DisplayName("generateNewHint#3 -> Test #1 - the word has been guessed wrongly. - " +
-            "guess <= letters per sort leter!")
-    void returnHint4() {
-        Word word = new Word("BLOOT");
-        Word hint = new Word("B....");
-        Word guess = new Word("BOOST");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("B.O.T", newHintValue);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#3 -> Test #2 - the word has been guessed wrongly. - " +
-            "guess <= letters per sort leter!")
-    void returnHint5() {
-        Word word = new Word("BAAN");
-        Word hint = new Word("B....");
-        Word guess = new Word("BANG");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("BA..", newHintValue);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#4 -> Test #1 - the word has been guessed wrongly. - " +
-            "guess <= letters per sort leter!")
-    void returnHint6() {
-        Word word = new Word("OPZICHT");
-        Word hint = new Word("O......");
-        Word guess = new Word("OORFLAP");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("O......", newHintValue);
-    }
-
-    @Test
-    @DisplayName("generateNewHint#4 -> Test #2 - the word has been guessed wrongly. - " +
-            "guess <= letters per sort leter!")
-    void returnHint7() {
-        Word word = new Word("AHAHA");
-        Word hint = new Word("AH...");
-        Word guess = new Word("HAHAH");
-        Turn turn = new Turn(hint, guess, word);
-
-        Feedback feedback = turn.returnFeedbackCurrentTurn();
-        turn.setFeedback(feedback);
-
-        Word newHint = turn.returnHintForNextTurn();
-        String newHintValue = newHint.getValue();
-        assertEquals("AH...", newHintValue);
     }
 }

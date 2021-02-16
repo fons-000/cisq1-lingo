@@ -24,6 +24,7 @@ class Turn {
 }
 
 class RoundDTO {
+    roundOfGame: int
 }
 
 enum Role <<Enumeration>> {
@@ -90,6 +91,12 @@ Turn }o--|| Word : guess >
 Turn }o--|| Word : word >
 Turn }o--|| Feedback : feedback >
 Round }o--|| Word : word >
+RoundDTO }o--|| Word : firstHint >
 Round }o--|| Word : firstHint >
 Round ||-- "1...5" Turn : turns >
+RoundDTO ||-- "1...5" TurnDTO : turns >
+TurnDTO }o--|| Word : hint >
+TurnDTO }o--|| Word : guess >
+TurnDTO }o--|| Feedback : feedback >
+
 @enduml

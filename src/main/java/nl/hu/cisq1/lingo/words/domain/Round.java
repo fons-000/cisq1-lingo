@@ -44,6 +44,10 @@ public class Round {
         return turns;
     }
 
+    public int getRoundOfGame() {
+        return roundOfGame;
+    }
+
     public boolean addTurn(Turn turn) {
         if(this.word.equals(turn.getWord()) && this.turns.size() < 5 && !this.word.equals(turn.getGuess())) {
             return this.turns.add(turn);
