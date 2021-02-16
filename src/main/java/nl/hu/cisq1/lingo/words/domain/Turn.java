@@ -60,6 +60,7 @@ public class Turn {
         ArrayList<FeedbackItem> feedbackItems = this.feedback.getFeedbackItems();
         String newHintValue = "";
         char[] newHintValueCharArray = new char[this.word.getLength()];
+        ArrayList<Letter> letters = new ArrayList<Letter>();
 
         //Deze moet geretourneerd worden (maar moet eerst verpakt worden in een Optional)
         Word newHint = new Word();
