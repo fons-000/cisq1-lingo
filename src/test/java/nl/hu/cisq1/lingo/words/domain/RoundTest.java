@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RoundTest {
     //Round
     //1. Creating round works with the right properties after add
-    //2. return + setHint work!
+    //2. getFirstHint works (this is tested in in the test case for 1.)
     //3. Turns cannot be added when
     //  3.1 - 5 Turns are already in the round.
     //  3.2 - The word has been guessed!
@@ -33,105 +33,77 @@ public class RoundTest {
         //Turns: turn2, turn3 and turn4 are truly for the purpose to produce false when trying to add
         //it to a round when the word is different
         //Turns: turn, turn11, turn12, turn13, turn14 and turn 15 are used to simulate a round of a game
-        Word word = new Word("HAMER");
-        Word hint = new Word("HAM..");
-        Word guess = new Word("HAMSTER");
+        Word word = Word.createValidWord("HAMER");
+        Word hint = Word.createValidWord("HAM..");
+        Word guess = Word.createValidWord("HAMSTER");
         turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        Word word11 = new Word("HAMER");
+        Word word11 = Word.createValidWord("HAMER");
         Word hint11 = turn.returnHintForNextTurn();
-        Word guess11 = new Word("HARDE");
+        Word guess11 = Word.createValidWord("HARDE");
         turn11 = new Turn(hint11, guess11, word11);
 
         Feedback feedback11 = turn11.returnFeedbackCurrentTurn();
         turn11.setFeedback(feedback11);
 
-        Word word12 = new Word("HAMER");
+        Word word12 = Word.createValidWord("HAMER");
         Word hint12 = turn11.returnHintForNextTurn();
-        Word guess12 = new Word("HAMEL");
+        Word guess12 = Word.createValidWord("HAMEL");
         turn12 = new Turn(hint12, guess12, word12);
 
         Feedback feedback12 = turn12.returnFeedbackCurrentTurn();
         turn12.setFeedback(feedback12);
 
-        Word word13 = new Word("HAMER");
+        Word word13 = Word.createValidWord("HAMER");
         Word hint13 = turn12.returnHintForNextTurn();
-        Word guess13 = new Word("RUFTI");
+        Word guess13 = Word.createValidWord("RUFTI");
         turn13 = new Turn(hint13, guess13, word13);
 
         Feedback feedback13 = turn13.returnFeedbackCurrentTurn();
         turn13.setFeedback(feedback13);
 
-        Word word14 = new Word("HAMER");
+        Word word14 = Word.createValidWord("HAMER");
         Word hint14 = turn13.returnHintForNextTurn();
-        Word guess14 = new Word("GOVER");
+        Word guess14 = Word.createValidWord("GOVER");
         turn14 = new Turn(hint14, guess14, word14);
 
         Feedback feedback14 = turn14.returnFeedbackCurrentTurn();
         turn14.setFeedback(feedback14);
 
-        Word word15 = new Word("HAMER");
+        Word word15 = Word.createValidWord("HAMER");
         Word hint15 = turn13.returnHintForNextTurn();
-        Word guess15 = new Word("PEACE");
+        Word guess15 = Word.createValidWord("PEACE");
         turn15 = new Turn(hint15, guess15, word15);
 
         Feedback feedback15 = turn15.returnFeedbackCurrentTurn();
         turn15.setFeedback(feedback15);
 
-        Word word2 = new Word("KAMER");
-        Word hint2 = new Word("K....");
-        Word guess2 = new Word("KAM");
+        Word word2 = Word.createValidWord("KAMER");
+        Word hint2 = Word.createValidWord("K....");
+        Word guess2 = Word.createValidWord("KAM");
         turn2 = new Turn(hint2, guess2, word2);
 
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
         turn2.setFeedback(feedback2);
 
-        Word word3 = new Word("GEBAK");
-        Word hint3 = new Word("GEB..");
-        Word guess3 = new Word("GEBAK");
+        Word word3 = Word.createValidWord("GEBAK");
+        Word hint3 = Word.createValidWord("GEB..");
+        Word guess3 = Word.createValidWord("GEBAK");
         turn3 = new Turn(hint3, guess3, word3);
 
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();
         turn3.setFeedback(feedback3);
 
-        Word word4 = new Word("BLOOT");
-        Word hint4 = new Word("B....");
-        Word guess4 = new Word("BOOST");
+        Word word4 = Word.createValidWord("BLOOT");
+        Word hint4 = Word.createValidWord("B....");
+        Word guess4 = Word.createValidWord("BOOST");
         turn4 = new Turn(hint4, guess4, word4);
 
         Feedback feedback4 = turn4.returnFeedbackCurrentTurn();
         turn4.setFeedback(feedback4);
-    }
-
-    @Test
-    @DisplayName("Return & setNewHint work!")
-    void returnFirsHintSetNewHint() {
-        Word word = new Word("HAMER");
-        Round round = new Round(word, 1);
-
-        //1. Deze moet werken, want word1 begint met H
-        Word word1 = new Word("H");
-        assertSame(true, round.setFirstHint(word1));
-
-        //.2 Deze moet werken, want firstHint begint met H, en dat zou returnFirstHint moeten generen
-        Word firstHint = round.returnFirstHint();
-        assertSame(true, round.setFirstHint(firstHint));
-
-        //.3 Als het geen capital H is, dan zou het een foutmelding moeten geven
-        Word word2 = new Word("h");
-        Word word3 = new Word("I");
-        Word word4 = new Word("i");
-        Word word5 = new Word(".");
-        Word word6 = new Word("K");
-
-        assertSame(false, round.setFirstHint(word2));
-        assertSame(false, round.setFirstHint(word3));
-        assertSame(false, round.setFirstHint(word4));
-        assertSame(false, round.setFirstHint(word5));
-        assertSame(false, round.setFirstHint(word6));
     }
 
 
@@ -142,8 +114,11 @@ public class RoundTest {
         //roundOfGame int wordt opgevangen, zodra er wordt gewerkt met een service!
         //Voor nu maakt dit attribuut niet zoveel uit en kan dit gewoon gebruikt worden
         //Wordt ook opgevangen in de GameTest
-        Word word = new Word("HAMER");
+        Word word = Word.createValidWord("HAMER");
         Round round = new Round(word, 1);
+        //Check if getFirstHint works
+        assertSame(1, round.getFirstHint().getValue().length());
+        assertSame(word.getValue().charAt(0), round.getFirstHint().getValue().charAt(0));
         //1. Turn kan alleen worden  toegevoegd als het word van de turn hetzelfde is
         //en de lengte van de huidige turns kleiner dan 5 is.
         //Ook moet de turn de uiteraard juiste waardes hebben
@@ -313,9 +288,9 @@ public class RoundTest {
     void noNewRoundWordGuessed() {
         //roundOfGame maakt nog niet zoveel uit, dit wordt later opgevangen in de service.
         //Dit kan je voor nu even negeren. Wordt ook opgevangen in de GameTest
-        Word word = new Word("AHAHA");
-        Word hint = new Word("AH...");
-        Word guess = new Word("HAHAH");
+        Word word = Word.createValidWord("AHAHA");
+        Word hint = Word.createValidWord("AH...");
+        Word guess = Word.createValidWord("HAHAH");
         Round round = new Round(word, 2);
 
         Turn turn = new Turn(hint, guess, word);
@@ -325,7 +300,7 @@ public class RoundTest {
         assertSame(true, round.addTurn(turn));
 
         Word hint2 = turn.returnHintForNextTurn();
-        Word guess2 = new Word("AHAHH");
+        Word guess2 = Word.createValidWord("AHAHH");
 
         Turn turn2 = new Turn(hint2, guess2, word);
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
@@ -334,7 +309,7 @@ public class RoundTest {
         assertSame(true, round.addTurn(turn2));
 
         Word hint3 = turn2.returnHintForNextTurn();
-        Word guess3 = new Word("AHAHA");
+        Word guess3 = Word.createValidWord("AHAHA");
 
         Turn turn3 = new Turn(hint3, guess3, word);
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();

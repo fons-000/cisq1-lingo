@@ -62,9 +62,6 @@ public class Turn {
         char[] newHintValueCharArray = new char[this.word.getLength()];
         ArrayList<Letter> letters = new ArrayList<Letter>();
 
-        //Deze moet geretourneerd worden (maar moet eerst verpakt worden in een Optional)
-        Word newHint = new Word();
-
         //Stap 0 => Voeg evenveel puntjes toe aan de size van Word
         for(int i = 0; i < this.word.getLength(); i++) {
             newHintValueCharArray[i] = '.';
@@ -87,14 +84,15 @@ public class Turn {
         }
 
         newHintValue = String.valueOf(newHintValueCharArray);
-        newHint.setValue(newHintValue);
+        //Deze moet geretourneerd worden, maar eerst verpakt in een Optional!
 
+        Word newHint = Word.createValidWord(newHintValue);
+        Optional<Word> validNewHintOptional = Optional.of(newHint);
 
         //Stap 4 => Verpak de newHint in een Optional als de hint niet hetzelfde is
         //als het word of return een lege Optional
         if(!newHint.equals(this.word)) {
-            Optional<Word> newHintOptional = Optional.of(newHint);
-            return newHintOptional;
+            return validNewHintOptional;
         }
         return Optional.empty();
     }

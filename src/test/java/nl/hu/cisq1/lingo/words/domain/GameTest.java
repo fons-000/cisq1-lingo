@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,12 +83,17 @@ public class GameTest {
     void addRound() {
         ArrayList<Round> roundsList = game.getRounds();
         assertEquals(0, roundsList.size());
-        Word word = new Word("Firefighter");
+        //When the letters of a Word are not in the enum Letters, a NoSuchElementException gets thrown.
+        assertThrows(NoSuchElementException.class, () -> {
+            Word word = Word.createValidWord("Firefighter");
+        });
+        //This should work createWord should work
+        Word word = Word.createValidWord("FIREFIGHTER");
         int currentRounds = roundsList.size();
         int nextRoundId = currentRounds + 1;
         Round round = new Round(word, nextRoundId);
         assertTrue(game.addRound(round));
         assertEquals(1, roundsList.size());
-        assertSame("Firefighter", roundsList.get(0).getWord().getValue());
+        assertSame("FIREFIGHTER", roundsList.get(0).getWord().getValue());
     }
 }

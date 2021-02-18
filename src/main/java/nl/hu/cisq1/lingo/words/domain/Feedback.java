@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class Feedback {
+    private ArrayList<FeedbackItem> feedbackItems = new ArrayList<FeedbackItem>();
+
     public Feedback() {
     }
 
     public Feedback(ArrayList<FeedbackItem> feedbackItems) {
         this.feedbackItems = feedbackItems;
     }
-
-    private ArrayList<FeedbackItem> feedbackItems = new ArrayList<FeedbackItem>();
 
     public ArrayList<FeedbackItem> getFeedbackItems() {
         return feedbackItems;

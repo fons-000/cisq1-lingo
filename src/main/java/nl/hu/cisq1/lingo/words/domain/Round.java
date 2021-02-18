@@ -1,6 +1,7 @@
 package nl.hu.cisq1.lingo.words.domain;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Round {
     private int roundOfGame;
@@ -11,13 +12,8 @@ public class Round {
     public Round(Word word, int roundOfGame) {
         this.word = word;
         this.roundOfGame = roundOfGame;
-    }
-
-    public Word returnFirstHint() {
-        char firstLetter = this.word.getValue().charAt(0);
-        String firstHintValue = String.valueOf(firstLetter);
-        Word firstHint = new Word(firstHintValue);
-        return firstHint;
+        Word firstHint = Word.createValidWord(String.valueOf(word.getValue().charAt(0)));
+        this.firstHint = firstHint;
     }
 
     public Word getWord() {
@@ -26,14 +22,6 @@ public class Round {
 
     public void setWord(Word word) {
         this.word = word;
-    }
-
-    public boolean setFirstHint(Word firstHint) {
-        if(new Word(String.valueOf(word.getValue().charAt(0))).equals(firstHint)) {
-            this.firstHint = firstHint;
-            return true;
-        }
-        return false;
     }
 
     public Word getFirstHint() {

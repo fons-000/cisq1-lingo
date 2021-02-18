@@ -30,73 +30,73 @@ public class RoundDTOTest {
         //Turns: turn2, turn3 and turn4 are truly for the purpose to produce false when trying to add
         //it to a round when the word is different
         //Turns: turn, turn11, turn12, turn13, turn14 and turn 15 are used to simulate a round of a game
-        Word word = new Word("HAMER");
-        Word hint = new Word("HAM..");
-        Word guess = new Word("HAMSTER");
+        Word word = Word.createValidWord("HAMER");
+        Word hint = Word.createValidWord("HAM..");
+        Word guess = Word.createValidWord("HAMSTER");
         turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
-        Word word11 = new Word("HAMER");
+        Word word11 = Word.createValidWord("HAMER");
         Word hint11 = turn.returnHintForNextTurn();
-        Word guess11 = new Word("HARDE");
+        Word guess11 = Word.createValidWord("HARDE");
         turn11 = new Turn(hint11, guess11, word11);
 
         Feedback feedback11 = turn11.returnFeedbackCurrentTurn();
         turn11.setFeedback(feedback11);
 
-        Word word12 = new Word("HAMER");
+        Word word12 = Word.createValidWord("HAMER");
         Word hint12 = turn11.returnHintForNextTurn();
-        Word guess12 = new Word("HAMEL");
+        Word guess12 = Word.createValidWord("HAMEL");
         turn12 = new Turn(hint12, guess12, word12);
 
         Feedback feedback12 = turn12.returnFeedbackCurrentTurn();
         turn12.setFeedback(feedback12);
 
-        Word word13 = new Word("HAMER");
+        Word word13 = Word.createValidWord("HAMER");
         Word hint13 = turn12.returnHintForNextTurn();
-        Word guess13 = new Word("RUFTI");
+        Word guess13 = Word.createValidWord("RUFTI");
         turn13 = new Turn(hint13, guess13, word13);
 
         Feedback feedback13 = turn13.returnFeedbackCurrentTurn();
         turn13.setFeedback(feedback13);
 
-        Word word14 = new Word("HAMER");
+        Word word14 = Word.createValidWord("HAMER");
         Word hint14 = turn13.returnHintForNextTurn();
-        Word guess14 = new Word("GOVER");
+        Word guess14 = Word.createValidWord("GOVER");
         turn14 = new Turn(hint14, guess14, word14);
 
         Feedback feedback14 = turn14.returnFeedbackCurrentTurn();
         turn14.setFeedback(feedback14);
 
-        Word word15 = new Word("HAMER");
+        Word word15 = Word.createValidWord("HAMER");
         Word hint15 = turn13.returnHintForNextTurn();
-        Word guess15 = new Word("PEACE");
+        Word guess15 = Word.createValidWord("PEACE");
         turn15 = new Turn(hint15, guess15, word15);
 
         Feedback feedback15 = turn15.returnFeedbackCurrentTurn();
         turn15.setFeedback(feedback15);
 
-        Word word2 = new Word("KAMER");
-        Word hint2 = new Word("K....");
-        Word guess2 = new Word("KAM");
+        Word word2 = Word.createValidWord("KAMER");
+        Word hint2 = Word.createValidWord("K....");
+        Word guess2 = Word.createValidWord("KAM");
         turn2 = new Turn(hint2, guess2, word2);
 
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
         turn2.setFeedback(feedback2);
 
-        Word word3 = new Word("GEBAK");
-        Word hint3 = new Word("GEB..");
-        Word guess3 = new Word("GEBAK");
+        Word word3 = Word.createValidWord("GEBAK");
+        Word hint3 = Word.createValidWord("GEB..");
+        Word guess3 = Word.createValidWord("GEBAK");
         turn3 = new Turn(hint3, guess3, word3);
 
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();
         turn3.setFeedback(feedback3);
 
-        Word word4 = new Word("BLOOT");
-        Word hint4 = new Word("B....");
-        Word guess4 = new Word("BOOST");
+        Word word4 = Word.createValidWord("BLOOT");
+        Word hint4 = Word.createValidWord("B....");
+        Word guess4 = Word.createValidWord("BOOST");
         turn4 = new Turn(hint4, guess4, word4);
 
         Feedback feedback4 = turn4.returnFeedbackCurrentTurn();
@@ -110,7 +110,7 @@ public class RoundDTOTest {
         //roundOfGame int wordt opgevangen, zodra er wordt gewerkt met een service!
         //Voor nu maakt dit attribuut niet zoveel uit en kan dit gewoon gebruikt worden
         //Wordt ook opgevangen in de GameTest
-        Word word = new Word("HAMER");
+        Word word = Word.createValidWord("HAMER");
         Round round = new Round(word, 1);
         //1. Turn kan alleen worden  toegevoegd als het word van de turn hetzelfde is
         //en de lengte van de huidige turns kleiner dan 5 is.
