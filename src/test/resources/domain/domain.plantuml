@@ -23,6 +23,12 @@ class Turn {
 'Mogelijk pas fixen bij aanmaak service?
 }
 
+Class Guess {
+}
+
+Class Hint {
+}
+
 class RoundDTO {
     roundOfGame: int
 }
@@ -74,9 +80,8 @@ enum Letter <<Enumeration>> {
 }
 
 Class Word {
-    generateAFiveLetterWord()
-    generateASixLetterWord()
-    generateASevenLetterWord()
+    value: String
+    length: int
 }
 
 Person }o--|| Role : role >
@@ -98,5 +103,8 @@ RoundDTO ||-- "1...5" TurnDTO : turns >
 TurnDTO }o--|| Word : hint >
 TurnDTO }o--|| Word : guess >
 TurnDTO }o--|| Feedback : feedback >
-
+Word <|-- Guess
+Word <|-- Hint
+Letter }o--o| Guess: letters <
+Letter }o--o| Hint: letters <
 @enduml

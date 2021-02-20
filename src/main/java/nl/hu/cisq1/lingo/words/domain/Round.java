@@ -12,7 +12,7 @@ public class Round {
     public Round(Word word, int roundOfGame) {
         this.word = word;
         this.roundOfGame = roundOfGame;
-        Word firstHint = Word.createValidWord(String.valueOf(word.getValue().charAt(0)));
+        Word firstHint = Hint.createHint(String.valueOf(word.getValue().charAt(0)));
         this.firstHint = firstHint;
     }
 
@@ -37,8 +37,20 @@ public class Round {
     }
 
     public boolean addTurn(Turn turn) {
-        if(this.word.equals(turn.getWord()) && this.turns.size() < 5 && !this.word.equals(turn.getGuess())) {
-            return this.turns.add(turn);
+        //1. Als het woord nog niet gegokt is (kijkt standaard naar de laatste turn in de lijst),
+        //dit werkt omdat er geen setTurns is en alles vanaf begin via de add moet!
+        //2. Als de lengte van de huidige turns list niet al >= 5 is!
+        if(this.getTurns().size() >= 1) {
+            if(!this.getTurns().get(this.getTurns().size() - 1).getGuess().getValue().equals(this.word.getValue())
+                    && !(this.getTurns().size() >= 5)
+                    && this.word.equals(turn.getWord())) {
+                return this.turns.add(turn);
+            }
+        }
+        else {
+            if(this.word.equals(turn.getWord())) {
+                return this.turns.add(turn);
+            }
         }
         return false;
     }

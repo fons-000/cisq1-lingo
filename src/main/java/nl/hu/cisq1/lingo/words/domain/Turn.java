@@ -48,14 +48,14 @@ public class Turn {
         return feedback;
     }
 
-    public Word returnHintForNextTurn() {
-        Optional<Word> optionalNextHint = this.generateHintForNextTurn();
+    public Hint returnHintForNextTurn() {
+        Optional<Hint> optionalNextHint = this.generateHintForNextTurn();
         //Throwed als de feedback empty is en retourneerd niks (null)
-        Word nextHint = optionalNextHint.orElseThrow();
+        Hint nextHint = optionalNextHint.orElseThrow();
         return nextHint;
     }
 
-    public Optional<Word> generateHintForNextTurn() {
+    public Optional<Hint> generateHintForNextTurn() {
         String previousHintString = this.hint.getValue();
         ArrayList<FeedbackItem> feedbackItems = this.feedback.getFeedbackItems();
         String newHintValue = "";
@@ -85,15 +85,14 @@ public class Turn {
 
         newHintValue = String.valueOf(newHintValueCharArray);
         //Deze moet geretourneerd worden, maar eerst verpakt in een Optional!
-
-        Word newHint = Word.createValidWord(newHintValue);
-        Optional<Word> validNewHintOptional = Optional.of(newHint);
+        Hint newHint = Hint.createHint(newHintValue);
+        Optional<Hint> validNewHintOptional = Optional.of(newHint);
 
         //Stap 4 => Verpak de newHint in een Optional als de hint niet hetzelfde is
         //als het word of return een lege Optional
-        if(!newHint.equals(this.word)) {
-            return validNewHintOptional;
+        if(word.equals(newHint)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return validNewHintOptional;
     }
 }

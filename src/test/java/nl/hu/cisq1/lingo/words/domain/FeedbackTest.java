@@ -35,9 +35,9 @@ public class FeedbackTest {
             //    Word:  BLOOT
             //    Feedback: CORRECT, PRESENT, CORRECT, ABSENT, CORRECT
             //------------------------------------------------------------
-            //    Guess: BANG
-            //    Word: BAAN
-            //    Feedback: CORRECT, CORRECT, PRESENT, ABSENT
+            //    Guess: GRAPPIG
+            //    Word: GRAPJAS
+            //    Feedback: CORRECT, CORRECT, CORRECT, CORRECT, ABSENT, ABSENT, ABSENT
             //3.2 De guess bevat > letters per soort letter in het woord (Zie de eerste twee letters van voorbeeld 1)
             //    Guess: OORFLAP
             //    Word: OPZICHT
@@ -136,7 +136,7 @@ public class FeedbackTest {
         //   Feedback: INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID
 
         Word word = Word.createValidWord("HAMER");
-        Word guess = Word.createValidWord("HAMSTER");
+        Word guess = Guess.createGuess("HAMSTER");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -170,7 +170,7 @@ public class FeedbackTest {
         //   Feedback: INVALID, INVALID, INVALID
 
         Word word = Word.createValidWord("KAMER");
-        Word guess = Word.createValidWord("KAM");
+        Word guess = Guess.createGuess("KAM");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -197,7 +197,7 @@ public class FeedbackTest {
         //   Feedback: CORRECT, CORRECT, CORRECT, CORRECT, CORRECT
 
         Word word = Word.createValidWord("GEBAK");
-        Word guess = Word.createValidWord("GEBAK");
+        Word guess = Guess.createGuess("GEBAK");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -229,7 +229,7 @@ public class FeedbackTest {
             //    Feedback: CORRECT, PRESENT, CORRECT, ABSENT, CORRECT
 
         Word word = Word.createValidWord("BLOOT");
-        Word guess = Word.createValidWord("BOOST");
+        Word guess = Guess.createGuess("BOOST");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -255,28 +255,34 @@ public class FeedbackTest {
     void generateWrongPresentLetterGuess2() {
         //3. Het woord is fout geraden, wat de volgende subusecases geeft
         //3.1 De guess bevat <= letters per soort letter in het woord
-        //    Guess: BANG
-        //    Word: BAAN
-        //    Feedback: CORRECT, CORRECT, PRESENT, ABSENT
+        //    Guess: GRAPPIG
+        //    Word: GRAPJAS
+        //    Feedback: CORRECT, CORRECT, CORRECT, CORRECT, ABSENT, ABSENT, ABSENT
 
-        Word word = Word.createValidWord("BAAN");
-        Word guess = Word.createValidWord("BANG");
+        Word word = Word.createValidWord("GRAPJAS");
+        Word guess = Guess.createGuess("GRAPPIG");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
         ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
-        assertSame(4, feedbackItems.size());
+        assertSame(7, feedbackItems.size());
 
         FeedbackItem feedbackItem1 = feedbackItems.get(0);
         FeedbackItem feedbackItem2 = feedbackItems.get(1);
         FeedbackItem feedbackItem3 = feedbackItems.get(2);
         FeedbackItem feedbackItem4 = feedbackItems.get(3);
+        FeedbackItem feedbackItem5 = feedbackItems.get(4);
+        FeedbackItem feedbackItem6 = feedbackItems.get(5);
+        FeedbackItem feedbackItem7 = feedbackItems.get(6);
 
         assertSame(FeedbackItem.CORRECT, feedbackItem1);
         assertSame(FeedbackItem.CORRECT, feedbackItem2);
-        assertSame(FeedbackItem.PRESENT, feedbackItem3);
-        assertSame(FeedbackItem.ABSENT, feedbackItem4);
+        assertSame(FeedbackItem.CORRECT, feedbackItem3);
+        assertSame(FeedbackItem.CORRECT, feedbackItem4);
+        assertSame(FeedbackItem.ABSENT, feedbackItem5);
+        assertSame(FeedbackItem.ABSENT, feedbackItem6);
+        assertSame(FeedbackItem.ABSENT, feedbackItem7);
     }
 
     @Test
@@ -288,7 +294,7 @@ public class FeedbackTest {
         //    Feedback: CORRECT, ABSENT, ABSENT, ABSENT, ABSENT, ABSENT, PRESENT
 
         Word word = Word.createValidWord("OPZICHT");
-        Word guess = Word.createValidWord("OORFLAP");
+        Word guess = Guess.createGuess("OORFLAP");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -323,7 +329,7 @@ public class FeedbackTest {
         //    Feedback: PRESENT, PRESENT, PRESENT, PRESENT, ABSENT
 
         Word word = Word.createValidWord("AHAHA");
-        Word guess = Word.createValidWord("HAHAH");
+        Word guess = Guess.createGuess("HAHAH");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();

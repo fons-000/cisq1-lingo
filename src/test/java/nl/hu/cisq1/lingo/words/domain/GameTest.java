@@ -85,15 +85,15 @@ public class GameTest {
         assertEquals(0, roundsList.size());
         //When the letters of a Word are not in the enum Letters, a NoSuchElementException gets thrown.
         assertThrows(NoSuchElementException.class, () -> {
-            Word word = Word.createValidWord("Firefighter");
+            Word word = Word.createValidWord("THEFire");
         });
         //This should work createWord should work
-        Word word = Word.createValidWord("FIREFIGHTER");
+        Word word = Word.createValidWord("THEFIRE");
         int currentRounds = roundsList.size();
         int nextRoundId = currentRounds + 1;
         Round round = new Round(word, nextRoundId);
         assertTrue(game.addRound(round));
         assertEquals(1, roundsList.size());
-        assertSame("FIREFIGHTER", roundsList.get(0).getWord().getValue());
+        assertSame("THEFIRE", roundsList.get(0).getWord().getValue());
     }
 }
