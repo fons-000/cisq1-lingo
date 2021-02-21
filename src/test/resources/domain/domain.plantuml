@@ -29,9 +29,16 @@ Class Guess {
 Class Hint {
 }
 
-class RoundDTO {
-    roundOfGame: int
-}
+'class RoundDTO {
+'This DTO class is in the presentation package, and uses a Round class
+'    roundOfGame: int
+'}
+
+'class TurnDTO {
+'This DTO class is in the presentation package, and uses a Turn class
+'}
+
+
 
 enum Role <<Enumeration>> {
     PLAYER
@@ -49,37 +56,38 @@ enum FeedbackItem <<Enumeration>> {
 Class Feedback {
 }
 
-enum Letter <<Enumeration>> {
-    A
-    B
-    C
-    D
-    E
-    F
-    G
-    H
-    I
-    J
-    K
-    L
-    M
-    N
-    O
-    P
-    Q
-    R
-    S
-    T
-    U
-    V
-    W
-    X
-    Y
-    Z
-    DOT
-}
+'enum Letter <<Enumeration>> {
+'    A
+'    B
+'    C
+'    D
+'    E
+'    F
+'    G
+'    H
+'    I
+'    J
+'    K
+'    L
+'    M
+'    N
+'    O
+'    P
+'    Q
+'    R
+'    S
+'    T
+'    U
+'    V
+'    W
+'    X
+'    Y
+'    Z
+'    DOT
+'}
 
 Class Word {
+'    This superclass has a 5, 6 or 7 characters value
     value: String
     length: int
 }
@@ -88,23 +96,23 @@ Person }o--|| Role : role >
 Account ||--|| Person : account <
 Game }o--|| Person : games <
 Game ||--|{ Round : rounds >
-Round ||--|| RoundDTO : roundDTO >
+'Round ||--|| RoundDTO : roundDTO >
 Feedback ||--o{ FeedbackItem : feedbackItems >
-Letter "5...7" --o| Word: letters <
+'Letter "5...7" --o| Word: letters <
 Turn }o--|| Word : hint >
 Turn }o--|| Word : guess >
 Turn }o--|| Word : word >
 Turn }o--|| Feedback : feedback >
 Round }o--|| Word : word >
-RoundDTO }o--|| Word : firstHint >
+'RoundDTO }o--|| Word : firstHint >
 Round }o--|| Word : firstHint >
 Round ||-- "1...5" Turn : turns >
-RoundDTO ||-- "1...5" TurnDTO : turns >
-TurnDTO }o--|| Word : hint >
-TurnDTO }o--|| Word : guess >
-TurnDTO }o--|| Feedback : feedback >
+'RoundDTO ||-- "1...5" TurnDTO : turns >
+'TurnDTO }o--|| Word : hint >
+'TurnDTO }o--|| Word : guess >
+'TurnDTO }o--|| Feedback : feedback >
 Word <|-- Guess
 Word <|-- Hint
-Letter }o--o| Guess: letters <
-Letter }o--o| Hint: letters <
+'Letter }o--o| Guess: letters <
+'Letter }o--o| Hint: letters <
 @enduml

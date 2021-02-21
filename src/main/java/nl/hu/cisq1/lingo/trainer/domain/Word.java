@@ -1,30 +1,19 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class Word {
     private String value;
     private Integer length;
-    private ArrayList<Letter> letters = new ArrayList<Letter>();
 
-    public Word() {}
-    public Word(String word, ArrayList<Letter> letters) {
+    public Word(String word) {
         this.value = word;
         this.length = word.length();
-        this.letters = letters;
     }
 
     public static Optional<Word> createWord(String word) {
-        ArrayList<Letter> letters = new ArrayList<Letter>();
-        if(word.length() == 5 || word.length() == 6 || word.length() == 7) {
-            for(char letterChar : word.toCharArray()) {
-                Optional<Letter> letter1 = Letter.charToLetter(letterChar);
-                //Als het word geen geldige letter/letters heeft => dan loopt het programma vast.
-                Letter letter = letter1.orElseThrow();
-                letters.add(letter);
-            }
-            Word word1 = new Word(word, letters);
+        if((word.length() == 5 || word.length() == 6 || word.length() == 7) && word.matches("^[A-Z\\.]{5,7}$")) {
+            Word word1 = new Word(word);
             return Optional.of(word1);
         }
         return Optional.empty();
@@ -43,10 +32,6 @@ public class Word {
 
     public Integer getLength() {
         return length;
-    }
-
-    public ArrayList<Letter> getLetters() {
-        return letters;
     }
 
     //Test de servicefunctie als de service goed opgezet is!

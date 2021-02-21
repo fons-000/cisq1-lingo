@@ -70,8 +70,8 @@ public class TurnTest {
     @DisplayName("returnCurrentFeedback#1 -> Test #1 - to long. Return valid Turn object.")
     void returnCurrentFeedback1() {
         Word word = Word.createValidWord("HAMER");
-        Word hint = Hint.createHint("HAM");
-        Word guess = Guess.createGuess("HAMSTER");
+        Word hint = Hint.createValidHint("HAM");
+        Word guess = Guess.createValidGuess("HAMSTER");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -111,8 +111,8 @@ public class TurnTest {
     @DisplayName("returnCurrentFeedbackk#1 -> Test #2 - to short. Return valid Turn object.")
     void returnCurrentFeedback2() {
         Word word = Word.createValidWord("KAMER");
-        Word hint = Hint.createHint("K");
-        Word guess = Guess.createGuess("KAM");
+        Word hint = Hint.createValidHint("K");
+        Word guess = Guess.createValidGuess("KAM");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -144,8 +144,8 @@ public class TurnTest {
     @DisplayName("returnCurrentFeedbackk#2 -> the word has been guessed correctly! Return valid Turn object.")
     void returnCurrentFeedback3() {
         Word word = Word.createValidWord("GEBAK");
-        Word hint = Hint.createHint("GEB");
-        Word guess = Guess.createGuess("GEBAK");
+        Word hint = Hint.createValidHint("GEB");
+        Word guess = Guess.createValidGuess("GEBAK");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -182,8 +182,8 @@ public class TurnTest {
             " guess <= letters per sort leter! Return valid Turn object.")
     void returnCurrentFeedback4() {
         Word word = Word.createValidWord("BLOOT");
-        Word hint = Hint.createHint("B");
-        Word guess = Guess.createGuess("BOOST");
+        Word hint = Hint.createValidHint("B");
+        Word guess = Guess.createValidGuess("BOOST");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -225,8 +225,8 @@ public class TurnTest {
         //    Turn's HINT "B"
         //    Next turn's HINT "BA...."
         Word word = Word.createValidWord("BANAAN");
-        Word hint = Hint.createHint("B");
-        Word guess = Guess.createGuess("BAANER");
+        Word hint = Hint.createValidHint("B");
+        Word guess = Guess.createValidGuess("BAANER");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -265,8 +265,8 @@ public class TurnTest {
             " guess > letters per sort leter! Return valid Turn object.")
     void returnCurrentFeedback6() {
         Word word = Word.createValidWord("OPZICHT");
-        Word hint = Hint.createHint("OOR");
-        Word guess = Guess.createGuess("OORFLAP");
+        Word hint = Hint.createValidHint("OOR");
+        Word guess = Guess.createValidGuess("OORFLAP");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -307,8 +307,8 @@ public class TurnTest {
             " guess > letters per sort leter! Return valid Turn object.")
     void returnCurrentFeedback7() {
         Word word = Word.createValidWord("AHAHA");
-        Word hint = Hint.createHint("AH");
-        Word guess = Guess.createGuess("HAHAH");
+        Word hint = Hint.createValidHint("AH");
+        Word guess = Guess.createValidGuess("HAHAH");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -344,8 +344,8 @@ public class TurnTest {
     @DisplayName("generateNewHint#1 -> Test #1 - to long.")
     void returnHint1() {
         Word word = Word.createValidWord("HAMER");
-        Word hint = Hint.createHint("HAM..");
-        Word guess = Guess.createGuess("HAMSTER");
+        Word hint = Hint.createValidHint("HAM..");
+        Word guess = Guess.createValidGuess("HAMSTER");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -360,8 +360,8 @@ public class TurnTest {
     @DisplayName("generateNewHint#1 -> Test #2 - to short.")
     void returnHint2() {
         Word word = Word.createValidWord("KAMER");
-        Word hint = Hint.createHint("K....");
-        Word guess = Guess.createGuess("KAM");
+        Word hint = Hint.createValidHint("K....");
+        Word guess = Guess.createValidGuess("KAM");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -376,8 +376,8 @@ public class TurnTest {
     @DisplayName("generateNewHint#2 -> the word has been guessed correctly!")
     void returnHint3() {
         Word word = Word.createValidWord("GEBAK");
-        Word hint = Hint.createHint("GEB..");
-        Word guess = Guess.createGuess("GEBAK");
+        Word hint = Hint.createValidHint("GEB..");
+        Word guess = Guess.createValidGuess("GEBAK");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -394,8 +394,8 @@ public class TurnTest {
             "guess <= letters per sort leter!")
     void returnHint4() {
         Word word = Word.createValidWord("BLOOT");
-        Word hint = Hint.createHint("B....");
-        Word guess = Guess.createGuess("BOOST");
+        Word hint = Hint.createValidHint("B....");
+        Word guess = Guess.createValidGuess("BOOST");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -416,8 +416,8 @@ public class TurnTest {
         //    Turn's HINT "B......"
         //    Next turn's HINT "BAN...."
         Word word = Word.createValidWord("BANAAN");
-        Word hint = Hint.createHint("B....");
-        Word guess = Guess.createGuess("BAANER");
+        Word hint = Hint.createValidHint("B....");
+        Word guess = Guess.createValidGuess("BAANER");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -433,8 +433,8 @@ public class TurnTest {
             "guess <= letters per sort leter!")
     void returnHint6() {
         Word word = Word.createValidWord("OPZICHT");
-        Word hint = Hint.createHint("O......");
-        Word guess = Guess.createGuess("OORFLAP");
+        Word hint = Hint.createValidHint("O......");
+        Word guess = Guess.createValidGuess("OORFLAP");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -450,8 +450,8 @@ public class TurnTest {
             "guess <= letters per sort leter!")
     void returnHint7() {
         Word word = Word.createValidWord("AHAHA");
-        Word hint = Hint.createHint("AH...");
-        Word guess = Guess.createGuess("HAHAH");
+        Word hint = Hint.createValidHint("AH...");
+        Word guess = Guess.createValidGuess("HAHAH");
         Turn turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();

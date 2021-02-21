@@ -3,7 +3,6 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,20 +30,8 @@ class WordTest {
     void creatingWordSuccesfully() {
         Word word = Word.createValidWord("WOORD");
         int length = word.getLength();
-        ArrayList<Letter> letters = word.getLetters();
         assertSame(5, length);
         assertEquals("WOORD", word.getValue());
-        assertSame(5, letters.size());
-        Letter letter = letters.get(0);
-        Letter letter2 = letters.get(1);
-        Letter letter3 = letters.get(2);
-        Letter letter4 = letters.get(3);
-        Letter letter5 = letters.get(4);
-        assertSame(Letter.W, letter);
-        assertSame(Letter.O, letter2);
-        assertSame(Letter.O, letter3);
-        assertSame(Letter.R, letter4);
-        assertSame(Letter.D, letter5);
     }
 
     @Test
@@ -52,20 +39,8 @@ class WordTest {
     void creatingWordSuccesfully2() {
         Word word = Word.createValidWord("WOORD");
         int length = word.getLength();
-        ArrayList<Letter> letters = word.getLetters();
         assertSame(5, length);
         assertEquals("WOORD", word.getValue());
-        assertSame(5, letters.size());
-        Letter letter = letters.get(0);
-        Letter letter2 = letters.get(1);
-        Letter letter3 = letters.get(2);
-        Letter letter4 = letters.get(3);
-        Letter letter5 = letters.get(4);
-        assertSame(Letter.W, letter);
-        assertSame(Letter.O, letter2);
-        assertSame(Letter.O, letter3);
-        assertSame(Letter.R, letter4);
-        assertSame(Letter.D, letter5);
     }
 
     @Test
@@ -113,20 +88,8 @@ class WordTest {
     void creatingWordWith5char() {
         Word word = Word.createValidWord("WOORD");
         int length = word.getLength();
-        ArrayList<Letter> letters = word.getLetters();
         assertSame(5, length);
         assertEquals("WOORD", word.getValue());
-        assertSame(5, letters.size());
-        Letter letter = letters.get(0);
-        Letter letter2 = letters.get(1);
-        Letter letter3 = letters.get(2);
-        Letter letter4 = letters.get(3);
-        Letter letter5 = letters.get(4);
-        assertSame(Letter.W, letter);
-        assertSame(Letter.O, letter2);
-        assertSame(Letter.O, letter3);
-        assertSame(Letter.R, letter4);
-        assertSame(Letter.D, letter5);
     }
 
     @Test
@@ -134,22 +97,8 @@ class WordTest {
     void creatingWordWith6char() {
         Word word = Word.createValidWord("WOORD.");
         int length = word.getLength();
-        ArrayList<Letter> letters = word.getLetters();
         assertSame(6, length);
         assertEquals("WOORD.", word.getValue());
-        assertSame(6, letters.size());
-        Letter letter = letters.get(0);
-        Letter letter2 = letters.get(1);
-        Letter letter3 = letters.get(2);
-        Letter letter4 = letters.get(3);
-        Letter letter5 = letters.get(4);
-        Letter letter6 = letters.get(5);
-        assertSame(Letter.W, letter);
-        assertSame(Letter.O, letter2);
-        assertSame(Letter.O, letter3);
-        assertSame(Letter.R, letter4);
-        assertSame(Letter.D, letter5);
-        assertSame(Letter.DOT, letter6);
     }
 
     @Test
@@ -157,24 +106,8 @@ class WordTest {
     void creatingWordWith7char() {
         Word word = Word.createValidWord("WOORD.S");
         int length = word.getLength();
-        ArrayList<Letter> letters = word.getLetters();
         assertSame(7, length);
         assertEquals("WOORD.S", word.getValue());
-        assertSame(7, letters.size());
-        Letter letter = letters.get(0);
-        Letter letter2 = letters.get(1);
-        Letter letter3 = letters.get(2);
-        Letter letter4 = letters.get(3);
-        Letter letter5 = letters.get(4);
-        Letter letter6 = letters.get(5);
-        Letter letter7 = letters.get(6);
-        assertSame(Letter.W, letter);
-        assertSame(Letter.O, letter2);
-        assertSame(Letter.O, letter3);
-        assertSame(Letter.R, letter4);
-        assertSame(Letter.D, letter5);
-        assertSame(Letter.DOT, letter6);
-        assertSame(Letter.S, letter7);
     }
 
     @Test

@@ -12,7 +12,7 @@ public class Round {
     public Round(Word word, int roundOfGame) {
         this.word = word;
         this.roundOfGame = roundOfGame;
-        Word firstHint = Hint.createHint(String.valueOf(word.getValue().charAt(0)));
+        Word firstHint = Hint.createValidHint(String.valueOf(word.getValue().charAt(0)));
         this.firstHint = firstHint;
     }
 

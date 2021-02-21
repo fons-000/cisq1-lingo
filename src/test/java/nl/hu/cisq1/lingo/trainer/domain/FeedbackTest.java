@@ -136,7 +136,7 @@ public class FeedbackTest {
         //   Feedback: INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID
 
         Word word = Word.createValidWord("HAMER");
-        Word guess = Guess.createGuess("HAMSTER");
+        Word guess = Guess.createValidGuess("HAMSTER");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -170,7 +170,7 @@ public class FeedbackTest {
         //   Feedback: INVALID, INVALID, INVALID
 
         Word word = Word.createValidWord("KAMER");
-        Word guess = Guess.createGuess("KAM");
+        Word guess = Guess.createValidGuess("KAM");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -197,7 +197,7 @@ public class FeedbackTest {
         //   Feedback: CORRECT, CORRECT, CORRECT, CORRECT, CORRECT
 
         Word word = Word.createValidWord("GEBAK");
-        Word guess = Guess.createGuess("GEBAK");
+        Word guess = Guess.createValidGuess("GEBAK");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -229,7 +229,7 @@ public class FeedbackTest {
             //    Feedback: CORRECT, PRESENT, CORRECT, ABSENT, CORRECT
 
         Word word = Word.createValidWord("BLOOT");
-        Word guess = Guess.createGuess("BOOST");
+        Word guess = Guess.createValidGuess("BOOST");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -260,7 +260,7 @@ public class FeedbackTest {
         //    Feedback: CORRECT, CORRECT, CORRECT, CORRECT, ABSENT, ABSENT, ABSENT
 
         Word word = Word.createValidWord("GRAPJAS");
-        Word guess = Guess.createGuess("GRAPPIG");
+        Word guess = Guess.createValidGuess("GRAPPIG");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -294,7 +294,7 @@ public class FeedbackTest {
         //    Feedback: CORRECT, ABSENT, ABSENT, ABSENT, ABSENT, ABSENT, PRESENT
 
         Word word = Word.createValidWord("OPZICHT");
-        Word guess = Guess.createGuess("OORFLAP");
+        Word guess = Guess.createValidGuess("OORFLAP");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -329,7 +329,7 @@ public class FeedbackTest {
         //    Feedback: PRESENT, PRESENT, PRESENT, PRESENT, ABSENT
 
         Word word = Word.createValidWord("AHAHA");
-        Word guess = Guess.createGuess("HAHAH");
+        Word guess = Guess.createValidGuess("HAHAH");
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();

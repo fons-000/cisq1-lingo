@@ -60,7 +60,6 @@ public class Turn {
         ArrayList<FeedbackItem> feedbackItems = this.feedback.getFeedbackItems();
         String newHintValue = "";
         char[] newHintValueCharArray = new char[this.word.getLength()];
-        ArrayList<Letter> letters = new ArrayList<Letter>();
 
         //Stap 0 => Voeg evenveel puntjes toe aan de size van Word
         for(int i = 0; i < this.word.getLength(); i++) {
@@ -85,7 +84,7 @@ public class Turn {
 
         newHintValue = String.valueOf(newHintValueCharArray);
         //Deze moet geretourneerd worden, maar eerst verpakt in een Optional!
-        Hint newHint = Hint.createHint(newHintValue);
+        Hint newHint = Hint.createValidHint(newHintValue);
         Optional<Hint> validNewHintOptional = Optional.of(newHint);
 
         //Stap 4 => Verpak de newHint in een Optional als de hint niet hetzelfde is

@@ -30,6 +30,14 @@ public class GameTest {
     }
 
     @Test
+    @DisplayName("Creating default game has 100 points")
+    void creatingGame() {
+        Game game = new Game();
+        int score = game.getScore();
+        assertEquals(100, score);
+    }
+
+    @Test
     @DisplayName("Creating score has the right attribute")
     void creatingPerson() {
         Game game = new Game(500);

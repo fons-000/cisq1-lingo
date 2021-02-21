@@ -6,6 +6,10 @@ public class Game {
     private int score;
     private ArrayList<Round> rounds = new ArrayList<Round>();
 
+    public Game() {
+        this.score = 100;
+    }
+
     public Game(int score) {
         this.score = score;
     }

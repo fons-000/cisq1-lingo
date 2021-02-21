@@ -35,8 +35,8 @@ public class RoundTest {
         //it to a round when the word is different
         //Turns: turn, turn11, turn12, turn13, turn14 and turn 15 are used to simulate a round of a game
         Word word = Word.createValidWord("HAMER");
-        Word hint = Hint.createHint("HAM..");
-        Word guess = Guess.createGuess("HAMSTER");
+        Word hint = Hint.createValidHint("HAM..");
+        Word guess = Guess.createValidGuess("HAMSTER");
         turn = new Turn(hint, guess, word);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
@@ -44,7 +44,7 @@ public class RoundTest {
 
         Word word11 = Word.createValidWord("HAMER");
         Word hint11 = turn.returnHintForNextTurn();
-        Word guess11 = Guess.createGuess("HARDE");
+        Word guess11 = Guess.createValidGuess("HARDE");
         turn11 = new Turn(hint11, guess11, word11);
 
         Feedback feedback11 = turn11.returnFeedbackCurrentTurn();
@@ -52,7 +52,7 @@ public class RoundTest {
 
         Word word12 = Word.createValidWord("HAMER");
         Word hint12 = turn11.returnHintForNextTurn();
-        Word guess12 = Guess.createGuess("HAMEL");
+        Word guess12 = Guess.createValidGuess("HAMEL");
         turn12 = new Turn(hint12, guess12, word12);
 
         Feedback feedback12 = turn12.returnFeedbackCurrentTurn();
@@ -60,7 +60,7 @@ public class RoundTest {
 
         Word word13 = Word.createValidWord("HAMER");
         Word hint13 = turn12.returnHintForNextTurn();
-        Word guess13 = Guess.createGuess("RUFTI");
+        Word guess13 = Guess.createValidGuess("RUFTI");
         turn13 = new Turn(hint13, guess13, word13);
 
         Feedback feedback13 = turn13.returnFeedbackCurrentTurn();
@@ -68,7 +68,7 @@ public class RoundTest {
 
         Word word14 = Word.createValidWord("HAMER");
         Word hint14 = turn13.returnHintForNextTurn();
-        Word guess14 = Guess.createGuess("GOVER");
+        Word guess14 = Guess.createValidGuess("GOVER");
         turn14 = new Turn(hint14, guess14, word14);
 
         Feedback feedback14 = turn14.returnFeedbackCurrentTurn();
@@ -76,31 +76,31 @@ public class RoundTest {
 
         Word word15 = Word.createValidWord("HAMER");
         Word hint15 = turn13.returnHintForNextTurn();
-        Word guess15 = Guess.createGuess("PEACE");
+        Word guess15 = Guess.createValidGuess("PEACE");
         turn15 = new Turn(hint15, guess15, word15);
 
         Feedback feedback15 = turn15.returnFeedbackCurrentTurn();
         turn15.setFeedback(feedback15);
 
         Word word2 = Word.createValidWord("KAMER");
-        Word hint2 = Hint.createHint("K....");
-        Word guess2 = Guess.createGuess("KAM");
+        Word hint2 = Hint.createValidHint("K....");
+        Word guess2 = Guess.createValidGuess("KAM");
         turn2 = new Turn(hint2, guess2, word2);
 
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
         turn2.setFeedback(feedback2);
 
         Word word3 = Word.createValidWord("GEBAK");
-        Word hint3 = Hint.createHint("GEB..");
-        Word guess3 = Guess.createGuess("GEBAK");
+        Word hint3 = Hint.createValidHint("GEB..");
+        Word guess3 = Guess.createValidGuess("GEBAK");
         turn3 = new Turn(hint3, guess3, word3);
 
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();
         turn3.setFeedback(feedback3);
 
         Word word4 = Word.createValidWord("BLOOT");
-        Word hint4 = Hint.createHint("B....");
-        Word guess4 = Guess.createGuess("BOOST");
+        Word hint4 = Hint.createValidHint("B....");
+        Word guess4 = Guess.createValidGuess("BOOST");
         turn4 = new Turn(hint4, guess4, word4);
 
         Feedback feedback4 = turn4.returnFeedbackCurrentTurn();
@@ -289,8 +289,8 @@ public class RoundTest {
         //roundOfGame maakt nog niet zoveel uit, dit wordt later opgevangen in de service.
         //Dit kan je voor nu even negeren. Wordt ook opgevangen in de GameTest
         Word word = Word.createValidWord("AHAHA");
-        Word hint = Hint.createHint("AH...");
-        Word guess = Guess.createGuess("HAHAH");
+        Word hint = Hint.createValidHint("AH...");
+        Word guess = Guess.createValidGuess("HAHAH");
         Round round = new Round(word, 2);
 
         Turn turn = new Turn(hint, guess, word);
@@ -300,7 +300,7 @@ public class RoundTest {
         assertSame(true, round.addTurn(turn));
 
         Word hint2 = turn.returnHintForNextTurn();
-        Word guess2 = Guess.createGuess("AHAHH");
+        Word guess2 = Guess.createValidGuess("AHAHH");
 
         Turn turn2 = new Turn(hint2, guess2, word);
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
@@ -309,7 +309,7 @@ public class RoundTest {
         assertSame(true, round.addTurn(turn2));
 
         Word hint3 = turn2.returnHintForNextTurn();
-        Word guess3 = Guess.createGuess("AHAHA");
+        Word guess3 = Guess.createValidGuess("AHAHA");
 
         Turn turn3 = new Turn(hint3, guess3, word);
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();

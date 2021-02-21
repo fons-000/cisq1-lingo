@@ -1,26 +1,24 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class Guess extends Word {
-    public Guess(String word, ArrayList<Letter> letters) {
-        super(word, letters);
+    public Guess(String word) {
+        super(word);
     }
 
-    public static Guess createGuess(String word) {
-        ArrayList<Letter> letters = new ArrayList<Letter>();
-        for(char letterChar : word.toCharArray()) {
-            Optional<Letter> letter1 = Letter.charToLetter(letterChar);
-            //Als het word geen geldige letter/letters heeft => dan loopt het programma vast.
-            Letter letter = letter1.orElseThrow();
-            letters.add(letter);
+    public static Optional<Guess> createGuess(String word) {
+        if(word.matches("^[A-Z\\.]+$")) {
+            Guess guess = new Guess(word);
+            return Optional.of(guess);
         }
-        //The word is already valid, if all the letters are valid.
-        //Just return a regular word.
-        //If all the letters are correct, and the for loop is being looped,
-        //the word can not be null in any case.
-        Guess guess = new Guess(word, letters);
+        return Optional.empty();
+    }
+
+    public static Guess createValidGuess(String word) {
+        //Creates a hint or throws an error!
+        Optional<Guess> optionalGuess = createGuess(word);
+        Guess guess = optionalGuess.orElseThrow();
         return guess;
     }
 }
