@@ -34,27 +34,13 @@ public class Word {
         return length;
     }
 
-    //Test de servicefunctie als de service goed opgezet is!
-//    public Word generateWordForRound(int roundOfGame) {
-//        Word word;
-//        if(roundOfGame % 3 == 0) {
-//            word = generateASevenLetterWord();
-//        }
-//        else if(roundOfGame % 2 == 0) {
-//            word = generateASixLetterWord();
-//        }
-//
-//        else {
-//            word = generateAFiveLetterWord();
-//        }
-//        return word;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(getClass() == Word.class || getClass() == Hint.class || getClass() == Guess.class)) return false;
-        Word word = (Word) o;
-        return value.equals(word.value) && length.equals(word.length);
+        if (o == null || (o.getClass() != Word.class && o.getClass() != Hint.class && o.getClass() != Guess.class)) {
+            return false;
+        }
+            Word word = (Word) o;
+            return value.equals(word.value);
     }
 }

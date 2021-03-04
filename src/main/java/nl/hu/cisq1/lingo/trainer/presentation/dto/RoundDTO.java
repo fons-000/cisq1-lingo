@@ -27,13 +27,13 @@ public class RoundDTO {
         return roundDTO;
     }
 
-    public int getRoundOfGame() {
-        return roundOfGame;
-    }
-
-    public Word getFirstHint() {
-        return firstHint;
-    }
+//    public int getRoundOfGame() {
+//        return roundOfGame;
+//    }
+//
+//    public Word getFirstHint() {
+//        return firstHint;
+//    }
 
     public ArrayList<TurnDTO> getTurnDTOS() {
         return turnDTOS;

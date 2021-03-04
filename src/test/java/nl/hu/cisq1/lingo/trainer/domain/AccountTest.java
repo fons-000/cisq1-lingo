@@ -76,4 +76,18 @@ public class AccountTest {
         Account account2 = new Account("Banzai", "83012");
         assertNotEquals(account, account2);
     }
+
+    @Test
+    @DisplayName("Equal function test #6: Object with right class & username but wrong password.")
+    void wrongPassword() {
+        Account account2 = new Account("Boom", "92405");
+        assertNotEquals(account, account2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #7: Object with right class & password but wrong username.")
+    void wrongUsername() {
+        Account account2 = new Account("Peter", "5678");
+        assertNotEquals(account, account2);
+    }
 }

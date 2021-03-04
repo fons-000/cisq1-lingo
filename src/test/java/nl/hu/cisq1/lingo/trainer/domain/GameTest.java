@@ -83,6 +83,34 @@ public class GameTest {
     @DisplayName("Equal function test #5: Object with right class & wrong attribitues")
     void wrongAttributesObject() {
         Game game2 = new Game(250);
+        Word word = Word.createValidWord("THEFIRE");
+        ArrayList<Round> roundsList = game2.getRounds();
+        int currentRounds = roundsList.size();
+        int nextRoundId = currentRounds + 1;
+        Round round = new Round(word, nextRoundId);
+        assertTrue(game2.addRound(round));
+        assertEquals(1, roundsList.size());
+        assertNotEquals(game, game2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #6: Object with right class & score but not the same rounds")
+    void wrongRounds() {
+        Game game2 = new Game(300);
+        Word word = Word.createValidWord("THEFIRE");
+        ArrayList<Round> roundsList = game2.getRounds();
+        int currentRounds = roundsList.size();
+        int nextRoundId = currentRounds + 1;
+        Round round = new Round(word, nextRoundId);
+        assertTrue(game2.addRound(round));
+        assertEquals(1, roundsList.size());
+        assertNotEquals(game, game2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #7: Object with right class & round but not the same score")
+    void wrongScore() {
+        Game game2 = new Game(250);
         assertNotEquals(game, game2);
     }
 

@@ -1,7 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 public class Feedback {
     private ArrayList<FeedbackItem> feedbackItems = new ArrayList<FeedbackItem>();
@@ -35,14 +34,11 @@ public class Feedback {
         char[] guessCharArray = guessValue.toCharArray();
         int guessLength = guess.getLength();
         char[] feedbackCharArray = new char[guessLength];
-        boolean returnFeedback = true;
         //Als de lengte van de gok ongelijk is aan de lengte van het woord,
         //geef een lijst van INVALID terug die even lang is als het aantal letters van de guess
         if(guessCharArray.length != wordCharArray.length) {
             for(char letter : guessCharArray) {
-                if(!(feedback.addFeedbackItem(FeedbackItem.INVALID))) {
-                    returnFeedback = false;
-                }
+                feedback.addFeedbackItem(FeedbackItem.INVALID);
             }
         }
 
@@ -53,10 +49,10 @@ public class Feedback {
                 if (wordCharArray[i] == guessCharArray[i]) {
                         feedbackCharArray[i] = 'C';
                 }
-                else if(!wordValue.contains(String.valueOf(guessCharArray[i]))) {
-                    //Geef ABSENT terug wanneer de letter helemaal niet in het word zit
-                    feedbackCharArray[i] = 'A';
-                }
+                else //Geef ABSENT terug wanneer de letter helemaal niet in het word zit
+                    if(!wordValue.contains(String.valueOf(guessCharArray[i]))) {
+                        feedbackCharArray[i] = 'A';
+                    }
             }
 
             // Step 3
@@ -96,28 +92,18 @@ public class Feedback {
             for(char letter : feedbackCharArray) {
                 switch (letter) {
                     case 'P':
-                        if(!(feedback.addFeedbackItem(FeedbackItem.PRESENT))) {
-                            returnFeedback = false;
-                        }
+                        feedback.addFeedbackItem(FeedbackItem.PRESENT);
                         break;
                     case 'A':
-                        if(!(feedback.addFeedbackItem(FeedbackItem.ABSENT))) {
-                            returnFeedback = false;
-                        }
+                        feedback.addFeedbackItem(FeedbackItem.ABSENT);
                         break;
                     case 'C':
-                        if(!(feedback.addFeedbackItem(FeedbackItem.CORRECT))) {
-                            returnFeedback = false;
-                        }
+                        feedback.addFeedbackItem(FeedbackItem.CORRECT);
                         break;
                 }
             }
-
-            if(returnFeedback) {
-                //Optional.of zou moeten werken, werkt niet als feedback null is
-                Optional<Feedback> optionalFeedback = Optional.of(feedback);
-                return optionalFeedback;
-            }
-            return Optional.empty();
+        //Optional.of zou moeten werken, werkt niet als feedback null is
+        Optional<Feedback> optionalFeedback = Optional.of(feedback);
+        return optionalFeedback;
     }
 }

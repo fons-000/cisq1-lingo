@@ -2,8 +2,13 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,6 +26,8 @@ public class GuessTest {
     //  2.4 Guesses with weird symbols will throw an error.
     //  2.5 Guesses can contain an "umlimted" amount of characters
     //  2.6 Guesses with 0 characters will throw an error
+
+    //3. Test if the equal function works with correct & false values.
 
     @Test
     @DisplayName("Creating a guess #1 - Creating a fully capital guess works")
@@ -177,4 +184,20 @@ public class GuessTest {
             Guess guess = Guess.createValidGuess("");
         });
     }
+
+//    @ParameterizedTest
+//    @MethodSource("wordExamples")
+//    @DisplayName("equalFunctionValueIsDifferentTest")
+//    void valueLengthPropertyDifferent(Word word) {
+//        Guess guess = new Guess("WOWSIE");
+//        assertNotEquals(guess, word);
+//    }
+//
+//    static Stream<Arguments> wordExamples() {
+//        return Stream.of(
+//                Arguments.of(new Word("BOTER")),
+//                Arguments.of(new Word("ACTING")),
+//                Arguments.of(new Word("ADVANCE"))
+//        );
+//    }
 }

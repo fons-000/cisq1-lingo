@@ -17,8 +17,40 @@ public class PersonTest {
     //	3.1 Hetzelfde object => goed
     //	3.2 Is null => fout
     //	3.3 andere klasse => fout
-    //	3.4 Goede klasse, met goede waardes => goed
-    //	3.5 Goede klasse, met foute waardes => fout
+    //  3.4 werkt onderstaand tabel ook met equals?
+    //Equaltesting attributes
+    //
+    //1. Name object = name, account object = account en role object = role. = true
+    //
+    //2. Name object = name, account object = account en role object != role. = false
+    //
+    //3. Name object = name, account object != account en role object = role.
+    //
+    //3.1 wrong username = false
+    //3.2 wrong password = false
+    //3.3 wrong both = false
+    //
+    //4. Name object = name, account object != account en role object != role.
+    //4.1 wrong username = false
+    //4.2 wrong password = false
+    //4.3 wrong both = false
+    //
+    //5. Name object != name, account object = account en role object = role. = false
+    //6. Name object != name, account object = account en role object != role. = false
+    //
+    //7. Name object != name, account object != account en role object = role
+    //7.1 wrong username = false
+    //7.2 wrong password = false
+    //7.3 wrong both = false
+    //
+    //8. Name object != name, account object != account en role object != role.
+    //8.1 wrong username = false
+    //8.2 wrong password = false
+    //8.3 wrong both = false
+    //
+    //(In total: 16 equal tests)
+
+
     //4. Werkt de addGame functie?
     Person person = new Person("FS Fons", "8743", "Fons", Role.PLAYER);
 
@@ -74,16 +106,114 @@ public class PersonTest {
     }
 
     @Test
-    @DisplayName("Equal function test #4: Object with right class & attribitues")
+    @DisplayName("Equal function test #4.1: Object with right class & attribitues")
     void sameAttributesObject() {
         Person person2 = new Person("FS Fons", "8743", "Fons", Role.PLAYER);
         assertEquals(person, person2);
     }
 
     @Test
-    @DisplayName("Equal function test #5: Object with right class & wrong attribitues")
+    @DisplayName("Equal function test #4.2: Object with right class & wrong attribitues (username)")
     void wrongAttributesObject() {
-        Person person2 = new Person("FS FonsAnders", "8743", "Fons", Role.PLAYER);
+        Person person2 = new Person("FS FonsAnders", "8743", "Wazza", Role.ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.3: Object with right class & wrong attribitues (password)")
+    void wrongAttributes1bject() {
+        Person person2 = new Person("FS Fons", "2895hg", "Wazza", Role.ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.4: Object with right class & wrong attribitues")
+    void wrongAttributes2bject() {
+        Person person2 = new Person("Yoboy001", "2895hg", "Wazza", Role.ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.5: Object with right class, name and account but wrong role")
+    void wrongRoleAttribute() {
+        Person person2 = new Person("FS Fons", "8743", "Fons", Role.ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.6: Object with right class, name and role but wrong account (username)")
+    void wrongAccountUsernameAttribute() {
+        Person person2 = new Person("FS FonsYo", "8743", "Fons", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.7: Object with right class, name and role but wrong account (password)")
+    void wrongAccountPasswordAttribute() {
+        Person person2 = new Person("FS Fons", "174394", "Fons", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.8: Object with right class, name and role but wrong account attributes")
+    void wrongAccountAttributes() {
+        Person person2 = new Person("FS FonsOP", "13f950", "Fons", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.9: Object with right class and name attribute but wrong role & account attributes (username)")
+    void wrongUsername1Attributes() {
+        Person person2 = new Person("FS FonsOP", "8743", "Fons", Role.HEAD_ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.10: Object with right class and name attribute but wrong role & account attributes (password)")
+    void wrongPassword1Attributes() {
+        Person person2 = new Person("FS Fons", "13f950", "Fons", Role.HEAD_ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.11: Object with right class and name attribute but wrong role & account attributes")
+    void wrongAccount1Attributes() {
+        Person person2 = new Person("FS FonsOP", "13f950", "Fons", Role.HEAD_ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.12: Object with right class, role and account but wrong name")
+    void wrongAccount1UsernameAttribute() {
+        Person person2 = new Person("FS Fons", "8743", "Jan", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.13: Object with right class, and account but wrong role & name")
+    void wrongAccount1PasswordAttribute() {
+        Person person2 = new Person("FS Fons", "8743", "Pan", Role.ADMINISTRATOR);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.14: Object with right class and role attribute but wrong name & account attributes (username)")
+    void wrongAccount2Attributes() {
+        Person person2 = new Person("FS FonsOP", "8743", "YoBroPublicName", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.15: Object with right class and role attribute but wrong name & account attributes (password)")
+    void wrongAccount2UsernameAttribute() {
+        Person person2 = new Person("FS Fons", "ogk8401", "Yikes", Role.PLAYER);
+        assertNotEquals(person, person2);
+    }
+
+    @Test
+    @DisplayName("Equal function test #4.16: Object with right class and role attribute but wrong name & account attributes")
+    void wrongAccount2PasswordAttribute() {
+        Person person2 = new Person("FS FonsBaha", "02lig", "Shizzle", Role.PLAYER);
         assertNotEquals(person, person2);
     }
 

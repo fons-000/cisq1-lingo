@@ -3,9 +3,13 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -321,5 +325,70 @@ public class RoundTest {
         assertThrows(NoSuchElementException.class, () -> {
             Word hint4 = turn3.returnHintForNextTurn();
         });
+    }
+
+    @ParameterizedTest
+    @MethodSource("turnExamples")
+    @DisplayName("addTurnConditionsTest")
+    void addTurn(Hint hint, Guess previousGuess, Word word, int turnAmount, boolean result) {
+        //After looking at the previous guess and if it was the same as Word and if there already is it least one turn:
+        //The following test cases will be checked (see turnExamples)
+        Word word1 = new Word("GUESSING");
+        Turn turn = new Turn(hint, previousGuess, word);
+
+        //Setting up working (good) turn variables.
+        //Guess2 makes sure that there are no previous guesses from a turn that are the same as the word of a round
+        Guess guess2 = new Guess("GUES");
+        Hint hint2 = new Hint("G");
+        Word word2 = new Word("GUESSING");
+        Turn turn2 = new Turn(hint2, guess2, word2);
+
+        //roundOfGame maakt nog niet zoveel uit, dit wordt later opgevangen in de service.
+        //Dit kan je voor nu even negeren. Wordt ook opgevangen in de GameTest
+        //Hier wordt ten minste 1, zelfs meer turns gezet.
+        Round round = new Round(word1, 25);
+        for(int i = 0; i < (turnAmount - 1); i++) {
+            round.addTurn(turn2);
+        }
+
+        //This is the previous turn, klopt want previousGuess is variabel en opgegeven.
+        Turn turn3 = new Turn(hint2, previousGuess, word1);
+        //De laatst vorige turn heeft nu een guess die in de helft van de gevallen juist of onjuist is.
+        round.addTurn(turn3);
+
+        //Alle drie de condities worden nu afgevangen, de guess van de huidige turn komt niet voor in de branche van de addTurn van round.
+        //Dit zou nu moeten werken.
+        assertSame(turnAmount, round.getTurns().size());
+        assertSame(result, round.addTurn(turn));
+    }
+
+    static Stream<Arguments> turnExamples() {
+        Word word = new Word("GUESSING");
+        Word word1 = new Word("WRONG");
+        //De hint maakt voor nu even niet zoveel uit.
+        Hint hint = new Hint("G");
+        Guess previousGuess = new Guess("GUESSING");
+        Guess previousGuess1 = new Guess("GUESWRONG");
+        int turnAmount = 4;
+        int turnAmount1 = 5;
+
+        return Stream.of(
+                //1. Guess van de vorige turn is gelijk aan het word van de round, er zijn minder dan 5 turns, round word is hetzelfde als turn word. false
+                Arguments.of(hint, previousGuess, word, turnAmount, false),
+                //2. Guess van de vorige turn is gelijk aan het word van de round, er zijn minder dan 5 turns, round word is ongelijk als turn word. false
+                Arguments.of(hint, previousGuess, word1, turnAmount, false),
+                //3. Guess van de vorige turn is gelijk aan het word van de round, er zijn meer dan 5 turns, round word is hetzelfde als turn word. false
+                Arguments.of(hint, previousGuess, word, turnAmount1, false),
+                //4. Guess van de vorige turn is gelijk aan het word van de round, er zijn meer dan 5 turns, round word is ongelijk als turn word. false
+                Arguments.of(hint, previousGuess, word1, turnAmount1, false),
+                //5. Guess van de vorige turn is ongelijk aan het word van de round, er zijn minder dan 5 turns, round word is hetzelfde als turn word. true
+                Arguments.of(hint, previousGuess1, word, turnAmount, true),
+                //6. Guess van de vorige turn is ongelijk aan het word van de round, er zijn minder dan 5 turns, round word is ongelijk als turn word. false
+                Arguments.of(hint, previousGuess1, word1, turnAmount, false),
+                //7. Guess van de vorige turn is ongelijk aan het word van de round, er zijn meer dan 5 turns, round word is hetzelfde als turn word. false
+                Arguments.of(hint, previousGuess1, word, turnAmount1, false),
+                //8. Guess van de vorige turn is ongelijk aan het word van de round, er zijn meer dan 5 turns, round word is ongelijk als turn word. false
+                Arguments.of(hint, previousGuess1, word1, turnAmount1, false)
+        );
     }
 }

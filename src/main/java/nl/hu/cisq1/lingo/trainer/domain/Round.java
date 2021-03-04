@@ -20,10 +20,6 @@ public class Round {
         return word;
     }
 
-    public void setWord(Word word) {
-        this.word = word;
-    }
-
     public Word getFirstHint() {
         return firstHint;
     }
@@ -41,7 +37,7 @@ public class Round {
         //dit werkt omdat er geen setTurns is en alles vanaf begin via de add moet!
         //2. Als de lengte van de huidige turns list niet al >= 5 is!
         if(this.getTurns().size() >= 1) {
-            if(!this.getTurns().get(this.getTurns().size() - 1).getGuess().getValue().equals(this.word.getValue())
+            if((!this.getTurns().get(this.getTurns().size() - 1).getGuess().getValue().equals(this.word.getValue()))
                     && !(this.getTurns().size() >= 5)
                     && this.word.equals(turn.getWord())) {
                 return this.turns.add(turn);

@@ -23,19 +23,7 @@ public class WordEntity {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public Integer getLength() {
         return length;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WordEntity word = (WordEntity) o;
-        return value.equals(word.value) && length.equals(word.length);
     }
 }
