@@ -1,0 +1,71 @@
+@startuml
+hide circle
+
+Class Account {
+    username: String
+    password: String
+}
+
+Class Person {
+    firstname: String
+    middle name: String
+    lastname: String
+    phone number: int
+    email: String
+}
+
+Class Institute {
+}
+
+Class Closed {
+}
+
+Class Open {
+}
+
+Class Question {
+}
+
+Class RangeScore {
+    beginNumber: int
+    endNumber: int
+    beginWord: String
+    endWord: String
+    addBeginNumber(beginNumber: int): boolean
+    addEndNumber(endNumber: int): boolean
+    addBeginWord(beginWord: String): boolean
+    addEndWord(endWord: String): boolean
+}
+
+Class MultipleChoice {
+}
+
+interface optionQuestion <<Interface>> {
+    addOption(): boolean
+}
+
+interface openQuestion <<Interface>> {
+    addLongText(): String
+    addShortText(): String
+}
+
+class Option {
+    name: String
+}
+
+enum Role <<Enumeration>> {
+    AUTHOR
+    APPLICANT
+    FILLER
+    ADMINISTRATOR
+}
+
+Account ||--|| Person : account <
+optionQuestion <|-- Closed
+openQuestion <|-- Open
+optionQuestion <|-- MultipleChoice
+Question <|-- Closed
+Question <|-- Open
+Question <|-- MultipleChoice
+Question <|-- RangeScore
+@enduml
