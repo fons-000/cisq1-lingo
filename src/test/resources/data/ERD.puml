@@ -1,0 +1,55 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+' skinparam linetype ortho
+
+entity "game" as game {
+  *game_id: NUMERIC (2, 0)        <<PK>>
+  *person_name: VARCHAR (1000)     <<FK>>
+  *score: NUMERIC (5, 0)
+}
+
+entity "round" as round {
+  *round_game: NUMERIC (3, 0)        <<PK>>
+  *game_id: NUMERIC (2, 0)        <<PK>> <<FK>>
+  *word: VARCHAR (10)        <<FK2>>
+  *firstHint: VARCHAR (10)    <<FK3>>
+}
+
+entity "turn" as turn {
+    *turn_round: NUMERIC (1, 0)        <<PK>>
+    *round_game: NUMERIC (3, 0)        <<PK>> <<FK1>>
+    *game_id: NUMERIC (2, 0)        <<PK>> <<FK2>>
+    *turn_guess: VARCHAR (10)        <<FK3>>
+    *turn_hint: VARCHAR (10)        <<FK4>>
+}
+
+entity "words" as word {
+'Later in de configuratie aanpassen naar word
+  *word: VARCHAR (10)        <<PK>>
+  *length: NUMERIC (1, 0)
+}
+
+entity "person" as person {
+  *person_name: VARCHAR (1000)        <<PK>>
+  *account_id: NUMERIC (2, 0)        <<FK>>
+  *person_role: VARCHAR (20)
+}
+
+entity "account" as account {
+  *account_id: NUMERIC (2, 0)        <<PK>>
+  *username: VARCHAR (20)
+  *account_password: VARCHAR (100)
+}
+
+game ||--|{ round : game <
+round ||--|| word : word >
+round ||--|| word : firstHint >
+round ||--|| turn : round <
+word ||--|| turn : guess <
+word ||--|| turn: hint <
+person ||--o{ game : person <
+person ||--|| account : > account
+@enduml
