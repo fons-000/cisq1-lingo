@@ -1,10 +1,27 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.Optional;
 
+@Entity
+@Table(name = "words")
 public class Word {
+
+    @Id
+    @Column(name = "word")
     private String value;
+
+    @Column(name = "length")
     private Integer length;
+
+    @OneToOne
+    private Round round;
+
+    @OneToOne(mappedBy = "hint")
+    private Turn turn;
+
+    public Word() {
+    }
 
     public Word(String word) {
         this.value = word;

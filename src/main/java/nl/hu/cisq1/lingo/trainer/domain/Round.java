@@ -1,13 +1,35 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "round")
 public class Round {
+    @Id
+    @Column(name = "game_id")
+    @ManyToOne
+    private Game game;
+
+    @Id
+    @Column(name = "round_game")
     private int roundOfGame;
+
+    @Column(name = "word")
+    @OneToOne(mappedBy = "round")
     private Word word;
+
+    @Column(name = "first_hint")
+    @OneToOne(mappedBy = "round")
     private Word firstHint;
-    private ArrayList<Turn> turns = new ArrayList<Turn>();
+
+    @OneToMany(mappedBy = "round")
+    private Set<Turn> turns = new HashSet<>();
+
+    public Round() {
+    }
 
     public Round(Word word, int roundOfGame) {
         this.word = word;
@@ -24,7 +46,7 @@ public class Round {
         return firstHint;
     }
 
-    public ArrayList<Turn> getTurns() {
+    public Set<Turn> getTurns() {
         return turns;
     }
 
@@ -36,8 +58,9 @@ public class Round {
         //1. Als het woord nog niet gegokt is (kijkt standaard naar de laatste turn in de lijst),
         //dit werkt omdat er geen setTurns is en alles vanaf begin via de add moet!
         //2. Als de lengte van de huidige turns list niet al >= 5 is!
+        ArrayList<Turn> turns = new ArrayList<>(this.turns);
         if(this.getTurns().size() >= 1) {
-            if((!this.getTurns().get(this.getTurns().size() - 1).getGuess().getValue().equals(this.word.getValue()))
+            if((!turns.get(this.getTurns().size() - 1).getGuess().getValue().equals(this.word.getValue()))
                     && !(this.getTurns().size() >= 5)
                     && this.word.equals(turn.getWord())) {
                 return this.turns.add(turn);

@@ -1,12 +1,35 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "person")
 public class Person {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "person_id")
+    private long id;
+
+    @Column(name = "person_name")
     private String name;
+
+    //Komt account_id hier (in deze column) in of niet? Ja, is primary key van account!
+    @Column(name = "account_id")
+    @OneToOne
     private Account account;
+
+    @Column(name = "person_role")
     private Role role;
-    private ArrayList<Game> games = new ArrayList<Game>();
+
+    @OneToMany(mappedBy = "person")
+    private Set<Game> games = new HashSet<>();
+
+    public Person() {
+    }
 
     public Person(String username, String password, String name, Role role) {
         this.account = new Account(username, password);
@@ -38,7 +61,7 @@ public class Person {
         return this.games.add(game);
     }
 
-    public ArrayList<Game> getGames() {
+    public Set<Game> getGames() {
         return games;
     }
 

@@ -1,10 +1,27 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "game")
 public class Game {
+    @Id
+    @GeneratedValue
+    @Column(name = "game_id")
+    private int id;
+
+    @Column(name = "person_id")
+    @ManyToOne
+    private Person person;
+
+    @Column(name = "score")
     private int score;
-    private ArrayList<Round> rounds = new ArrayList<Round>();
+
+    @OneToMany(mappedBy = "game")
+    private Set<Round> rounds = new HashSet<>();
 
     public Game() {
         this.score = 100;
@@ -26,7 +43,7 @@ public class Game {
         return this.rounds.add(round);
     }
 
-    public ArrayList<Round> getRounds() {
+    public Set<Round> getRounds() {
         return rounds;
     }
 

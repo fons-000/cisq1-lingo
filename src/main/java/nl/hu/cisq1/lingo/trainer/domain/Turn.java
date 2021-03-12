@@ -1,13 +1,33 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Entity
+@Table(name = "turn")
 public class Turn {
+    @Id
+    @Column(name = "turn_round")
+    private int turn_round;
+
+    @Transient
     private Feedback feedback;
+
+    @Column(name = "round_game")
+    @ManyToOne
+    private Round round;
+
+    @Column(name = "turn_hint")
+    @OneToOne
     private Word hint;
+
+    @Column(name = "turn_guess")
+    @OneToOne
     private Word guess;
-    //word moet later verwijderd worden als er een service laag is!
+
+    //Moet later verwijderd worden als er een service laag is!
+    @Transient
     private Word word;
 
     public Turn() {

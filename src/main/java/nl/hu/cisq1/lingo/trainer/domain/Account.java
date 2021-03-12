@@ -1,11 +1,28 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.security.Principal;
 
+@Entity
+@Table(name = "account")
 public class Account implements Serializable, Principal {
+    @Id
+    @GeneratedValue
+    @Column(name = "account_id")
+    private int id;
+
+    @OneToOne(mappedBy = "account")
+    private Person person;
+
+    @Column(name = "username", unique = true)
     private String username;
+
+    @Column(name = "account_password")
     private String password;
+
+    public Account() {
+    }
 
     public Account(String username, String password) {
         this.username = username;
@@ -34,6 +51,16 @@ public class Account implements Serializable, Principal {
 
     @Override
     public String getName() {
+        return username;
+    }
+
+    //Negeer dit in codecoverage
+    public int getId() {
+        return id;
+    }
+
+    //Negeer dit in codecoverage
+    public String getUsername() {
         return username;
     }
 }
