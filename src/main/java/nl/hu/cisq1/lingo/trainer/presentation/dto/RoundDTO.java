@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class RoundDTO {
     private int roundOfGame;
     private Word firstHint;
-    private ArrayList<TurnDTO> turnDTOS = new ArrayList<TurnDTO>();
+    private ArrayList<TurnDTO> turnDTOS;
 
     public RoundDTO(int roundOfGame, Word firstHint, ArrayList<TurnDTO> turnDTOS) {
         this.roundOfGame = roundOfGame;
@@ -27,13 +27,13 @@ public class RoundDTO {
         return roundDTO;
     }
 
-//    public int getRoundOfGame() {
-//        return roundOfGame;
-//    }
-//
-//    public Word getFirstHint() {
-//        return firstHint;
-//    }
+    public int getRoundOfGame() {
+        return roundOfGame;
+    }
+
+    public Word getFirstHint() {
+        return firstHint;
+    }
 
     public ArrayList<TurnDTO> getTurnDTOS() {
         return turnDTOS;

@@ -1,7 +1,7 @@
 package nl.hu.cisq1.lingo.words;
 
 import nl.hu.cisq1.lingo.words.data.SpringWordRepository;
-import nl.hu.cisq1.lingo.words.domain.WordEntity;
+import nl.hu.cisq1.lingo.trainer.domain.Word;
 import org.springframework.boot.CommandLineRunner;
 
 public class WordTestDataFixtures implements CommandLineRunner {
@@ -13,8 +13,8 @@ public class WordTestDataFixtures implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.repository.save(new WordEntity("pizza"));
-        this.repository.save(new WordEntity("oranje"));
-        this.repository.save(new WordEntity("wanorde"));
+        this.repository.save(new Word("pizza"));
+        this.repository.save(new Word("oranje"));
+        this.repository.save(new Word("wanorde"));
     }
 }

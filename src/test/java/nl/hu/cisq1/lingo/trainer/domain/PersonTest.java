@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -220,11 +221,12 @@ public class PersonTest {
     @Test
     @DisplayName("Addgame function works")
     void addGame() {
-        ArrayList<Game> gamesList = person.getGames();
+        Set<Game> gamesList = person.getGames();
         assertEquals(0, gamesList.size());
         Game game = new Game(200);
         assertTrue(person.addGame(game));
         assertEquals(1, gamesList.size());
-        assertEquals(200, gamesList.get(0).getScore());
+        ArrayList<Game> gamesArrayList = new ArrayList<>(gamesList);
+        assertEquals(200, gamesArrayList.get(0).getScore());
     }
 }

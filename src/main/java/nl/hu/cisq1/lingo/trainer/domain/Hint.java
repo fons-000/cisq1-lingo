@@ -4,9 +4,6 @@ import java.util.Optional;
 
 public class Hint extends Word {
 
-    public Hint() {
-    }
-
     public Hint(String word) {
         super(word);
     }

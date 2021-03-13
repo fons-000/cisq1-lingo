@@ -184,20 +184,4 @@ public class GuessTest {
             Guess guess = Guess.createValidGuess("");
         });
     }
-
-//    @ParameterizedTest
-//    @MethodSource("wordExamples")
-//    @DisplayName("equalFunctionValueIsDifferentTest")
-//    void valueLengthPropertyDifferent(Word word) {
-//        Guess guess = new Guess("WOWSIE");
-//        assertNotEquals(guess, word);
-//    }
-//
-//    static Stream<Arguments> wordExamples() {
-//        return Stream.of(
-//                Arguments.of(new Word("BOTER")),
-//                Arguments.of(new Word("ACTING")),
-//                Arguments.of(new Word("ADVANCE"))
-//        );
-//    }
 }

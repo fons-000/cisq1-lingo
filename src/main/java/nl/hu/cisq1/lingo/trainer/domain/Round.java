@@ -1,15 +1,16 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "round")
-public class Round {
+public class Round implements Serializable {
     @Id
-    @Column(name = "game_id")
+    @JoinColumn(name = "game_id")
     @ManyToOne
     private Game game;
 
@@ -17,16 +18,16 @@ public class Round {
     @Column(name = "round_game")
     private int roundOfGame;
 
-    @Column(name = "word")
-    @OneToOne(mappedBy = "round")
+    @JoinColumn(name = "word")
+    @OneToOne
     private Word word;
 
-    @Column(name = "first_hint")
-    @OneToOne(mappedBy = "round")
+    @JoinColumn(name = "first_hint")
+    @OneToOne
     private Word firstHint;
 
     @OneToMany(mappedBy = "round")
-    private Set<Turn> turns = new HashSet<>();
+    private Set<Turn> turns = new LinkedHashSet<>();
 
     public Round() {
     }

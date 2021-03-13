@@ -67,6 +67,24 @@ CREATE TABLE turn (
           REFERENCES words(word)
 );
 
+ALTER TABLE account
+    OWNER TO cisq1-lingo;
+
+ALTER TABLE person
+    OWNER TO cisq1-lingo;
+
+ALTER TABLE game
+    OWNER TO cisq1-lingo;
+
+ALTER TABLE round
+    OWNER TO cisq1-lingo;
+
+ALTER TABLE words
+    OWNER TO cisq1-lingo;
+
+ALTER TABLE turn
+    OWNER TO cisq1-lingo;
+
 -- Extracted from: https://github.com/OpenTaal/opentaal-wordlist/
 INSERT INTO words (word, length) VALUES 
 	('aagje', 5),

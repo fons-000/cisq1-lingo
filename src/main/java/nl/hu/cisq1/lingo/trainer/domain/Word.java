@@ -14,8 +14,11 @@ public class Word {
     @Column(name = "length")
     private Integer length;
 
-    @OneToOne
+    @OneToOne(mappedBy = "word")
     private Round round;
+
+    @OneToOne(mappedBy = "firstHint")
+    private Round round1;
 
     @OneToOne(mappedBy = "hint")
     private Turn turn;

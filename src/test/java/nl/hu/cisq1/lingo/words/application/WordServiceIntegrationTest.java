@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  **/
 @SpringBootTest
 @Import(CiTestConfiguration.class)
-class WordEntityServiceIntegrationTest {
+class WordServiceIntegrationTest {
     //Servicetest will be fixed after implementation of Hibernate in the next
     //sub-assignment
 

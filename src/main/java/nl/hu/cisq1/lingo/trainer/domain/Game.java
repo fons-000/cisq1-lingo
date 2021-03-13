@@ -1,8 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +12,7 @@ public class Game {
     @Column(name = "game_id")
     private int id;
 
-    @Column(name = "person_id")
+    @JoinColumn(name = "person_id")
     @ManyToOne
     private Person person;
 
@@ -21,7 +20,7 @@ public class Game {
     private int score;
 
     @OneToMany(mappedBy = "game")
-    private Set<Round> rounds = new HashSet<>();
+    private Set<Round> rounds = new LinkedHashSet<>();
 
     public Game() {
         this.score = 100;

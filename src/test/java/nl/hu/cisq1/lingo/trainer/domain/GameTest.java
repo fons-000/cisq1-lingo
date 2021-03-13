@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,7 +85,7 @@ public class GameTest {
     void wrongAttributesObject() {
         Game game2 = new Game(250);
         Word word = Word.createValidWord("THEFIRE");
-        ArrayList<Round> roundsList = game2.getRounds();
+        Set<Round> roundsList = game2.getRounds();
         int currentRounds = roundsList.size();
         int nextRoundId = currentRounds + 1;
         Round round = new Round(word, nextRoundId);
@@ -98,7 +99,7 @@ public class GameTest {
     void wrongRounds() {
         Game game2 = new Game(300);
         Word word = Word.createValidWord("THEFIRE");
-        ArrayList<Round> roundsList = game2.getRounds();
+        Set<Round> roundsList = game2.getRounds();
         int currentRounds = roundsList.size();
         int nextRoundId = currentRounds + 1;
         Round round = new Round(word, nextRoundId);
@@ -117,7 +118,7 @@ public class GameTest {
     @Test
     @DisplayName("Add round function works")
     void addRound() {
-        ArrayList<Round> roundsList = game.getRounds();
+        Set<Round> roundsList = game.getRounds();
         assertEquals(0, roundsList.size());
         //When the letters of a Word are not in the enum Letters, a NoSuchElementException gets thrown.
         assertThrows(NoSuchElementException.class, () -> {
@@ -130,6 +131,7 @@ public class GameTest {
         Round round = new Round(word, nextRoundId);
         assertTrue(game.addRound(round));
         assertEquals(1, roundsList.size());
-        assertSame("THEFIRE", roundsList.get(0).getWord().getValue());
+        ArrayList<Round> roundsArrayList = new ArrayList<>(roundsList);
+        assertSame("THEFIRE", roundsArrayList.get(0).getWord().getValue());
     }
 }

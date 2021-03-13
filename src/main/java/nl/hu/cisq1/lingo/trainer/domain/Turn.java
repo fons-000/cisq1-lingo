@@ -14,15 +14,18 @@ public class Turn {
     @Transient
     private Feedback feedback;
 
-    @Column(name = "round_game")
+    @JoinColumns( {
+            @JoinColumn(name = "round_game", referencedColumnName = "round_game"),
+            @JoinColumn(name = "game_id", referencedColumnName = "game_id")
+    })
     @ManyToOne
     private Round round;
 
-    @Column(name = "turn_hint")
+    @JoinColumn(name = "turn_hint")
     @OneToOne
     private Word hint;
 
-    @Column(name = "turn_guess")
+    @JoinColumn(name = "turn_guess")
     @OneToOne
     private Word guess;
 

@@ -1,7 +1,7 @@
 package nl.hu.cisq1.lingo.words.application;
 
 import nl.hu.cisq1.lingo.words.data.SpringWordRepository;
-import nl.hu.cisq1.lingo.words.domain.WordEntity;
+import nl.hu.cisq1.lingo.trainer.domain.Word;
 import nl.hu.cisq1.lingo.words.domain.exception.WordLengthNotSupportedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
  * - its methods are called by the test framework instead of a controller
  * - the WordService calls a test double instead of an actual repository
  */
-class WordEntityServiceTest {
+class WordServiceTest {
 
     @ParameterizedTest
     @DisplayName("requests a random word of a specified length from the repository")
@@ -32,7 +32,7 @@ class WordEntityServiceTest {
     void providesRandomWord(int wordLength, String word) {
         SpringWordRepository mockRepository = mock(SpringWordRepository.class);
         when(mockRepository.findRandomWordByLength(wordLength))
-                .thenReturn(Optional.of(new WordEntity(word)));
+                .thenReturn(Optional.of(new Word(word)));
 
         WordService service = new WordService(mockRepository);
         String result = service.provideRandomWord(wordLength);

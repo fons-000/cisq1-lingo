@@ -15,6 +15,8 @@ public class RoundDTOTest {
     //Voor RoundDTO gaan we kijken of de waardes die in een round object zou zitten (zie RoundTest)
     //ook in RoundDTO zit, als deze round meegegeven wordt in de constructor.
 
+    //Kijk indirect of de getRoundOfGame & getFirstHint goed werken.
+
     Turn turn = new Turn();
     Turn turn2 = new Turn();
     Turn turn3 = new Turn();
@@ -137,6 +139,11 @@ public class RoundDTOTest {
         //---------------------------------------
         //Kijk of de waarde van de turn goed in de Round verwerkt is.
         //Doe dit vervolgens ook voor meerdere turns en check of de gegevens correct zijn + het niet 5 turns overscheidt.
+        //---------------------------------------
+        //---------------------------------------
+        //Kijken of de juiste roundOfGame & firstHint erin zitten
+        assertSame(1, roundDTO.getRoundOfGame());
+        assertEquals("H", roundDTO.getFirstHint().getValue());
         //---------------------------------------
         //Checking turn 1
         //---------------------------------------

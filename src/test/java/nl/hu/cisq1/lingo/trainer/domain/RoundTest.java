@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -146,12 +148,14 @@ public class RoundTest {
         //Kijk of de waarde van de turn goed in de Round verwerkt is.
         //Doe dit vervolgens ook voor meerdere turns en check of de gegevens correct zijn + het niet 5 turns overscheidt.
         //---------------------------------------
+        ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
+        //---------------------------------------
         //Checking turn 1
         //---------------------------------------
-        String wordTurnString = round.getTurns().get(0).getWord().getValue();
-        String hintTurnString = round.getTurns().get(0).getHint().getValue();
-        String guessTurnString = round.getTurns().get(0).getGuess().getValue();
-        Feedback feedbackTurn = round.getTurns().get(0).getFeedback();
+        String wordTurnString = turns.get(0).getWord().getValue();
+        String hintTurnString = turns.get(0).getHint().getValue();
+        String guessTurnString = turns.get(0).getGuess().getValue();
+        Feedback feedbackTurn = turns.get(0).getFeedback();
 
         assertEquals("HAMER", wordTurnString);
         assertEquals("HAM..", hintTurnString);
@@ -179,10 +183,10 @@ public class RoundTest {
         //---------------------------------------
         //Checking turn 2
         //---------------------------------------
-        String wordTurnString11 = round.getTurns().get(1).getWord().getValue();
-        String hintTurnString11 = round.getTurns().get(1).getHint().getValue();
-        String guessTurnString11 = round.getTurns().get(1).getGuess().getValue();
-        Feedback feedbackTurn11 = round.getTurns().get(1).getFeedback();
+        String wordTurnString11 = turns.get(1).getWord().getValue();
+        String hintTurnString11 = turns.get(1).getHint().getValue();
+        String guessTurnString11 = turns.get(1).getGuess().getValue();
+        Feedback feedbackTurn11 = turns.get(1).getFeedback();
 
         assertEquals("HAMER", wordTurnString11);
         assertEquals("HAM..", hintTurnString11);
@@ -206,10 +210,10 @@ public class RoundTest {
         //---------------------------------------
         //Checking turn 3
         //---------------------------------------
-        String wordTurnString12 = round.getTurns().get(2).getWord().getValue();
-        String hintTurnString12 = round.getTurns().get(2).getHint().getValue();
-        String guessTurnString12 = round.getTurns().get(2).getGuess().getValue();
-        Feedback feedbackTurn12 = round.getTurns().get(2).getFeedback();
+        String wordTurnString12 = turns.get(2).getWord().getValue();
+        String hintTurnString12 = turns.get(2).getHint().getValue();
+        String guessTurnString12 = turns.get(2).getGuess().getValue();
+        Feedback feedbackTurn12 = turns.get(2).getFeedback();
 
         assertEquals("HAMER", wordTurnString12);
         assertEquals("HAM..", hintTurnString12);
@@ -233,10 +237,10 @@ public class RoundTest {
         //---------------------------------------
         //Checking turn 4
         //---------------------------------------
-        String wordTurnString13 = round.getTurns().get(3).getWord().getValue();
-        String hintTurnString13 = round.getTurns().get(3).getHint().getValue();
-        String guessTurnString13 = round.getTurns().get(3).getGuess().getValue();
-        Feedback feedbackTurn13 = round.getTurns().get(3).getFeedback();
+        String wordTurnString13 = turns.get(3).getWord().getValue();
+        String hintTurnString13 = turns.get(3).getHint().getValue();
+        String guessTurnString13 = turns.get(3).getGuess().getValue();
+        Feedback feedbackTurn13 = turns.get(3).getFeedback();
 
         assertEquals("HAMER", wordTurnString13);
         assertEquals("HAME.", hintTurnString13);
@@ -260,10 +264,10 @@ public class RoundTest {
         //---------------------------------------
         //Checking turn 5
         //---------------------------------------
-        String wordTurnString14 = round.getTurns().get(4).getWord().getValue();
-        String hintTurnString14 = round.getTurns().get(4).getHint().getValue();
-        String guessTurnString14 = round.getTurns().get(4).getGuess().getValue();
-        Feedback feedbackTurn14 = round.getTurns().get(4).getFeedback();
+        String wordTurnString14 = turns.get(4).getWord().getValue();
+        String hintTurnString14 = turns.get(4).getHint().getValue();
+        String guessTurnString14 = turns.get(4).getGuess().getValue();
+        Feedback feedbackTurn14 = turns.get(4).getFeedback();
 
         assertEquals("HAMER", wordTurnString14);
         assertEquals("HAME.", hintTurnString14);
@@ -341,13 +345,13 @@ public class RoundTest {
         Guess guess2 = new Guess("GUES");
         Hint hint2 = new Hint("G");
         Word word2 = new Word("GUESSING");
-        Turn turn2 = new Turn(hint2, guess2, word2);
 
         //roundOfGame maakt nog niet zoveel uit, dit wordt later opgevangen in de service.
         //Dit kan je voor nu even negeren. Wordt ook opgevangen in de GameTest
         //Hier wordt ten minste 1, zelfs meer turns gezet.
         Round round = new Round(word1, 25);
         for(int i = 0; i < (turnAmount - 1); i++) {
+            Turn turn2 = new Turn(hint2, guess2, word2);
             round.addTurn(turn2);
         }
 

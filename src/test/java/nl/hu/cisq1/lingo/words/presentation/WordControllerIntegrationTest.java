@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Import(CiTestConfiguration.class)
 @AutoConfigureMockMvc
-class WordEntityControllerIntegrationTest {
+class WordControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

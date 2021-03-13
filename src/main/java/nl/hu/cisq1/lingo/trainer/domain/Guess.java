@@ -4,9 +4,6 @@ import java.util.Optional;
 
 public class Guess extends Word {
 
-    public Guess() {
-    }
-
     public Guess(String word) {
         super(word);
     }

@@ -53,14 +53,5 @@ public class Account implements Serializable, Principal {
     public String getName() {
         return username;
     }
-
-    //Negeer dit in codecoverage
-    public int getId() {
-        return id;
-    }
-
-    //Negeer dit in codecoverage
-    public String getUsername() {
-        return username;
-    }
+    //Mogelijk nog getters toevoegen in het project?
 }
