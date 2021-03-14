@@ -29,7 +29,6 @@ public class Turn {
     @OneToOne
     private Word guess;
 
-    //Moet later verwijderd worden als er een service laag is!
     @Transient
     private Word word;
 

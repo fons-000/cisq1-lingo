@@ -23,7 +23,7 @@ public class GameTest {
     //	3.4 Goede klasse, met goede waardes => goed
     //	3.5 Goede klasse, met foute waardes => fout
     //4. Werkt de addRound functie?
-    Game game = new Game(300);
+    Game game = new Game();
 
     @AfterEach
     public void after() {
@@ -36,14 +36,6 @@ public class GameTest {
         Game game = new Game();
         int score = game.getScore();
         assertEquals(100, score);
-    }
-
-    @Test
-    @DisplayName("Creating score has the right attribute")
-    void creatingPerson() {
-        Game game = new Game(500);
-        int score = game.getScore();
-        assertEquals(500, score);
     }
 
     @Test
@@ -76,14 +68,15 @@ public class GameTest {
     @Test
     @DisplayName("Equal function test #4: Object with right class & attribitues")
     void sameAttributesObject() {
-        Game game2 = new Game(300);
+        Game game2 = new Game();
         assertEquals(game, game2);
     }
 
     @Test
     @DisplayName("Equal function test #5: Object with right class & wrong attribitues")
     void wrongAttributesObject() {
-        Game game2 = new Game(250);
+        Game game2 = new Game();
+        game2.setScore(250);
         Word word = Word.createValidWord("THEFIRE");
         Set<Round> roundsList = game2.getRounds();
         int currentRounds = roundsList.size();
@@ -97,7 +90,8 @@ public class GameTest {
     @Test
     @DisplayName("Equal function test #6: Object with right class & score but not the same rounds")
     void wrongRounds() {
-        Game game2 = new Game(300);
+        Game game2 = new Game();
+        game2.setScore(300);
         Word word = Word.createValidWord("THEFIRE");
         Set<Round> roundsList = game2.getRounds();
         int currentRounds = roundsList.size();
@@ -111,7 +105,8 @@ public class GameTest {
     @Test
     @DisplayName("Equal function test #7: Object with right class & round but not the same score")
     void wrongScore() {
-        Game game2 = new Game(250);
+        Game game2 = new Game();
+        game2.setScore(250);
         assertNotEquals(game, game2);
     }
 

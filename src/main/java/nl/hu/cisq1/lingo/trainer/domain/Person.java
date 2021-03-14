@@ -21,6 +21,7 @@ public class Person {
     private Account account;
 
     @Column(name = "person_role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "person")

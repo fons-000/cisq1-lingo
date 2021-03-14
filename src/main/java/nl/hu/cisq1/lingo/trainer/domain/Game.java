@@ -26,10 +26,6 @@ public class Game {
         this.score = 100;
     }
 
-    public Game(int score) {
-        this.score = score;
-    }
-
     public int getScore() {
         return score;
     }
@@ -46,11 +42,16 @@ public class Game {
         return rounds;
     }
 
+    public void setRounds(Set<Round> rounds) {
+        this.rounds = rounds;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return score == game.score && rounds.equals(game.rounds);
+        return score == game.score
+                & rounds.equals(game.rounds);
     }
 }

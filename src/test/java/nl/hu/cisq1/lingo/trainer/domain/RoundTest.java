@@ -113,6 +113,13 @@ public class RoundTest {
         turn4.setFeedback(feedback4);
     }
 
+    @Test
+    @DisplayName("createEmptyRoundInstance")
+    void createEmptyRoundInstance() {
+        Round round = new Round();
+        assertSame(Round.class, round.getClass());
+    }
+
 
     @Test
     @DisplayName("Creating round object works with the right property's "+

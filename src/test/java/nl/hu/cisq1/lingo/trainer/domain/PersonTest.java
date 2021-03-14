@@ -223,10 +223,10 @@ public class PersonTest {
     void addGame() {
         Set<Game> gamesList = person.getGames();
         assertEquals(0, gamesList.size());
-        Game game = new Game(200);
+        Game game = new Game();
         assertTrue(person.addGame(game));
         assertEquals(1, gamesList.size());
         ArrayList<Game> gamesArrayList = new ArrayList<>(gamesList);
-        assertEquals(200, gamesArrayList.get(0).getScore());
+        assertEquals(100, gamesArrayList.get(0).getScore());
     }
 }
