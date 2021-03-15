@@ -46,6 +46,14 @@ public class Game {
         this.rounds = rounds;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
