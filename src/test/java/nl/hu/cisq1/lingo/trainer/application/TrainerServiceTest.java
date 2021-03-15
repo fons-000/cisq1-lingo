@@ -53,7 +53,7 @@ public class TrainerServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("gameExamples")
+    @MethodSource("guessTestExamples")
     @DisplayName("guessTest, will add a valid Turn to the Round of the game if the round isn't over")
     void guess(Game game, Guess guess, int amountOfTurns) {
         Optional<Game> optionalGame = service.guess(game, guess);
@@ -115,7 +115,30 @@ public class TrainerServiceTest {
         }
     }
 
-    static Stream<Arguments> gameExamples() {
+    @ParameterizedTest
+    @MethodSource("startNewRoundExampels")
+    @DisplayName("startNewRound, will add a new round appropiately to it's previous round")
+    void startNewRound(Game game, String expedtedWordNextRound, int expectedWordLengthNextRound, int expectedRounds) {
+        when(wordService.provideRandomWord(5)).thenReturn("FUZZY");
+        when(wordService.provideRandomWord(6)).thenReturn("BUZZER");
+        when(wordService.provideRandomWord(7)).thenReturn("ACADEMY");
+
+        Optional<Game> optionalGame = service.startNewRound(game);
+        if(expectedWordLengthNextRound == 0) {
+            assertThrows(NoSuchElementException.class, () -> {
+                Game game1 = optionalGame.orElseThrow();
+            });
+        }
+        else {
+            Game game1 = optionalGame.orElseThrow();
+            List<Round> gameRounds = new ArrayList<>(game1.getRounds());
+            assertSame(expectedWordLengthNextRound, gameRounds.get(gameRounds.size() - 1).getWord().getLength());
+            assertSame(expedtedWordNextRound, gameRounds.get(gameRounds.size() - 1).getWord().getValue());
+            assertSame(expectedRounds, gameRounds.size());
+        }
+    }
+
+    static Stream<Arguments> guessTestExamples() {
         Game game = new Game();
         Round round = new Round(new Word("PUZZLE"), game.getRounds().size() + 1);
         game.addRound(round);
@@ -138,6 +161,53 @@ public class TrainerServiceTest {
                 //3. Er zijn voorgaande rounds, en er zitten turns in de laatste ronde.
                 //= Game object met nog toegevoegde turn aan laatste round met de juiste values De word van de turn is goed.
                 Arguments.of(game2, new Guess("PACKS"), 2)
+        );
+    }
+
+    static Stream<Arguments> startNewRoundExampels() {
+        //5 letter word next round
+        Game game = new Game();
+
+        //5 letter word next round
+        Game game1 = new Game();
+        Round round1 = new Round(new Word("JAZZING"), game1.getRounds().size() + 1);
+        Turn turn1 = new Turn(round1.getFirstHint(), new Guess("JAZZING"), round1.getWord());
+        round1.addTurn(turn1);
+        game1.addRound(round1);
+
+        //6 letter next round
+        Game game2 = new Game();
+        Round round2 = new Round(new Word("DIZZY"), game2.getRounds().size() + 1);
+        Turn turn2 = new Turn(round2.getFirstHint(), new Guess("DIZZY"), round2.getWord());
+        round2.addTurn(turn2);
+        game2.addRound(round2);
+
+        //7 letter next round
+        Game game3 = new Game();
+        Round round3 = new Round(new Word("FUZZES"), game3.getRounds().size() + 1);
+        Turn turn3 = new Turn(round3.getFirstHint(), new Guess("FUZZES"), round3.getWord());
+        round3.addTurn(turn3);
+        game3.addRound(round3);
+
+        //Optional.empty
+        Game game4 = new Game();
+        Round round4 = new Round(new Word("WHIZZY"), game4.getRounds().size() + 1);
+        Turn turn4 = new Turn(round4.getFirstHint(), new Guess("WADDLE"), round4.getWord());
+        round4.addTurn(turn4);
+        game4.addRound(round4);
+
+        return Stream.of(
+                //1. Er zijn geen rounds = 5 letter word next round.
+                Arguments.of(game, "FUZZY", 5, 1),
+                //2. Er zijn al rounds, het woord is al geraden in de laatste turn van de round
+                //en de vorige round woordlengte was 7 = 5 letter woord next round.
+                Arguments.of(game1, "FUZZY", 5, 2),
+                //3. Er zijn al rounds, het woord is al geraden in de laatste turn van de round en de vorige round woordlengte was 5 = 6 letter woord next round.
+                Arguments.of(game2, "BUZZER", 6, 2),
+                //4. Er zijn al rounds, het woord is al geraden in de laatste turn van de round en de vorige round woordlengte was 6 = 7 letter woord next round.
+                Arguments.of(game3, "ACADEMY", 7, 2),
+                //5. Er zijn al rounds en het woord is nog niet geraden = Optional.empty
+                Arguments.of(game4, "", 0, 0)
         );
     }
 }

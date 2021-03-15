@@ -43,6 +43,13 @@ class WordTest {
     Word word= new Word("DRAGON");
 
     @Test
+    @DisplayName("createEmptyWordInstance")
+    void createEmptyWordInstance() {
+        Word word = new Word();
+        assertSame(Word.class, word.getClass());
+    }
+
+    @Test
     @DisplayName("Equal function test #1: Equal object")
     void equalObject() {
         assertEquals(word, word);

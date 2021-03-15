@@ -88,6 +88,13 @@ public class PersonTest {
     }
 
     @Test
+    @DisplayName("createEmptyPersonInstance")
+    void createEmptyPersonInstance() {
+        Person person = new Person();
+        assertSame(Person.class, person.getClass());
+    }
+
+    @Test
     @DisplayName("Equal function test #1: Equal object")
     void equalObject() {
         assertEquals(person, person);

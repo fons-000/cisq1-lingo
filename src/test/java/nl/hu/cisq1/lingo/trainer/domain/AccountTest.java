@@ -26,6 +26,13 @@ public class AccountTest {
     }
 
     @Test
+    @DisplayName("createEmptyAccountInstance")
+    void createEmptyRoundInstance() {
+        Account account = new Account();
+        assertSame(Account.class, account.getClass());
+    }
+
+    @Test
     @DisplayName("Creating account has the right attributes")
     void creatingAccount() {
         Account account = new Account("FS Fons", "1234");

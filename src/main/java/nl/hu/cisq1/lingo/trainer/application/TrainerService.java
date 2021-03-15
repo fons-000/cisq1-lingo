@@ -6,11 +6,9 @@ import nl.hu.cisq1.lingo.trainer.domain.*;
 import nl.hu.cisq1.lingo.words.application.WordService;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -77,5 +75,42 @@ public class TrainerService {
             return Optional.of(game);
         }
         return Optional.empty();
+    }
+
+    public Optional<Game> startNewRound(Game game) {
+        Word word;
+        if(game.getRounds().size() > 0) {
+            List<Round> roundsGame = new ArrayList<>(game.getRounds());
+            List<Turn> turnsLastRound = new ArrayList<>(roundsGame.get(roundsGame.size() - 1).getTurns());
+
+            //Kijk of het woord al geraden is.
+            Word lastRoundWord = roundsGame.get(roundsGame.size() - 1).getWord();
+            Word lastTurnGuess = turnsLastRound.get(turnsLastRound.size() - 1).getGuess();
+            if(lastRoundWord.equals(lastTurnGuess)) {
+                //Als het woord geraden is, maak een nieuwe ronde aan en voeg deze toe aan de game.
+                //Voeg aan de hand van de vorige lengte van het word van de round een nieuw word aan de nieuwe round toe.
+                if(lastRoundWord.getLength() == 5) {
+                    word = new Word(wordService.provideRandomWord(6));
+                }
+                else if(lastRoundWord.getLength() == 6) {
+                    word = new Word(wordService.provideRandomWord(7));
+                }
+                else {
+                    word = new Word(wordService.provideRandomWord(5));
+                }
+                Round round = new Round(word, game.getRounds().size() + 1);
+                game.addRound(round);
+
+                return Optional.of(game);
+            }
+            //Als het woord niet geraden is, dan moeten er nog turns gespeeld worden of er moet een nieuw spel gestart worden.
+            return Optional.empty();
+        }
+        //Als er nog geen rondes in het spel zijn, voeg dan een round toe.
+        word = new Word(wordService.provideRandomWord(5));
+        Round round = new Round(word, game.getRounds().size() + 1);
+        game.addRound(round);
+
+        return Optional.of(game);
     }
 }
