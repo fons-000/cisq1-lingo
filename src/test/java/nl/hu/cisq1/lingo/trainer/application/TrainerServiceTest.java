@@ -3,6 +3,7 @@ package nl.hu.cisq1.lingo.trainer.application;
 import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.*;
 import nl.hu.cisq1.lingo.words.application.WordService;
+import org.checkerframework.checker.nullness.Opt;
 import org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,25 +59,30 @@ public class TrainerServiceTest {
     @DisplayName("guessTest, will add a valid Turn to the Round of the game if the round isn't over")
     void guess(Game game, Guess guess, int amountOfTurns) {
         Optional<Game> optionalGame = service.guess(game, guess);
-        Game game2;
+        Game game2 = null;
         List<Round> gameRounds;
         List<Turn> turnsRound = null;
         Turn turn;
 
-        if(amountOfTurns == 0 || amountOfTurns == 20) {
+        if(amountOfTurns == 0) {
             assertThrows(NoSuchElementException.class, () -> {
                 Game game1 = optionalGame.orElseThrow();
             });
         }
 
-        if(amountOfTurns == 1 || amountOfTurns == 2) {
+        if(amountOfTurns == 1 || amountOfTurns == 2 || amountOfTurns == 12) {
             game2 = optionalGame.orElseThrow();
             gameRounds = new ArrayList<>(game2.getRounds());
             assertSame(1, gameRounds.size());
             turnsRound = new ArrayList<>(gameRounds.get(0).getTurns());
 
             //amountOfTurns in de round klopt
-            assertSame(amountOfTurns, turnsRound.size());
+            if(amountOfTurns == 1 || amountOfTurns == 2) {
+                assertSame(amountOfTurns, turnsRound.size());
+            }
+            else {
+                assertSame(1, turnsRound.size());
+            }
         }
 
         if(amountOfTurns == 1) {
@@ -89,7 +96,28 @@ public class TrainerServiceTest {
 
             //Word in de turn klopt
             assertEquals("PUZZLE", turn.getWord().getValue());
+
+            //De score van de game is hetzelfde gebleven (het woord is nog niet geraden)
+            assertSame(100, game2.getScore());
         }
+
+        else if(amountOfTurns == 12) {
+            turn = turnsRound.get(0);
+
+            //Hint in de turn klopt
+            assertEquals("A", turn.getHint().getValue());
+
+            //Guess in de turn klopt
+            assertEquals("ABILLITY", turn.getGuess().getValue());
+
+            //Word in de turn klopt
+            assertEquals("ABILLITY", turn.getWord().getValue());
+
+            //De score van de game is opgehoogd met 25 (in 1 turn geraden)
+            assertSame(125, game2.getScore());
+        }
+
+
         else if (amountOfTurns == 2) {
             turn = turnsRound.get(0);
 
@@ -112,6 +140,9 @@ public class TrainerServiceTest {
 
             //Word in de tweede turn klopt
             assertEquals("PEACE", turn.getWord().getValue());
+
+            //De score van de game is hetzelfde gebleven (het woord is nog niet geraden)
+            assertSame(100, game2.getScore());
         }
     }
 
@@ -138,6 +169,31 @@ public class TrainerServiceTest {
         }
     }
 
+    @Test
+    @DisplayName("getGamesByPersonTest")
+    void getGamesByPersonTest() {
+        List<Game> games = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            Game game = new Game();
+            games.add(game);
+        }
+        when(gameRepository.findByPersonId(any())).thenReturn(Optional.of(games));
+        Person person = new Person("FS Fons", "8743", "Fons", Role.PLAYER);
+
+        Optional<List<Game>> gamesList = service.getGamesByPerson(person);
+        assertEquals(Optional.of(games), gamesList);
+    }
+
+    @Test
+    @DisplayName("getGameById")
+    void getGameById() {
+        Game game = new Game();
+        when(gameRepository.findById(any())).thenReturn(Optional.of(game));
+
+        Optional<Game> game1 = service.getGameById(1);
+        assertEquals(Optional.of(game), game1);
+    }
+
     static Stream<Arguments> guessTestExamples() {
         Game game = new Game();
         Round round = new Round(new Word("PUZZLE"), game.getRounds().size() + 1);
@@ -151,16 +207,28 @@ public class TrainerServiceTest {
         round2.addTurn(turn2);
         game2.addRound(round2);
 
+        Game game3 = new Game();
+        Round round3 = new Round(new Word("ABILLITY"), game.getRounds().size() + 1);
+        game3.addRound(round3);
+
         return Stream.of(
-                //1. Er zijn  voorgaande rounds, en er zitten nog geen turns in de laatste ronde.
+                //1. Er is een voorgaande ronde/rondes, en er zitten nog geen turns in de laatste ronde.
+                //Het woord wordt fout gegokt.
                 //= Game object met nog toegevoegde turn aan laatste round met de juiste values
                 Arguments.of(game, new Guess("PAIDLE"), 1),
-                //2. Er zijn geen voorgaande rounds, en er zitten nog geen turns in.
+                //2. Er is geen voorgaande ronde/rondes, en er zitten nog geen turns in.
+                //Het woord wordt fout gegokt
                 //= Optional.empty
                 Arguments.of(game1, new Guess("PAIDLE"), 0),
-                //3. Er zijn voorgaande rounds, en er zitten turns in de laatste ronde.
+                //3. Er is een voorgaande ronde/rondes, en er zitten turns in de laatste ronde.
+                //Het woord wordt fout gegokt
                 //= Game object met nog toegevoegde turn aan laatste round met de juiste values De word van de turn is goed.
-                Arguments.of(game2, new Guess("PACKS"), 2)
+                Arguments.of(game2, new Guess("PACKS"), 2),
+                //1. Er is een voorgaande ronde/rondes, en er zitten nog geen turns in de laatste ronde.
+                //Het woord wordt goed gegokt.
+                //= Game object met nog toegevoegde turn aan laatste round met de juiste values
+                //12 staat in ons geval voor 1.2 (tweede test met 1 turn)
+                Arguments.of(game3, new Guess("ABILLITY"), 12)
         );
     }
 

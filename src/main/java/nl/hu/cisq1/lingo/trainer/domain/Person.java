@@ -11,7 +11,7 @@ public class Person {
     @Id
     @GeneratedValue
     @Column(name = "person_id")
-    private long id;
+    private int id;
 
     @Column(name = "person_name")
     private String name;
@@ -46,6 +46,10 @@ public class Person {
 
     public Account getAccount() {
         return account;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Role getRole() {

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "game")
 @Table(name = "game")
 public class Game {
     @Id

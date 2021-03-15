@@ -67,9 +67,18 @@ public class TrainerService {
             //2. Kijk nu of je de Turn toe kan voegen aan de laatste ronde van het spel, dit kan namelijk zo foutgaan.
 
             lastRound.addTurn(turn);
-            //1. Maak van rounds weer een set
-            //2. Set de set als rounds in de game
-            //3. Retourneer de game
+            //1. Hoog eventueel de score op
+            //2. Maak van rounds weer een set
+            //3. Set de set als rounds in de game
+            //4. Retourneer de game
+
+            ArrayList<Turn> lastRoundTurns = new ArrayList<>(lastRound.getTurns());
+            //Als het woord goed wordt geraden, van de huidige turn!
+            if(lastRoundTurns.get(lastRoundTurns.size() - 1).getGuess().equals(lastRound.getWord())) {
+                int increment = 5 * (5 - lastRoundTurns.size()) + 5;
+                game.setScore(game.getScore() + increment);
+            }
+
             Set set = new LinkedHashSet<>(rounds);
             game.setRounds(set);
             return Optional.of(game);
@@ -112,5 +121,15 @@ public class TrainerService {
         game.addRound(round);
 
         return Optional.of(game);
+    }
+
+    public Optional<Game> getGameById(int id) {
+        Optional<Game> optionalGame = springGameRepository.findById(id);
+        return optionalGame;
+    }
+
+    public Optional<List<Game>> getGamesByPerson(Person person) {
+        Optional<List<Game>> optionalGames = springGameRepository.findByPersonId(person.getId());
+        return optionalGames;
     }
 }
