@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Entity
-@Table(name = "turn")
+@Table(name = "turn",
+       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
+)
 public class Turn {
     @Id
     @Column(name = "turn_round")
@@ -14,7 +16,7 @@ public class Turn {
     @Transient
     private Feedback feedback;
 
-    @JoinColumns( {
+    @JoinColumns( value = {
             @JoinColumn(name = "round_game", referencedColumnName = "round_game"),
             @JoinColumn(name = "game_id", referencedColumnName = "game_id")
     })
@@ -59,6 +61,14 @@ public class Turn {
 
     public Word getWord() {
         return word;
+    }
+
+    public void setWord(Word word) {
+        this.word = word;
+    }
+
+    public int getTurn_round() {
+        return turn_round;
     }
 
     //Deze methode moet eerst uitgevoerd worden, en daarna moet de uitkomst geset worden in de turn,

@@ -1,5 +1,8 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ public class Round implements Serializable {
 
     @JoinColumn(name = "first_hint")
     @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     private Word firstHint;
 
     @OneToMany(mappedBy = "round")

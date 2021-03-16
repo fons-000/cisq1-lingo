@@ -53,5 +53,8 @@ public class Account implements Serializable, Principal {
     public String getName() {
         return username;
     }
-    //Mogelijk nog getters toevoegen in het project?
+
+    public int getId() {
+        return id;
+    }
 }

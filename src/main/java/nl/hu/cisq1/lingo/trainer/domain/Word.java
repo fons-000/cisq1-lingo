@@ -63,4 +63,12 @@ public class Word {
             Word word = (Word) o;
             return value.equals(word.value);
     }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "value='" + value + '\'' +
+                ", length=" + length +
+                '}';
+    }
 }
