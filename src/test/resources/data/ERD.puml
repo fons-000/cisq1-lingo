@@ -7,43 +7,42 @@ hide circle
 
 entity "game" as game {
 'Nog aanpassen
-  *game_id: NUMERIC (2, 0)        <<PK>>
-  *person_id: NUMERIC (2,0)     <<FK>>
+  *game_id: SERIAL        <<PK>>
+  *person_id: SERIAL     <<FK>>
   *score: NUMERIC (5, 0)
 }
 
 entity "round" as round {
   *round_game: NUMERIC (3, 0)        <<PK>>
-  *game_id: NUMERIC (2, 0)        <<PK>> <<FK>>
-  *word: VARCHAR (10)        <<FK2>>
-  *first_hint: VARCHAR (10)    <<FK3>>
+  *game_id: SERIAL        <<PK>> <<FK>>
+  *word: VARCHAR (16)        <<FK2>>
 }
 
 entity "turn" as turn {
     *turn_round: NUMERIC (1, 0)        <<PK>>
     *round_game: NUMERIC (3, 0)        <<PK>> <<FK1>>
-    *game_id: NUMERIC (2, 0)        <<PK>> <<FK2>>
-    *turn_guess: VARCHAR (10)        <<FK3>>
-    *turn_hint: VARCHAR (10)        <<FK4>>
+    *game_id: SERIAL        <<PK>> <<FK2>>
+    *turn_guess: VARCHAR (16)
+    *turn_hint: VARCHAR (16)
 }
 
 entity "words" as word {
 'Later in de configuratie aanpassen naar word
-  *word: VARCHAR (10)        <<PK>>
+  *word: VARCHAR (16)        <<PK>>
   *length: NUMERIC (1, 0)
 }
 
 entity "person" as person {
 'Nog aanpassen
-  *person_id NUMERIC (2, 0)        <<PK>>
+  *person_id SERIAL        <<PK>>
   *person_name: VARCHAR (1000)
-  *account_id: NUMERIC (2, 0)        <<FK>>
+  *account_id: SERIAL        <<FK>>
   *person_role: VARCHAR (20)
 }
 
 entity "account" as account {
 '    Nog aanpassen
-  *account_id: NUMERIC (2, 0)        <<PK>>
+  *account_id: SERIAL        <<PK>>
   *username: VARCHAR (20) UNIQUE
   *account_password: VARCHAR (100)
 }

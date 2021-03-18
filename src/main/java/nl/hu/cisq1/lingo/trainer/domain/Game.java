@@ -1,5 +1,8 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;

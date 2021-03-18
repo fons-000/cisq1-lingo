@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Entity
-@Table(name = "turn",
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
-)
+@Table(name = "turn")
+//       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
 public class Turn {
     @Id
     @Column(name = "turn_round")
@@ -16,6 +15,7 @@ public class Turn {
     @Transient
     private Feedback feedback;
 
+//    turn.round_game = round.round_game & turn.game_id = round.game_id
     @JoinColumns( value = {
             @JoinColumn(name = "round_game", referencedColumnName = "round_game"),
             @JoinColumn(name = "game_id", referencedColumnName = "game_id")
@@ -125,5 +125,16 @@ public class Turn {
             return Optional.empty();
         }
         return validNewHintOptional;
+    }
+
+    @Override
+    public String toString() {
+        return "Turn{" +
+                "turn_round=" + turn_round +
+                ", feedback=" + feedback +
+                ", hint=" + hint +
+                ", guess=" + guess +
+                ", word=" + word +
+                '}';
     }
 }

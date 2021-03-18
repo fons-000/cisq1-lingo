@@ -132,4 +132,8 @@ public class TrainerService {
         Optional<List<Game>> optionalGames = springGameRepository.findByPersonId(person.getId());
         return optionalGames;
     }
+
+//    public void deleteGame(Game game) {
+//        springGameRepository.delete(game);
+//    }
 }

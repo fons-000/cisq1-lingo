@@ -101,7 +101,7 @@ Feedback ||--o{ FeedbackItem : feedbackItems >
 'Letter "5...7" --o| Word: letters <
 Turn }o--|| Word : hint >
 Turn }o--|| Word : guess >
-Turn }o--|| Word : word >
+'Turn }o--|| Word : word >
 Turn }o--|| Feedback : feedback >
 Round }o--|| Word : word >
 'RoundDTO }o--|| Word : firstHint >

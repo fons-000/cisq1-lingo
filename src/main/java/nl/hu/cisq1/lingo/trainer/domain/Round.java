@@ -25,9 +25,10 @@ public class Round implements Serializable {
     @OneToOne
     private Word word;
 
-    @JoinColumn(name = "first_hint")
-    @OneToOne
-    @NotFound(action = NotFoundAction.IGNORE)
+//    @JoinColumn(name = "first_hint")
+//    @OneToOne
+//    @NotFound(action = NotFoundAction.IGNORE)
+    @Transient
     private Word firstHint;
 
     @OneToMany(mappedBy = "round")
@@ -77,5 +78,16 @@ public class Round implements Serializable {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "game=" + game +
+                ", roundOfGame=" + roundOfGame +
+                ", word=" + word +
+                ", firstHint=" + firstHint +
+                ", turns=" + turns +
+                '}';
     }
 }

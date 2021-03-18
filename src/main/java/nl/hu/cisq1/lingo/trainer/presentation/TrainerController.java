@@ -4,20 +4,19 @@
 //import nl.hu.cisq1.lingo.trainer.application.TrainerService;
 //import nl.hu.cisq1.lingo.trainer.domain.Account;
 //import nl.hu.cisq1.lingo.trainer.domain.Game;
+//import nl.hu.cisq1.lingo.trainer.domain.Guess;
 //import nl.hu.cisq1.lingo.trainer.domain.exception.ApiRequestException;
 //import nl.hu.cisq1.lingo.trainer.presentation.dto.GameDTO;
 //import nl.hu.cisq1.lingo.words.application.WordService;
 //import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 //import org.springframework.http.HttpStatus;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.client.HttpServerErrorException;
 //
 //import javax.swing.text.html.Option;
 //
-//import static org.graalvm.compiler.phases.common.DeadCodeEliminationPhase.Optionality.Optional;
+//import java.util.NoSuchElementException;
+//import java.util.Optional;
 //
 //@RestController
 //@RequestMapping("trainer")
@@ -32,8 +31,6 @@
 //            Game game = trainerService.startNewGame();
 //            GameDTO gameDTO = GameDTO.createGameDTO(game);
 //            return gameDTO;
-//        } catch (NullPointerException nullPointerException) {
-//            throw new ApiRequestException("Couldn't create game object, returns an empty object.");
 //        } catch (HttpServerErrorException.InternalServerError internalServerError) {
 //            throw new ApiRequestException("Couldn't create game!", HttpStatus.INTERNAL_SERVER_ERROR);
 //        } catch (Exception e) {
@@ -42,15 +39,17 @@
 //    }
 //
 //    @PostMapping("/games/{id}")
-//    public GameDTO startNewRound(Authentication authentication, @RequestBody int id) {
+//    public GameDTO startNewRound(@PathVariable int id) {
 //        //Later wordt authentication + id gebruikt, voor nu even achterwege laten.
 //        try {
-//            Game game = trainerService.getGameById(id);
-//            Game game = trainerService.startNewRound();
-//            GameDTO gameDTO = GameDTO.createGameDTO(game);
+//            Optional<Game> optionalGame = trainerService.getGameById(id);
+//            Game game = optionalGame.orElseThrow();
+//            Optional<Game> newOptionalGame = trainerService.startNewRound(game);
+//            Game newGame = newOptionalGame.orElseThrow();
+//            GameDTO gameDTO = GameDTO.createGameDTO(newGame);
 //            return gameDTO;
-//        } catch (NullPointerException nullPointerException) {
-//            throw new ApiRequestException("Kon geen nieuwe ronde aanmaken, retournd een leeg spel");
+//        } catch (NoSuchElementException noSuchElementException) {
+//            throw new ApiRequestException("Opgegeven game bestaat niet!");
 //        } catch (HttpServerErrorException.InternalServerError internalServerError) {
 //            throw new ApiRequestException("Spel kon niet goed gestart worden!", HttpStatus.INTERNAL_SERVER_ERROR);
 //        } catch (Exception e) {
@@ -58,5 +57,55 @@
 //        }
 //    }
 //
+//    @PostMapping("/games/{id}")
+//    public GameDTO guess(@PathVariable int id, @RequestBody String guess) {
+//        //Later wordt authentication + id gebruikt, voor nu even achterwege laten.
+//        try {
+//            Optional<Game> optionalGame = trainerService.getGameById(id);
+//            Game game = optionalGame.orElseThrow();
 //
+//            Optional<Game> newOptionalGame = trainerService.guess(game, new Guess(guess));
+//            Game newGame = newOptionalGame.orElseThrow();
+//            GameDTO gameDTO = GameDTO.createGameDTO(newGame);
+//            return gameDTO;
+//        } catch (NoSuchElementException noSuchElementException) {
+//            throw new ApiRequestException("Opgegeven game bestaat niet!");
+//        } catch (HttpServerErrorException.InternalServerError internalServerError) {
+//            throw new ApiRequestException("Spel kon niet goed gestart worden!", HttpStatus.INTERNAL_SERVER_ERROR);
+//        } catch (Exception e) {
+//            throw new ApiRequestException("Error!");
+//        }
+//    }
+//
+//    @PostMapping("/games/{id}")
+//    public GameDTO getGameById(@PathVariable int id) {
+//        //Later wordt authentication + id gebruikt, voor nu even achterwege laten.
+//        try {
+//            Optional<Game> optionalGame = trainerService.getGameById(id);
+//            Game game = optionalGame.orElseThrow();
+//            GameDTO gameDTO = GameDTO.createGameDTO(game);
+//            return gameDTO;
+//        } catch (NoSuchElementException noSuchElementException) {
+//            throw new ApiRequestException("Opgegeven game bestaat niet!");
+//        } catch (HttpServerErrorException.InternalServerError internalServerError) {
+//            throw new ApiRequestException("Spel kon niet goed gestart worden!", HttpStatus.INTERNAL_SERVER_ERROR);
+//        } catch (Exception e) {
+//            throw new ApiRequestException("Error!");
+//        }
+//    }
+//
+////    @DeleteMapping("/games/{id}")
+////    public void verwijder(@PathVariable int id) {
+////        try {
+////            Optional<Game> optionalGame = trainerService.getGameById(id);
+////            Game game = optionalGame.orElseThrow();
+////            trainerService.deleteGame(game);
+////        } catch (NoSuchElementException noSuchElementException) {
+////            throw new ApiRequestException("Opgegeven game bestaat niet!");
+////        }  catch (HttpServerErrorException.InternalServerError internalServerError) {
+////            throw new ApiRequestException("Spel kon niet goed gestart worden!", HttpStatus.INTERNAL_SERVER_ERROR);
+////        } catch (Exception e) {
+////            throw new ApiRequestException("Error!");
+////        }
+////    }
 //}

@@ -32,18 +32,20 @@ CREATE TABLE game (
                       score NUMERIC(5, 0),
                       CONSTRAINT fk_person_id
                           FOREIGN KEY(person_id)
-                              REFERENCES person(person_id)
+                              REFERENCES person(person_id) ON DELETE CASCADE
 );
 
 CREATE TABLE round (
                        round_game NUMERIC(3, 0),
                        game_id SERIAL,
                        word VARCHAR(16),
-                       first_hint VARCHAR(16),
                        PRIMARY KEY(round_game, game_id),
                        CONSTRAINT fk_word
                            FOREIGN KEY(word)
-                               REFERENCES words(word)
+                               REFERENCES words(word),
+                       CONSTRAINT fk_game_id
+                           FOREIGN KEY(game_id)
+                               REFERENCES game(game_id)
 );
 
 CREATE TABLE turn (
@@ -18556,17 +18558,17 @@ INSERT INTO game(person_id, score) VALUES
 (1, 300),
 (2, 150);
 
-INSERT INTO round(round_game, game_id, word, first_hint) VALUES
-(1, 1, 'AAGJE', 'AAGJE'),
-(2, 1, 'AAIBAAR', 'AAIBAAR'),
-(3, 1, 'NAJAAR', 'NAJAAR'),
-(1, 2, 'RISKANT', 'RISKANT'),
-(2, 2, 'WEDERGA', 'WEDERGA');
+INSERT INTO round(round_game, game_id, word) VALUES
+(1, 1, 'AAGJE'),
+(2, 1, 'AAIBAAR'),
+(3, 1, 'NAJAAR'),
+(1, 2, 'RISKANT'),
+(2, 2, 'WEDERGA');
 
 INSERT INTO turn(turn_round, round_game, game_id, turn_guess, turn_hint) VALUES
 (1, 3, 1, 'NALATEN', 'NALATEN'),
 (2, 3, 1, 'NALATEN', 'NALATEN'),
 (3, 3, 1, 'NALATEN', 'NALATEN'),
 (4, 3, 1, 'NAJAAR', 'NAJAAR'),
-(1, 1, 2, 'RISKANT', 'RISKANT'),
-(1, 2, 2, 'WEDERGA', 'WEDERGA');
+(1, 1, 2, 'AANPAK', 'AANLEG'),
+(1, 2, 2, 'RASUUR', 'VUURGOD');

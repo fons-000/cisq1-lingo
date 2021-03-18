@@ -17,8 +17,8 @@ public class Word {
     @OneToOne(mappedBy = "word")
     private Round round;
 
-    @OneToOne(mappedBy = "firstHint")
-    private Round round1;
+//    @OneToOne(mappedBy = "firstHint")
+//    private Round round1;
 
     @OneToOne(mappedBy = "hint")
     private Turn turn;
