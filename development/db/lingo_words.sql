@@ -36,10 +36,10 @@ CREATE TABLE game (
 );
 
 CREATE TABLE round (
+                       round_id SERIAL PRIMARY KEY,
                        round_game NUMERIC(3, 0),
                        game_id SERIAL,
                        word VARCHAR(16),
-                       PRIMARY KEY(round_game, game_id),
                        CONSTRAINT fk_word
                            FOREIGN KEY(word)
                                REFERENCES words(word),
@@ -49,15 +49,14 @@ CREATE TABLE round (
 );
 
 CREATE TABLE turn (
+                      turn_id SERIAL PRIMARY KEY ,
                       turn_round NUMERIC(1, 0),
-                      round_game NUMERIC(3, 0),
-                      game_id SERIAL,
+                      round_id SERIAL,
                       turn_guess VARCHAR(16),
                       turn_hint VARCHAR(16),
-                      PRIMARY KEY(turn_round, round_game, game_id),
-                      CONSTRAINT fk_round_game_game_id
-                          FOREIGN KEY(round_game, game_id)
-                              REFERENCES round(round_game, game_id)
+                      CONSTRAINT fk_round_id
+                          FOREIGN KEY(round_id)
+                              REFERENCES round(round_id)
 );
 
 ALTER TABLE account
@@ -18565,10 +18564,6 @@ INSERT INTO round(round_game, game_id, word) VALUES
 (1, 2, 'RISKANT'),
 (2, 2, 'WEDERGA');
 
-INSERT INTO turn(turn_round, round_game, game_id, turn_guess, turn_hint) VALUES
-(1, 3, 1, 'NALATEN', 'NALATEN'),
-(2, 3, 1, 'NALATEN', 'NALATEN'),
-(3, 3, 1, 'NALATEN', 'NALATEN'),
-(4, 3, 1, 'NAJAAR', 'NAJAAR'),
-(1, 1, 2, 'AANPAK', 'AANLEG'),
-(1, 2, 2, 'RASUUR', 'VUURGOD');
+INSERT INTO turn(turn_round, round_id, turn_guess, turn_hint) VALUES
+(1, 4, 'AANPAK', 'AANLEG'),
+(1, 5, 'RASUUR', 'VUURGOD');

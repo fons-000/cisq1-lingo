@@ -13,11 +13,13 @@ import java.util.Set;
 @Table(name = "round")
 public class Round implements Serializable {
     @Id
+    @Column(name = "round_id")
+    private int id;
+
     @JoinColumn(name = "game_id")
     @ManyToOne
     private Game game;
 
-    @Id
     @Column(name = "round_game")
     private int roundOfGame;
 
@@ -58,6 +60,10 @@ public class Round implements Serializable {
 
     public int getRoundOfGame() {
         return roundOfGame;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public boolean addTurn(Turn turn) {

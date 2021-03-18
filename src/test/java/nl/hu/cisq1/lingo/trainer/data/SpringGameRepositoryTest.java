@@ -121,7 +121,6 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("findById")
     void findById() {
-
         Optional<Game> optionalGame = springGameRepository.findById(2);
         Game game = optionalGame.orElseThrow();
         assertEquals(2, game.getId());
@@ -135,15 +134,9 @@ public class SpringGameRepositoryTest {
         assertSame(Role.ADMINISTRATOR, person.getRole());
 
         Set<Round> rounds = game.getRounds();
-//        ArrayList<Round> roundsarraylist = new ArrayList(rounds);
-//        System.out.println(roundsarraylist.get(0).getTurns().iterator().next().getGuess());
-//        System.out.println(roundsarraylist.get(1).getTurns().iterator().next().getGuess());
         assertEquals(2, rounds.size());
         ArrayList<Round> arrayListRound = new ArrayList<>(rounds);
 
-
-//        Round tmpround1 = arrayListRound.get(0);
-//        Round tmpround2 = arrayListRound.get(1);
         Round round = arrayListRound.stream()
                 .filter(r -> r.getRoundOfGame() == 1)
                 .reduce((a, b) -> {
@@ -158,51 +151,28 @@ public class SpringGameRepositoryTest {
                 })
                 .orElseThrow(() -> new RuntimeException("Round not found"));
 
-//        Round round1;
-//        Round round2;
-
-        //Sorteer de rounds uit de DB, om zo makkelijker te testen.
-        //&& 2 == tmpround2.getRoundOfGame()
-//        if(1 == tmpround1.getRoundOfGame()) {
-//            round1 = tmpround1; //1 roundOfGame
-//            round2 = tmpround2; //2 roundOfGame
-//        }
-//        else {
-//            round1 = tmpround2;
-//            round2 = tmpround1;
-//        }
-
-        System.out.println("Dit is round: ");
-        System.out.println(round);
+        assertEquals(4, round.getId());
         assertEquals(1, round.getRoundOfGame());
         assertEquals(new Word("RISKANT"), round.getWord());
         ArrayList<Turn> turnsRound1 = new ArrayList<>(round.getTurns());
         assertEquals(1, turnsRound1.size());
+        //Hier krijgen we de turn via de round!
         Turn turn = turnsRound1.get(0);
+        assertEquals(1, turn.getId());
+        assertEquals(1, turn.getTurnRound());
         assertEquals(new Word("AANPAK"), turn.getGuess());
         assertEquals(new Word("AANLEG"), turn.getHint());
 
-        System.out.println("Dit is round2: ");
-        System.out.println(round2);
+        assertEquals(5, round2.getId());
         assertEquals(2, round2.getRoundOfGame());
+        assertEquals(new Word("WEDERGA"), round2.getWord());
         ArrayList<Turn> turnsRound2 = new ArrayList<>(round2.getTurns());
         assertEquals(1, turnsRound2.size());
         Turn turn2 = turnsRound2.get(0);
+        assertEquals(2, turn2.getId());
+        assertEquals(1, turn2.getTurnRound());
         assertEquals(new Word("RASUUR"), turn2.getGuess());
         assertEquals(new Word("VUURGOD"), turn2.getHint());
-
-//        assertEquals(2, round2.getRoundOfGame());
-//        assertEquals(new Word("WEDERGA"), round2.getWord());
-//        assertEquals(new Word("WEDERGA"), round2.getFirstHint());
-//
-//        ArrayList<Turn> turnsRound2 = new ArrayList<>(round2.getTurns());
-//
-//        assertEquals(1, turnsRound2.size());
-//        Turn turn2 = turnsRound2.get(0);
-//        System.out.println(turn2.getGuess());
-//        System.out.println(turn2.getHint());
-//        assertEquals(new Word("WEDERGA"), turn2.getGuess());
-//        assertEquals(new Word("WEDERGA"), turn2.getHint());
     }
 
 //    @Test

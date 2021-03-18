@@ -9,17 +9,17 @@ import java.util.Optional;
 //       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
 public class Turn {
     @Id
+    @Column(name = "turn_id")
+    private int id;
+
     @Column(name = "turn_round")
-    private int turn_round;
+    private int turnRound;
 
     @Transient
     private Feedback feedback;
 
 //    turn.round_game = round.round_game & turn.game_id = round.game_id
-    @JoinColumns( value = {
-            @JoinColumn(name = "round_game", referencedColumnName = "round_game"),
-            @JoinColumn(name = "game_id", referencedColumnName = "game_id")
-    })
+    @JoinColumn(name = "round_id")
     @ManyToOne
     private Round round;
 
@@ -63,12 +63,21 @@ public class Turn {
         return word;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setWord(Word word) {
         this.word = word;
     }
 
-    public int getTurn_round() {
-        return turn_round;
+    public int getTurnRound() {
+        return turnRound;
+    }
+
+    //Ga dit later verwijderen
+    public Round getRound() {
+        return round;
     }
 
     //Deze methode moet eerst uitgevoerd worden, en daarna moet de uitkomst geset worden in de turn,
@@ -130,7 +139,8 @@ public class Turn {
     @Override
     public String toString() {
         return "Turn{" +
-                "turn_round=" + turn_round +
+                "id=" + id +
+                ", turnRound=" + turnRound +
                 ", feedback=" + feedback +
                 ", hint=" + hint +
                 ", guess=" + guess +
