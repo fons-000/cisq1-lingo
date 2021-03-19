@@ -7,12 +7,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "round")
 public class Round implements Serializable {
     @Id
+    @GeneratedValue
     @Column(name = "round_id")
     private int id;
 
@@ -24,16 +26,21 @@ public class Round implements Serializable {
     private int roundOfGame;
 
     @JoinColumn(name = "word")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Word word;
 
-//    @JoinColumn(name = "first_hint")
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    //    @JoinColumn(name = "first_hint")
 //    @OneToOne
 //    @NotFound(action = NotFoundAction.IGNORE)
     @Transient
     private Word firstHint;
 
-    @OneToMany(mappedBy = "round")
+    //Deze heb ik er nieuw aangeplakt.
+    @OneToMany(mappedBy = "round", cascade = CascadeType.ALL)
     private Set<Turn> turns = new LinkedHashSet<>();
 
     public Round() {
@@ -95,5 +102,18 @@ public class Round implements Serializable {
                 ", firstHint=" + firstHint +
                 ", turns=" + turns +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Round round = (Round) o;
+        return id == round.id && roundOfGame == round.roundOfGame && Objects.equals(game, round.game) && Objects.equals(word, round.word) && Objects.equals(firstHint, round.firstHint) && Objects.equals(turns, round.turns);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, game, roundOfGame, word, firstHint, turns);
     }
 }

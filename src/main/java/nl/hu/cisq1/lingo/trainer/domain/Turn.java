@@ -2,6 +2,7 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -9,6 +10,7 @@ import java.util.Optional;
 //       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
 public class Turn {
     @Id
+    @GeneratedValue
     @Column(name = "turn_id")
     private int id;
 
@@ -19,16 +21,18 @@ public class Turn {
     private Feedback feedback;
 
 //    turn.round_game = round.round_game & turn.game_id = round.game_id
+    //Hier dus geen CasCadetype.all, is al gezegd door de andere.
     @JoinColumn(name = "round_id")
     @ManyToOne
     private Round round;
 
+    //Deze zeurt ie nu over.
     @JoinColumn(name = "turn_hint")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Word hint;
 
-    @JoinColumn(name = "turn_guess")
-    @OneToOne
+    @Column(name = "turn_guess")
+    @OneToOne(cascade = CascadeType.ALL)
     private Word guess;
 
     @Transient
@@ -69,6 +73,10 @@ public class Turn {
 
     public void setWord(Word word) {
         this.word = word;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
     }
 
     public int getTurnRound() {
@@ -146,5 +154,18 @@ public class Turn {
                 ", guess=" + guess +
                 ", word=" + word +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Turn turn = (Turn) o;
+        return id == turn.id && turnRound == turn.turnRound && Objects.equals(feedback, turn.feedback) && Objects.equals(round, turn.round) && Objects.equals(hint, turn.hint) && Objects.equals(guess, turn.guess) && Objects.equals(word, turn.word);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, turnRound, feedback, round, hint, guess, word);
     }
 }

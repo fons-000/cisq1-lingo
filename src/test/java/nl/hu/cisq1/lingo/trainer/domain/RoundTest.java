@@ -36,7 +36,7 @@ public class RoundTest {
     Turn turn15 = new Turn();
 
     @BeforeEach
-    public void after() {
+    public void before() {
         //Turns: turn2, turn3 and turn4 are truly for the purpose to produce false when trying to add
         //it to a round when the word is different
         //Turns: turn, turn11, turn12, turn13, turn14 and turn 15 are used to simulate a round of a game

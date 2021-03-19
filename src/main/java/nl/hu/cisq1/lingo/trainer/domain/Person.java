@@ -60,6 +60,10 @@ public class Person {
         this.role = role;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean addGame(Game game) {
         return this.games.add(game);
     }

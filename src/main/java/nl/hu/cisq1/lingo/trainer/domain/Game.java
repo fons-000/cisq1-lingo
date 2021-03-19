@@ -22,7 +22,7 @@ public class Game {
     @Column(name = "score")
     private int score;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private Set<Round> rounds = new LinkedHashSet<>();
 
     public Game() {
@@ -49,8 +49,16 @@ public class Game {
         this.rounds = rounds;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public Person getPerson() {
