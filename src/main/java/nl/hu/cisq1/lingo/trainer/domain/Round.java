@@ -25,8 +25,10 @@ public class Round implements Serializable {
     @Column(name = "round_game")
     private int roundOfGame;
 
-    @JoinColumn(name = "word")
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column(name = "word")
+    private String wordValue;
+
+    @Transient
     private Word word;
 
     public void setGame(Game game) {
@@ -48,13 +50,14 @@ public class Round implements Serializable {
 
     public Round(Word word, int roundOfGame) {
         this.word = word;
+        this.wordValue = word.getValue();
         this.roundOfGame = roundOfGame;
         Word firstHint = Hint.createValidHint(String.valueOf(word.getValue().charAt(0)));
         this.firstHint = firstHint;
     }
 
     public Word getWord() {
-        return word;
+        return new Word(this.wordValue);
     }
 
     public Word getFirstHint() {
@@ -71,6 +74,15 @@ public class Round implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setWordValue(String wordValue) {
+        this.word = new Word(wordValue);
+        this.wordValue = wordValue;
+    }
+
+    public String getWordValue() {
+        return  this.wordValue;
     }
 
     public boolean addTurn(Turn turn) {
@@ -96,7 +108,6 @@ public class Round implements Serializable {
     @Override
     public String toString() {
         return "Round{" +
-                "game=" + game +
                 ", roundOfGame=" + roundOfGame +
                 ", word=" + word +
                 ", firstHint=" + firstHint +

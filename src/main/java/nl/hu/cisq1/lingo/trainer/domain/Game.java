@@ -22,7 +22,7 @@ public class Game {
     @Column(name = "score")
     private int score;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Round> rounds = new LinkedHashSet<>();
 
     public Game() {
@@ -72,5 +72,15 @@ public class Game {
         Game game = (Game) o;
         return score == game.score
                 & rounds.equals(game.rounds);
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", person=" + person +
+                ", score=" + score +
+                ", rounds=" + rounds +
+                '}';
     }
 }

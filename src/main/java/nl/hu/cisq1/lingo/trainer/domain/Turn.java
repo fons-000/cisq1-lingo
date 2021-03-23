@@ -27,23 +27,29 @@ public class Turn {
     private Round round;
 
     //Deze zeurt ie nu over.
-    @JoinColumn(name = "turn_hint")
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private Word hint;
 
-    @Column(name = "turn_guess")
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private Word guess;
 
     @Transient
     private Word word;
+
+    @Column(name = "turn_hint")
+    private String hintString;
+
+    @Column(name = "turn_guess")
+    private String guessString;
 
     public Turn() {
     }
 
     public Turn(Word hint, Word guess, Word word) {
         this.hint = hint;
+        this.hintString = hint.getValue();
         this.guess = guess;
+        this.guessString = guess.getValue();
         this.word = word;
     }
 
@@ -56,15 +62,29 @@ public class Turn {
     }
 
     public Word getHint() {
-        return hint;
+        return new Word(this.hintString);
     }
 
     public Word getGuess() {
-        return guess;
+        return new Word(this.guessString);
     }
 
     public Word getWord() {
         return word;
+    }
+
+    public String getHintString() {
+        if(hint != null) {
+            return this.hint.getValue();
+        }
+        return this.hintString;
+    }
+
+    public String getGuessString() {
+        if(guess != null) {
+            return this.guess.getValue();
+        }
+        return this.guessString;
     }
 
     public int getId() {
@@ -77,6 +97,10 @@ public class Turn {
 
     public void setRound(Round round) {
         this.round = round;
+    }
+
+    public void setTurnRound(int turnRound) {
+        this.turnRound = turnRound;
     }
 
     public int getTurnRound() {
@@ -149,7 +173,6 @@ public class Turn {
         return "Turn{" +
                 "id=" + id +
                 ", turnRound=" + turnRound +
-                ", feedback=" + feedback +
                 ", hint=" + hint +
                 ", guess=" + guess +
                 ", word=" + word +
@@ -161,11 +184,11 @@ public class Turn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turn turn = (Turn) o;
-        return id == turn.id && turnRound == turn.turnRound && Objects.equals(feedback, turn.feedback) && Objects.equals(round, turn.round) && Objects.equals(hint, turn.hint) && Objects.equals(guess, turn.guess) && Objects.equals(word, turn.word);
+        return id == turn.id && turnRound == turn.turnRound && Objects.equals(hint, turn.hint) && Objects.equals(guess, turn.guess) && Objects.equals(word, turn.word);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, turnRound, feedback, round, hint, guess, word);
+        return Objects.hash(id, turnRound, feedback, hint, guess, word);
     }
 }

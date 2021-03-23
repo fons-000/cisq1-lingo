@@ -29,7 +29,11 @@ public class SpringGameRepositoryTest {
         turn1.setFeedback(feedback);
         Turn turn2 = new Turn(turn1.returnHintForNextTurn(), new Word("GRAPE"), round.getWord());
         //round.addTurn should do the trick, because turn owns the association
+        turn1.setTurnRound(round.getTurns().size() + 1);
+        turn1.setRound(round);
         assertTrue(round.addTurn(turn1));
+        turn2.setTurnRound(round.getTurns().size() + 1);
+        turn2.setRound(round);
         assertTrue(round.addTurn(turn2));
         game.addRound(round);
         //round.setGame does the trick for the DB, because round owns the association.
@@ -55,11 +59,13 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("saveGame")
     public void saveGame() {
-        //Saved nog niet helemaal door
-        Game game = springGameRepository.save(this.game);
-        System.out.println(game.getId());
-        Game dbGame = springGameRepository.findById(game.getId()).orElseThrow();
-//        assertEquals(game, dbGame);
+        springGameRepository.save(this.game);
+        Game dbGame = springGameRepository.findById(this.game.getId()).orElseThrow();
+        assertEquals(100, dbGame.getScore());
+        Person dbPerson = dbGame.getPerson();
+        assertEquals(this.game.getPerson(), dbPerson);
+        assertEquals(1, dbGame.getRounds().size());
+        assertEquals(this.game, dbGame);
     }
 
     @Test
@@ -97,6 +103,9 @@ public class SpringGameRepositoryTest {
 
         assertEquals(4, round.getId());
         assertEquals(1, round.getRoundOfGame());
+
+
+//        assertEquals("RISKANT", round.getWordValue());
         assertEquals(new Word("RISKANT"), round.getWord());
         ArrayList<Turn> turnsRound1 = new ArrayList<>(round.getTurns());
         assertEquals(1, turnsRound1.size());

@@ -28,6 +28,7 @@
 //    public GameDTO startNewGame() {
 //        try {
 //            //Later wordt authentican gebruikt, voor nu even achterwege laten
+//            //Eventueel ook gewoon een dummy persoon
 //            Game game = trainerService.startNewGame();
 //            GameDTO gameDTO = GameDTO.createGameDTO(game);
 //            return gameDTO;

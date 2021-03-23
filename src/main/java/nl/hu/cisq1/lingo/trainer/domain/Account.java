@@ -57,4 +57,13 @@ public class Account implements Serializable, Principal {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

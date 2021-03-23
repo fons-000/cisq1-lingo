@@ -79,4 +79,14 @@ public class Person {
         Person person = (Person) o;
         return name.equals(person.name) && account.equals(person.account) && role == person.role;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", account=" + account +
+                ", role=" + role +
+                '}';
+    }
 }
