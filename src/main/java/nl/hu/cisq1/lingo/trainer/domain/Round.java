@@ -14,7 +14,8 @@ import java.util.Set;
 @Table(name = "round")
 public class Round implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "round_round_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "round_round_id_seq", sequenceName = "round_round_id_seq")
     @Column(name = "round_id")
     private int id;
 
@@ -76,6 +77,10 @@ public class Round implements Serializable {
         return id;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public void setWordValue(String wordValue) {
         this.word = new Word(wordValue);
         this.wordValue = wordValue;
@@ -109,22 +114,27 @@ public class Round implements Serializable {
     public String toString() {
         return "Round{" +
                 ", roundOfGame=" + roundOfGame +
-                ", word=" + word +
-                ", firstHint=" + firstHint +
+                ", wordValue='" + wordValue + '\'' +
                 ", turns=" + turns +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("Comes in the equals of Round");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Round round = (Round) o;
-        return id == round.id && roundOfGame == round.roundOfGame && Objects.equals(game, round.game) && Objects.equals(word, round.word) && Objects.equals(firstHint, round.firstHint) && Objects.equals(turns, round.turns);
+        System.out.println(roundOfGame == round.roundOfGame);
+        System.out.println(Objects.equals(wordValue, round.wordValue));
+        System.out.println(Objects.equals(turns, round.turns));
+        return roundOfGame == round.roundOfGame && Objects.equals(wordValue, round.wordValue)
+            && Objects.equals(turns, round.turns);
+        //id == round.id &&
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, game, roundOfGame, word, firstHint, turns);
+        return Objects.hash(roundOfGame, wordValue, turns);
     }
 }

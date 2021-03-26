@@ -9,7 +9,11 @@ import java.util.Set;
 public class Person {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "person_person_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "person_person_id_seq",
+            sequenceName = "person_person_id_seq",
+            allocationSize = 50)
     @Column(name = "person_id")
     private int id;
 

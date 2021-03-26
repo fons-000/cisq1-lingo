@@ -10,7 +10,8 @@ import java.util.Optional;
 //       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
 public class Turn {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "turn_turn_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "turn_turn_id_seq", sequenceName = "turn_turn_id_seq")
     @Column(name = "turn_id")
     private int id;
 
@@ -171,11 +172,9 @@ public class Turn {
     @Override
     public String toString() {
         return "Turn{" +
-                "id=" + id +
                 ", turnRound=" + turnRound +
-                ", hint=" + hint +
-                ", guess=" + guess +
-                ", word=" + word +
+                ", hintString='" + hintString + '\'' +
+                ", guessString='" + guessString + '\'' +
                 '}';
     }
 
@@ -184,11 +183,12 @@ public class Turn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turn turn = (Turn) o;
-        return id == turn.id && turnRound == turn.turnRound && Objects.equals(hint, turn.hint) && Objects.equals(guess, turn.guess) && Objects.equals(word, turn.word);
+        return turnRound == turn.turnRound && Objects.equals(hintString, turn.hintString) && Objects.equals(guessString, turn.guessString);
+        //id == turn.id &&
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, turnRound, feedback, hint, guess, word);
+        return Objects.hash(turnRound, hintString, guessString);
     }
 }

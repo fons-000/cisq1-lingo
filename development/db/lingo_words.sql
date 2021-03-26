@@ -18567,3 +18567,9 @@ INSERT INTO round(round_game, game_id, word) VALUES
 INSERT INTO turn(turn_round, round_id, turn_guess, turn_hint) VALUES
 (1, 4, 'AANPAK', 'AANLEG'),
 (1, 5, 'RASUUR', 'VUURGOD');
+
+ALTER SEQUENCE account_account_id_seq INCREMENT 50;
+ALTER SEQUENCE game_game_id_seq INCREMENT 50;
+ALTER SEQUENCE person_person_id_seq INCREMENT 50;
+ALTER SEQUENCE round_round_id_seq INCREMENT 50;
+ALTER SEQUENCE turn_turn_id_seq INCREMENT 50;

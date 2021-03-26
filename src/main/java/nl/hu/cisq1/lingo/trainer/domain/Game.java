@@ -4,14 +4,17 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "game")
 @Table(name = "game")
 public class Game {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "game_game_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "game_game_id_seq", sequenceName = "game_game_id_seq")
     @Column(name = "game_id")
     private int id;
 
@@ -70,15 +73,14 @@ public class Game {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return score == game.score
-                & rounds.equals(game.rounds);
+        ArrayList<Round> dbGameRounds = new ArrayList<>(game.getRounds());
+        ArrayList<Round> gameRounds = new ArrayList<>(rounds);
+        return score == game.score && dbGameRounds.equals(gameRounds);
     }
 
     @Override
     public String toString() {
         return "Game{" +
-                "id=" + id +
-                ", person=" + person +
                 ", score=" + score +
                 ", rounds=" + rounds +
                 '}';

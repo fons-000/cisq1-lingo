@@ -1,14 +1,18 @@
 package nl.hu.cisq1.lingo.trainer.data;
 
+import nl.hu.cisq1.lingo.trainer.application.TrainerService;
 import nl.hu.cisq1.lingo.trainer.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.util.*;
 
@@ -16,18 +20,20 @@ import java.util.*;
 @Sql({"/data/lingo_words.sql"})
 public class SpringGameRepositoryTest {
     Game game = new Game();
+    Game game2 = new Game();
 
     @BeforeEach
     public void beforeEach() {
+        //Save deze game!
         Person person = new Person("FS Fons", "1234", "Fons Thijssen", Role.PLAYER);
         person.setId(1);
-        game = new Game();
+        person.getAccount().setId(1);
         Word word = Word.createValidWord("GENEZER");
         Round round = new Round(word, game.getRounds().size() + 1);
-        Turn turn1 = new Turn(round.getFirstHint(), new Word("ZZZZZ"), round.getWord());
+        Turn turn1 = new Turn(round.getFirstHint(), Word.createValidWord("ZZZZZ"), round.getWord());
         Feedback feedback = turn1.returnFeedbackCurrentTurn();
         turn1.setFeedback(feedback);
-        Turn turn2 = new Turn(turn1.returnHintForNextTurn(), new Word("GRAPE"), round.getWord());
+        Turn turn2 = new Turn(turn1.returnHintForNextTurn(), Word.createValidWord("GRAPE"), round.getWord());
         //round.addTurn should do the trick, because turn owns the association
         turn1.setTurnRound(round.getTurns().size() + 1);
         turn1.setRound(round);
@@ -40,6 +46,21 @@ public class SpringGameRepositoryTest {
         round.setGame(game);
         //game.setPerson does the trick for the DB, because game owns the association
         game.setPerson(person);
+
+        //Update deze game!
+        //Expected heeft geen ID's
+        game2 = springGameRepository.findById(4).orElseThrow();
+        System.out.println("Dit is de game_id: ");
+        System.out.println(game2.getId());
+        game2.setScore(1000);
+        //Houd rekening, word van round & turn moet ook in de words table zitten!
+        Round round1 = new Round(Word.createValidWord("AMPEX"), game2.getRounds().size() + 1);
+        Turn turn3 = new Turn(round1.getFirstHint(), Word.createValidWord("AMOVE"), round1.getWord());
+        turn3.setTurnRound(round.getTurns().size() + 1);
+        assertTrue(round1.addTurn(turn3));
+        turn3.setRound(round1);
+        game2.addRound(round1);
+        round1.setGame(game2);
     }
 
     @Autowired
@@ -48,12 +69,9 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("updateGame")
     public void updateGame() {
-        Game game = springGameRepository.findById(4).orElseThrow();
-        game.setScore(1000);
-        springGameRepository.save(game);
-
-        Game game1 = springGameRepository.findById(4).orElseThrow();
-        assertEquals(1000, game1.getScore());
+        springGameRepository.save(this.game2);
+        Game dbGame = springGameRepository.findById(this.game2.getId()).orElseThrow();
+        assertEquals(this.game2, dbGame);
     }
 
     @Test
@@ -65,6 +83,8 @@ public class SpringGameRepositoryTest {
         Person dbPerson = dbGame.getPerson();
         assertEquals(this.game.getPerson(), dbPerson);
         assertEquals(1, dbGame.getRounds().size());
+        System.out.println(this.game);
+        System.out.println(dbGame);
         assertEquals(this.game, dbGame);
     }
 
@@ -104,8 +124,6 @@ public class SpringGameRepositoryTest {
         assertEquals(4, round.getId());
         assertEquals(1, round.getRoundOfGame());
 
-
-//        assertEquals("RISKANT", round.getWordValue());
         assertEquals(new Word("RISKANT"), round.getWord());
         ArrayList<Turn> turnsRound1 = new ArrayList<>(round.getTurns());
         assertEquals(1, turnsRound1.size());

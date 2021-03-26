@@ -8,7 +8,8 @@ import java.security.Principal;
 @Table(name = "account")
 public class Account implements Serializable, Principal {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "account_account_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "account_account_id_seq", sequenceName = "account_account_id_seq")
     @Column(name = "account_id")
     private int id;
 
@@ -31,6 +32,10 @@ public class Account implements Serializable, Principal {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPassword() {
