@@ -23,12 +23,15 @@ public class TrainerService {
 
         //2. Create a new game and add the game to the person!
         Game game = new Game();
+        game.setPerson(person);
         person.addGame(game);
 
         //3. Add the first round to the game with it's initial values
         Round round = new Round(word, game.getRounds().size() + 1);
+        round.setGame(game);
         game.addRound(round);
 
+        springGameRepository.save(game);
         return game;
     }
 
@@ -65,7 +68,8 @@ public class TrainerService {
                 turn = new Turn(lastTurn.returnHintForNextTurn(), guess, lastRound.getWord());
             }
             //2. Kijk nu of je de Turn toe kan voegen aan de laatste ronde van het spel, dit kan namelijk zo foutgaan.
-
+            turn.setTurnRound(lastRound.getTurns().size() + 1);
+            turn.setRound(lastRound);
             lastRound.addTurn(turn);
             //1. Hoog eventueel de score op
             //2. Maak van rounds weer een set
@@ -81,6 +85,7 @@ public class TrainerService {
 
             Set set = new LinkedHashSet<>(rounds);
             game.setRounds(set);
+            springGameRepository.save(game);
             return Optional.of(game);
         }
         return Optional.empty();
@@ -108,8 +113,10 @@ public class TrainerService {
                     word = new Word(wordService.provideRandomWord(5));
                 }
                 Round round = new Round(word, game.getRounds().size() + 1);
+                round.setGame(game);
                 game.addRound(round);
 
+                springGameRepository.save(game);
                 return Optional.of(game);
             }
             //Als het woord niet geraden is, dan moeten er nog turns gespeeld worden of er moet een nieuw spel gestart worden.
@@ -118,8 +125,10 @@ public class TrainerService {
         //Als er nog geen rondes in het spel zijn, voeg dan een round toe.
         word = new Word(wordService.provideRandomWord(5));
         Round round = new Round(word, game.getRounds().size() + 1);
+        round.setGame(game);
         game.addRound(round);
 
+        springGameRepository.save(game);
         return Optional.of(game);
     }
 
@@ -127,13 +136,4 @@ public class TrainerService {
         Optional<Game> optionalGame = springGameRepository.findById(id);
         return optionalGame;
     }
-
-    public Optional<List<Game>> getGamesByPerson(Person person) {
-        Optional<List<Game>> optionalGames = springGameRepository.findByPersonId(person.getId());
-        return optionalGames;
-    }
-
-//    public void deleteGame(Game game) {
-//        springGameRepository.delete(game);
-//    }
 }

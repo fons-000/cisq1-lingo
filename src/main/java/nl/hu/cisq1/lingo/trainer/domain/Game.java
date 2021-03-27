@@ -19,7 +19,7 @@ public class Game {
     private int id;
 
     @JoinColumn(name = "person_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person person;
 
     @Column(name = "score")
@@ -85,6 +85,12 @@ public class Game {
                 " person:\n" +
                 "  id    =" + person.getId() +"\n" +
                 "  name  =" + person.getName() +"\n" +
+                "  account:\n" +
+                "   id  =" + person.getAccount().getId() +"\n" +
+                "   username  =" + person.getAccount().getName() +"\n" +
+                "   password  =" + person.getAccount().getPassword() +"\n" +
+                "  role  =" + person.getRole() +"\n" +
+
                 " rounds:\n";
                 for (Round roundx : rounds) {
                     out += " round " + roundx.getId() + "\n";

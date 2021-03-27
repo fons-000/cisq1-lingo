@@ -27,9 +27,8 @@ public class SpringGameRepositoryTest {
         //Save deze game!
 
         Person person = new Person("FS Fons", "1234", "Fons Thijssen", Role.PLAYER);
-        person.setId(1);
-        person.getAccount().setId(1);
         game.setPerson(person);
+        person.addGame(game);
 
         Word word = Word.createValidWord("GENEZER");
 
@@ -54,8 +53,8 @@ public class SpringGameRepositoryTest {
         //Update deze game!
         //Expected heeft geen ID's
         game2 = springGameRepository.findById(4).orElseThrow();
-        System.out.println("Dit is de game_id: ");
-        System.out.println(game2.getId());
+//        System.out.println("Dit is de game_id: ");
+//        System.out.println(game2.getId());
         game2.setScore(1000);
         //Houd rekening, word van round & turn moet ook in de words table zitten!
         Round round1 = new Round(Word.createValidWord("AMPEX"), game2.getRounds().size() + 1);

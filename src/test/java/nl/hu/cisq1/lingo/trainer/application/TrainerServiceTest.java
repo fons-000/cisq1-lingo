@@ -3,8 +3,6 @@ package nl.hu.cisq1.lingo.trainer.application;
 import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.*;
 import nl.hu.cisq1.lingo.words.application.WordService;
-import org.checkerframework.checker.nullness.Opt;
-import org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,7 +18,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.*;
 
 public class TrainerServiceTest {
     WordService wordService = mock(WordService.class);
@@ -167,21 +163,6 @@ public class TrainerServiceTest {
             assertSame(expedtedWordNextRound, gameRounds.get(gameRounds.size() - 1).getWord().getValue());
             assertSame(expectedRounds, gameRounds.size());
         }
-    }
-
-    @Test
-    @DisplayName("getGamesByPersonTest")
-    void getGamesByPersonTest() {
-        List<Game> games = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
-            Game game = new Game();
-            games.add(game);
-        }
-        when(gameRepository.findByPersonId(any())).thenReturn(Optional.of(games));
-        Person person = new Person("FS Fons", "8743", "Fons", Role.PLAYER);
-
-        Optional<List<Game>> gamesList = service.getGamesByPerson(person);
-        assertEquals(Optional.of(games), gamesList);
     }
 
     @Test
