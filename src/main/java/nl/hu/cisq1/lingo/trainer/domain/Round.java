@@ -2,13 +2,11 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "round")
@@ -86,6 +84,10 @@ public class Round implements Serializable {
         this.wordValue = wordValue;
     }
 
+    public void setTurns(List<Turn> turns) {
+        this.turns = new LinkedHashSet<>(turns);
+    }
+
     public String getWordValue() {
         return  this.wordValue;
     }
@@ -125,11 +127,13 @@ public class Round implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Round round = (Round) o;
+        ArrayList<Turn> dbTurns = new ArrayList<>(turns);
+        ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
         System.out.println(roundOfGame == round.roundOfGame);
         System.out.println(Objects.equals(wordValue, round.wordValue));
-        System.out.println(Objects.equals(turns, round.turns));
+        System.out.println(dbTurns.equals(turns));
         return roundOfGame == round.roundOfGame && Objects.equals(wordValue, round.wordValue)
-            && Objects.equals(turns, round.turns);
+            && dbTurns.equals(turns);
         //id == round.id &&
     }
 

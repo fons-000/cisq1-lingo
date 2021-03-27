@@ -78,6 +78,29 @@ public class Game {
         return score == game.score && dbGameRounds.equals(gameRounds);
     }
 
+    public String ShowGame() {
+        String out = "Game:\n" +
+                " id     = " + id + "\n" +
+                " score  = " + score + "\n" +
+                " person:\n" +
+                "  id    =" + person.getId() +"\n" +
+                "  name  =" + person.getName() +"\n" +
+                " rounds:\n";
+                for (Round roundx : rounds) {
+                    out += " round " + roundx.getId() + "\n";
+                    out += "   roundofgame: " + roundx.getRoundOfGame() + "\n";
+                    out += "   word:        " + roundx.getWordValue() + "\n";
+                    out += "   turns:\n";
+                    for (Turn turnx : roundx.getTurns()) {
+                        out += " turn " + turnx.getId() + "\n";
+                        out += "   turnround:   " + turnx.getTurnRound() + "\n";
+                        out += "   hintstring:  " + turnx.getHintString() + "\n";
+                        out += "   guessstring: " + turnx.getGuessString() + "\n";
+                    }
+                }
+                return out;
+    }
+
     @Override
     public String toString() {
         return "Game{" +

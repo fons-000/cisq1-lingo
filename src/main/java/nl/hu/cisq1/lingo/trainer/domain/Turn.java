@@ -8,7 +8,7 @@ import java.util.Optional;
 @Entity
 @Table(name = "turn")
 //       uniqueConstraints = {@UniqueConstraint(columnNames = {"round_game", "game_id"})}
-public class Turn {
+public class Turn implements Comparable<Turn> {
     @Id
     @GeneratedValue(generator = "turn_turn_id_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "turn_turn_id_seq", sequenceName = "turn_turn_id_seq")
@@ -183,12 +183,22 @@ public class Turn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turn turn = (Turn) o;
+        System.out.println("In de equals van turn: ");
+        System.out.println(turnRound == turn.turnRound);
+        System.out.println(Objects.equals(hintString, turn.hintString));
+        System.out.println(Objects.equals(guessString, turn.guessString));
         return turnRound == turn.turnRound && Objects.equals(hintString, turn.hintString) && Objects.equals(guessString, turn.guessString);
         //id == turn.id &&
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(turnRound, hintString, guessString);
+    public int compareTo(Turn turn) {
+        return this.getId() - turn.getId();
     }
+
+//    @Override
+//    public int hashCode() {
+//        System.out.println(id);
+//        return Objects.hash(turnRound, hintString, guessString);
+//    }
 }

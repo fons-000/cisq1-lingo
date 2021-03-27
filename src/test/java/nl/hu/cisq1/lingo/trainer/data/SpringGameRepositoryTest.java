@@ -25,27 +25,31 @@ public class SpringGameRepositoryTest {
     @BeforeEach
     public void beforeEach() {
         //Save deze game!
+
         Person person = new Person("FS Fons", "1234", "Fons Thijssen", Role.PLAYER);
         person.setId(1);
         person.getAccount().setId(1);
+        game.setPerson(person);
+
         Word word = Word.createValidWord("GENEZER");
+
         Round round = new Round(word, game.getRounds().size() + 1);
+        game.addRound(round);
+        round.setGame(game);
+
         Turn turn1 = new Turn(round.getFirstHint(), Word.createValidWord("ZZZZZ"), round.getWord());
         Feedback feedback = turn1.returnFeedbackCurrentTurn();
         turn1.setFeedback(feedback);
-        Turn turn2 = new Turn(turn1.returnHintForNextTurn(), Word.createValidWord("GRAPE"), round.getWord());
-        //round.addTurn should do the trick, because turn owns the association
         turn1.setTurnRound(round.getTurns().size() + 1);
         turn1.setRound(round);
         assertTrue(round.addTurn(turn1));
+
+        Turn turn2 = new Turn(turn1.returnHintForNextTurn(), Word.createValidWord("GRAPE"), round.getWord());
         turn2.setTurnRound(round.getTurns().size() + 1);
         turn2.setRound(round);
         assertTrue(round.addTurn(turn2));
-        game.addRound(round);
         //round.setGame does the trick for the DB, because round owns the association.
-        round.setGame(game);
         //game.setPerson does the trick for the DB, because game owns the association
-        game.setPerson(person);
 
         //Update deze game!
         //Expected heeft geen ID's
@@ -77,8 +81,16 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("saveGame")
     public void saveGame() {
+        System.out.println(game.ShowGame());
         springGameRepository.save(this.game);
         Game dbGame = springGameRepository.findById(this.game.getId()).orElseThrow();
+        //Pakt de eerste en enige ronde uit de DB => en daar de turns van
+        // sortTurns
+        List<Round> dbRounds = new ArrayList<>(dbGame.getRounds());
+        List<Turn> dbTurns = new ArrayList<>(dbRounds.get(0).getTurns());
+        Collections.sort(dbTurns);
+        dbGame.getRounds().iterator().next().setTurns(dbTurns);
+
         assertEquals(100, dbGame.getScore());
         Person dbPerson = dbGame.getPerson();
         assertEquals(this.game.getPerson(), dbPerson);
