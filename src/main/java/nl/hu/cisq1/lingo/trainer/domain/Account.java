@@ -38,10 +38,6 @@ public class Account implements Serializable, Principal {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -54,13 +50,17 @@ public class Account implements Serializable, Principal {
         return username.equals(account.username) && password.equals(account.password);
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String getName() {
         return username;
     }
 
-    public int getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
     @Override

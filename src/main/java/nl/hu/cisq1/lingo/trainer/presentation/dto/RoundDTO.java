@@ -38,4 +38,13 @@ public class RoundDTO {
     public ArrayList<TurnDTO> getTurnDTOS() {
         return turnDTOS;
     }
+
+    @Override
+    public String toString() {
+        return "RoundDTO{" +
+                "roundOfGame=" + roundOfGame +
+                ", firstHint=" + firstHint +
+                ", turnDTOS=" + turnDTOS +
+                '}';
+    }
 }

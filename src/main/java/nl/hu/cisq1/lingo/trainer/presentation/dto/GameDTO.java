@@ -8,23 +8,32 @@ import java.util.Set;
 
 public class GameDTO {
     private int id;
-    private Person person;
+    private PersonDTO personDTO;
     private int score;
-    private Set<RoundDTO> roundsDTOS = new LinkedHashSet<>();
+    private Set<RoundDTO> roundsDTOS;
 
-    public GameDTO(int id, int score, Person person, Set<RoundDTO> roundDTOSet) {
+    public GameDTO(int id, int score, PersonDTO personDTO, Set<RoundDTO> roundDTOSet) {
         this.id = id;
         this.score = score;
-        this.person = person;
+        this.personDTO = personDTO;
+        this.roundsDTOS = roundDTOSet;
     }
 
     public static GameDTO createGameDTO(Game game) {
         Set<Round> rounds = game.getRounds();
         Set<RoundDTO> roundDTOSet = new LinkedHashSet<>();
         for(Round round : rounds) {
-            roundDTOSet.add(RoundDTO.createRoundDTO(round));
+            System.out.println("This is what is in round: ");
+            System.out.println(round);
+
+            RoundDTO roundDTO = RoundDTO.createRoundDTO(round);
+            System.out.println("This is the roundDTO that's supposed to be added: ");
+            System.out.println(roundDTO);
+            roundDTOSet.add(roundDTO);
         }
-        GameDTO gameDTO = new GameDTO(game.getId(), game.getScore(), game.getPerson(), roundDTOSet);
+        System.out.println("At the end of it all, this is the roundDTOSet" );
+        System.out.println(roundDTOSet);
+        GameDTO gameDTO = new GameDTO(game.getId(), game.getScore(), PersonDTO.createPersonDTO(game.getPerson()), roundDTOSet);
         return gameDTO;
     }
 
@@ -32,8 +41,8 @@ public class GameDTO {
         return id;
     }
 
-    public Person getPerson() {
-        return person;
+    public PersonDTO getPerson() {
+        return personDTO;
     }
 
     public int getScore() {
