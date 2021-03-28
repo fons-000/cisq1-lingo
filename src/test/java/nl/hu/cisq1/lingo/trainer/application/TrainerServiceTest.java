@@ -171,8 +171,8 @@ public class TrainerServiceTest {
         Game game = new Game();
         when(gameRepository.findById(any())).thenReturn(Optional.of(game));
 
-        Optional<Game> game1 = service.getGameById(1);
-        assertEquals(Optional.of(game), game1);
+        Game game1 = service.getGameById(1).orElseThrow();
+        assertEquals(game, game1);
     }
 
     static Stream<Arguments> guessTestExamples() {

@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "round")
-public class Round implements Serializable {
+public class Round implements Serializable, Comparable<Round> {
     @Id
     @GeneratedValue(generator = "round_round_id_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "round_round_id_seq", sequenceName = "round_round_id_seq")
@@ -140,5 +140,10 @@ public class Round implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(roundOfGame, wordValue, turns);
+    }
+
+    @Override
+    public int compareTo(Round round) {
+        return this.roundOfGame - round.getRoundOfGame();
     }
 }

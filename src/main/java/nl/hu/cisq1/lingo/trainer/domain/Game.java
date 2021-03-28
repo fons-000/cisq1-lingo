@@ -4,10 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "game")
 @Table(name = "game")
@@ -52,6 +49,10 @@ public class Game {
         this.rounds = rounds;
     }
 
+    public void setRounds(List<Round> rounds) {
+        this.rounds = new LinkedHashSet<>(rounds);
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -75,23 +76,40 @@ public class Game {
         Game game = (Game) o;
         ArrayList<Round> dbGameRounds = new ArrayList<>(game.getRounds());
         ArrayList<Round> gameRounds = new ArrayList<>(rounds);
+        if(person != null) {
+            return score == game.score && dbGameRounds.equals(gameRounds) && person.equals(game.getPerson());
+        }
         return score == game.score && dbGameRounds.equals(gameRounds);
     }
 
-    public String ShowGame() {
+    public String showGame() {
         String out = "Game:\n" +
                 " id     = " + id + "\n" +
-                " score  = " + score + "\n" +
-                " person:\n" +
-                "  id    =" + person.getId() +"\n" +
-                "  name  =" + person.getName() +"\n" +
-                "  account:\n" +
-                "   id  =" + person.getAccount().getId() +"\n" +
-                "   username  =" + person.getAccount().getName() +"\n" +
-                "   password  =" + person.getAccount().getPassword() +"\n" +
-                "  role  =" + person.getRole() +"\n" +
-
-                " rounds:\n";
+                " score  = " + score + "\n";
+        if(person != null) {
+            out+=   " person:\n";
+            out+=   "  id    =" + person.getId() +"\n";
+            out+=   "  name  =" + person.getName() +"\n";
+            out+=   "  account:\n";
+            out+=   "   id  =" + person.getAccount().getId() +"\n";
+            out+=   "   username  =" + person.getAccount().getName() +"\n";
+            out+=   "   password  =" + person.getAccount().getPassword() +"\n";
+            out+=   "  role  =" + person.getRole() +"\n";
+            out+=   "  games:\n";
+            for(Game game : person.getGames()) {
+                out+= " id     = " + game.getId() + "\n";
+                out+= " score  = " + game.getId() + "\n";
+                out+= " person:\n";
+                out+= "  id    =" + person.getId() +"\n";
+                out+= "  name  =" + person.getName() +"\n";
+                out+= "  account:\n";
+                out+= "   id  =" + person.getAccount().getId() +"\n";
+                out+= "   username  =" + person.getAccount().getName() +"\n";
+                out+= "   password  =" + person.getAccount().getPassword() +"\n";
+                out+= "  role  =" + person.getRole() +"\n";
+            }
+        }
+            out+= " rounds:\n";
                 for (Round roundx : rounds) {
                     out += " round " + roundx.getId() + "\n";
                     out += "   roundofgame: " + roundx.getRoundOfGame() + "\n";

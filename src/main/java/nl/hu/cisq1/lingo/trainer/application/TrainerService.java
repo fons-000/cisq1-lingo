@@ -85,6 +85,8 @@ public class TrainerService {
 
             Set set = new LinkedHashSet<>(rounds);
             game.setRounds(set);
+            System.out.println("This is the game right before the save: ");
+            System.out.println(game.showGame());
             springGameRepository.save(game);
             return Optional.of(game);
         }

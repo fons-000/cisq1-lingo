@@ -28,7 +28,7 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Game> games = new LinkedHashSet<>();
 
     public Person() {

@@ -80,7 +80,7 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("saveGame")
     public void saveGame() {
-        System.out.println(game.ShowGame());
+        System.out.println(game.showGame());
         springGameRepository.save(this.game);
         Game dbGame = springGameRepository.findById(this.game.getId()).orElseThrow();
         //Pakt de eerste en enige ronde uit de DB => en daar de turns van
