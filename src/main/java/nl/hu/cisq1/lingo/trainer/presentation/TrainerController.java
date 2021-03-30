@@ -76,6 +76,8 @@ public class TrainerController {
         try {
             Optional<Game> optionalGame = trainerService.getGameById(id);
             Game game = optionalGame.orElseThrow();
+            System.out.println("This is the game from the DB: ");
+            System.out.println(game.showGame());
             Optional<Game> newOptionalGame = trainerService.guess(game, new Guess(guess));
             Game newGame = newOptionalGame.orElseThrow();
             ArrayList<Round> rounds = new ArrayList<>(newGame.getRounds());
