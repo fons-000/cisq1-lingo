@@ -23,16 +23,9 @@ public class GameDTO {
         Set<Round> rounds = game.getRounds();
         Set<RoundDTO> roundDTOSet = new LinkedHashSet<>();
         for(Round round : rounds) {
-            System.out.println("This is what is in round: ");
-            System.out.println(round);
-
             RoundDTO roundDTO = RoundDTO.createRoundDTO(round);
-            System.out.println("This is the roundDTO that's supposed to be added: ");
-            System.out.println(roundDTO);
             roundDTOSet.add(roundDTO);
         }
-        System.out.println("At the end of it all, this is the roundDTOSet" );
-        System.out.println(roundDTOSet);
         GameDTO gameDTO = new GameDTO(game.getId(), game.getScore(), PersonDTO.createPersonDTO(game.getPerson()), roundDTOSet);
         return gameDTO;
     }

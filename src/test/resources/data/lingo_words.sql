@@ -18573,8 +18573,3 @@ ALTER SEQUENCE game_game_id_seq INCREMENT 50;
 ALTER SEQUENCE person_person_id_seq INCREMENT 50;
 ALTER SEQUENCE round_round_id_seq INCREMENT 50;
 ALTER SEQUENCE turn_turn_id_seq INCREMENT 50;
-
--- SELECT setval('game_game_id_seq', 4, true); --next value will be 5
--- UPDATE game SET game_id=nextval('game_game_id_seq');
-
--- ALTER SEQUENCE public."game_game_id_seq" restart 5;

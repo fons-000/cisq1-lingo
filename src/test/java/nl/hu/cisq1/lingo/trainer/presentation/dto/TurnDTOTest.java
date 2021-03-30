@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,7 +93,7 @@ public class TurnDTOTest {
         assertSame("HAM", hintTurnString);
         assertSame("HAMSTER", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -133,7 +134,7 @@ public class TurnDTOTest {
         assertSame("K", hintTurnString);
         assertSame("KAM", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(3, feedbackItems.size());
 
@@ -166,7 +167,7 @@ public class TurnDTOTest {
         assertSame("GEB", hintTurnString);
         assertSame("GEBAK", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 
@@ -204,7 +205,7 @@ public class TurnDTOTest {
         assertSame("B", hintTurnString);
         assertSame("BOOST", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 
@@ -247,7 +248,7 @@ public class TurnDTOTest {
         assertSame("B......", hintTurnString);
         assertSame("BAANER", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(6, feedbackItems.size());
 
@@ -287,7 +288,7 @@ public class TurnDTOTest {
         assertSame("OOR", hintTurnString);
         assertSame("OORFLAP", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -329,7 +330,7 @@ public class TurnDTOTest {
         assertSame("AH", hintTurnString);
         assertSame("HAHAH", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 

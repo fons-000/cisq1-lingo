@@ -120,6 +120,7 @@ public class Game {
                         out += "   turnround:   " + turnx.getTurnRound() + "\n";
                         out += "   hintstring:  " + turnx.getHintString() + "\n";
                         out += "   guessstring: " + turnx.getGuessString() + "\n";
+                        out += "   feedback: " + turnx.getFeedback() + "\n";
                     }
                 }
                 return out;

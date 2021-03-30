@@ -84,6 +84,14 @@ public class Round implements Serializable, Comparable<Round> {
         this.wordValue = wordValue;
     }
 
+    public void setWord(Word word) {
+        this.word = word;
+    }
+
+    public void setFirstHint(Word firstHint) {
+        this.firstHint = firstHint;
+    }
+
     public void setTurns(List<Turn> turns) {
         this.turns = new LinkedHashSet<>(turns);
     }
@@ -119,6 +127,14 @@ public class Round implements Serializable, Comparable<Round> {
                 ", wordValue='" + wordValue + '\'' +
                 ", turns=" + turns +
                 '}';
+    }
+
+    public String showRound() {
+        return "Round {" +
+                "roundOfGame: " + roundOfGame +
+                ", wordValue: " + wordValue +
+                ", turns: " + turns +
+                " and firstHint: " + firstHint;
     }
 
     @Override

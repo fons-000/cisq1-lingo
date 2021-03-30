@@ -8,13 +8,14 @@ public class TurnDTO {
     private Word guess;
 
     public TurnDTO(Turn turn) {
-        this.feedback = turn.getFeedback();
+        System.out.println("Gaat nu naar returnFeedbackCurrentTurn van turnDTO!");
+        this.feedback = turn.returnFeedbackCurrentTurn();
         this.hint = turn.getHint();
         this.guess = turn.getGuess();
     }
 
     public Feedback getFeedback() {
-        return feedback;
+        return this.feedback;
     }
 
     public Word getHint() {
@@ -23,5 +24,14 @@ public class TurnDTO {
 
     public Word getGuess() {
         return guess;
+    }
+
+    @Override
+    public String toString() {
+        return "TurnDTO{" +
+                "feedback=" + feedback +
+                ", hint=" + hint +
+                ", guess=" + guess +
+                '}';
     }
 }

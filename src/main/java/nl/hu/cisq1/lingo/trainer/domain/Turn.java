@@ -1,9 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 @Table(name = "turn")
@@ -104,6 +102,10 @@ public class Turn implements Comparable<Turn> {
         this.turnRound = turnRound;
     }
 
+    public void setHint(Word hint) {
+        this.hint = hint;
+    }
+
     public int getTurnRound() {
         return turnRound;
     }
@@ -116,6 +118,20 @@ public class Turn implements Comparable<Turn> {
     //Deze methode moet eerst uitgevoerd worden, en daarna moet de uitkomst geset worden in de turn,
     //voordat returnHintForNextTurn aangeroepen kan worden.
     public Feedback returnFeedbackCurrentTurn() {
+        System.out.println("This is the word of the turn: ");
+        System.out.println(this.word);
+        try {
+            this.guess = Word.createValidWord(this.guessString);
+        } catch (NoSuchElementException noSuchElementException) {
+            List<FeedbackItem> invalidFeedback = new ArrayList<>();
+            for(char charString : this.guessString.toCharArray()) {
+                FeedbackItem feedbackItemInvalid = FeedbackItem.INVALID;
+                invalidFeedback.add(feedbackItemInvalid);
+            }
+            return new Feedback(invalidFeedback);
+        }
+
+        this.word = Word.createValidWord(round.getWordValue());
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(this.word, this.guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
@@ -131,7 +147,7 @@ public class Turn implements Comparable<Turn> {
 
     public Optional<Hint> generateHintForNextTurn() {
         String previousHintString = this.hint.getValue();
-        ArrayList<FeedbackItem> feedbackItems = this.feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = this.feedback.getFeedbackItems();
         String newHintValue = "";
         char[] newHintValueCharArray = new char[this.word.getLength()];
 
@@ -155,8 +171,12 @@ public class Turn implements Comparable<Turn> {
                 newHintValueCharArray[i] = letter;
             }
         }
+        System.out.println("After step 2, this is the newHintValueCharArray: ");
+        System.out.println(newHintValueCharArray);
 
         newHintValue = String.valueOf(newHintValueCharArray);
+        System.out.println("This is the new hint value: ");
+        System.out.println(newHintValue);
         //Deze moet geretourneerd worden, maar eerst verpakt in een Optional!
         Hint newHint = Hint.createValidHint(newHintValue);
         Optional<Hint> validNewHintOptional = Optional.of(newHint);
@@ -164,6 +184,11 @@ public class Turn implements Comparable<Turn> {
         //Stap 4 => Verpak de newHint in een Optional als de hint niet hetzelfde is
         //als het word of return een lege Optional
         if(word.equals(newHint)) {
+            System.out.println("This is word: ");
+            System.out.println(word);
+            System.out.println("This is newHint: ");
+            System.out.println(newHint);
+            System.out.println("Komt in de optional.empty!");
             return Optional.empty();
         }
         return validNewHintOptional;
@@ -175,6 +200,7 @@ public class Turn implements Comparable<Turn> {
                 ", turnRound=" + turnRound +
                 ", hintString='" + hintString + '\'' +
                 ", guessString='" + guessString + '\'' +
+                ", feedback=" + feedback + '\'' +
                 '}';
     }
 

@@ -11,8 +11,14 @@ public class RoundDTO {
 
     public RoundDTO(int roundOfGame, Word firstHint, ArrayList<TurnDTO> turnDTOS) {
         this.roundOfGame = roundOfGame;
+        System.out.println("roundOfGame: ");
+        System.out.println(this.roundOfGame);
         this.firstHint = firstHint;
+        System.out.println("firstHint: ");
+        System.out.println(firstHint);
         this.turnDTOS = turnDTOS;
+        System.out.println("turnDTOS");
+        System.out.println(turnDTOS);
     }
 
     public static RoundDTO createRoundDTO(Round round) {

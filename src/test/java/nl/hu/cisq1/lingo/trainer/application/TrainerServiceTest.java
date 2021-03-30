@@ -104,10 +104,10 @@ public class TrainerServiceTest {
             assertEquals("A", turn.getHint().getValue());
 
             //Guess in de turn klopt
-            assertEquals("ABILLITY", turn.getGuess().getValue());
+            assertEquals("ALLES", turn.getGuess().getValue());
 
             //Word in de turn klopt
-            assertEquals("ABILLITY", turn.getWord().getValue());
+            assertEquals("ALLES", turn.getWord().getValue());
 
             //De score van de game is opgehoogd met 25 (in 1 turn geraden)
             assertSame(125, game2.getScore());
@@ -189,7 +189,7 @@ public class TrainerServiceTest {
         game2.addRound(round2);
 
         Game game3 = new Game();
-        Round round3 = new Round(new Word("ABILLITY"), game.getRounds().size() + 1);
+        Round round3 = new Round(new Word("ALLES"), game.getRounds().size() + 1);
         game3.addRound(round3);
 
         return Stream.of(
@@ -209,7 +209,7 @@ public class TrainerServiceTest {
                 //Het woord wordt goed gegokt.
                 //= Game object met nog toegevoegde turn aan laatste round met de juiste values
                 //12 staat in ons geval voor 1.2 (tweede test met 1 turn)
-                Arguments.of(game3, new Guess("ABILLITY"), 12)
+                Arguments.of(game3, new Guess("ALLES"), 12)
         );
     }
 

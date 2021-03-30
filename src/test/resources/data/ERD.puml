@@ -13,6 +13,7 @@ entity "game" as game {
 }
 
 entity "round" as round {
+  *round_id: SERIAL        <<PK>>
   *round_game: NUMERIC (3, 0)        <<PK>>
   *game_id: SERIAL        <<PK>> <<FK>>
   *word: VARCHAR (16)        <<FK2>>

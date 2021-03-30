@@ -3,16 +3,16 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.*;
 
 public class Feedback {
-    private ArrayList<FeedbackItem> feedbackItems = new ArrayList<FeedbackItem>();
+    private List<FeedbackItem> feedbackItems = new ArrayList<FeedbackItem>();
 
     public Feedback() {
     }
 
-    public Feedback(ArrayList<FeedbackItem> feedbackItems) {
+    public Feedback(List<FeedbackItem> feedbackItems) {
         this.feedbackItems = feedbackItems;
     }
 
-    public ArrayList<FeedbackItem> getFeedbackItems() {
+    public List<FeedbackItem> getFeedbackItems() {
         return feedbackItems;
     }
 
@@ -105,5 +105,12 @@ public class Feedback {
         //Optional.of zou moeten werken, werkt niet als feedback null is
         Optional<Feedback> optionalFeedback = Optional.of(feedback);
         return optionalFeedback;
+    }
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "feedbackItems=" + feedbackItems +
+                '}';
     }
 }

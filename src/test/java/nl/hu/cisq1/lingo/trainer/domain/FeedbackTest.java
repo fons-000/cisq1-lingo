@@ -145,7 +145,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -179,7 +179,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(3, feedbackItems.size());
 
@@ -206,7 +206,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 
@@ -238,7 +238,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 
@@ -269,7 +269,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -303,7 +303,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -338,7 +338,7 @@ public class FeedbackTest {
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(word, guess);
         //Throwed als de feedback empty is
         Feedback feedback = optionalFeedback.orElseThrow();
-        ArrayList<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedback.getFeedbackItems();
 
         assertSame(5, feedbackItems.size());
 

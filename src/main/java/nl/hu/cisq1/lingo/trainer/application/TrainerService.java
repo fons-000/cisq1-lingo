@@ -47,12 +47,18 @@ public class TrainerService {
 
         if(game.getRounds().size() > 0) {
             ArrayList<Round> rounds = new ArrayList<>(game.getRounds());
+            Collections.sort(rounds);
             Round lastRound = rounds.get(rounds.size() - 1);
+            lastRound.setWord(Word.createValidWord(lastRound.getWordValue()));
+            Word firstHint = Hint.createValidHint(String.valueOf(lastRound.getWordValue().charAt(0)));
+            lastRound.setFirstHint(firstHint);
             if(lastRound.getTurns().size() == 0) {
                 //Kijk naar de firstHint attribute van de round voor de Hint van de turn.
                 //Kijk naar de Word attribuut van Round voor de word
                 //Zet de meegekregen guess als guess.
                 turn = new Turn(lastRound.getFirstHint(), guess ,lastRound.getWord());
+                System.out.println("Gaat nu naar de returnFeedbackCurrentTurn in TrainerService guess! if getRounds size = 0");
+                turn.setFeedback(turn.returnFeedbackCurrentTurn());
             }
 
             else {
@@ -61,11 +67,17 @@ public class TrainerService {
                 //Kijk naar de Word attribuut van Round voor de word.
                 //Zet de meegegeven guess als guess.
                 ArrayList<Turn> turns = new ArrayList<>(lastRound.getTurns());
+                Collections.sort(turns);
                 Turn lastTurn = turns.get(turns.size() - 1);
                 //Set the feedback, so we can generate a new hint for the next turn.
+                System.out.println("Gaat nu naar de returnFeedbackCurrentTurn in TrainerService guess! else");
                 Feedback feedback = lastTurn.returnFeedbackCurrentTurn();
                 lastTurn.setFeedback(feedback);
+                Word hint = Hint.createValidHint(lastTurn.getHintString());
+                lastTurn.setHint(hint);
                 turn = new Turn(lastTurn.returnHintForNextTurn(), guess, lastRound.getWord());
+                //Eventueel bijvoegen!
+//                turn.setFeedback(turn.returnFeedbackCurrentTurn());
             }
             //2. Kijk nu of je de Turn toe kan voegen aan de laatste ronde van het spel, dit kan namelijk zo foutgaan.
             turn.setTurnRound(lastRound.getTurns().size() + 1);
@@ -85,8 +97,6 @@ public class TrainerService {
 
             Set set = new LinkedHashSet<>(rounds);
             game.setRounds(set);
-            System.out.println("This is the game right before the save: ");
-            System.out.println(game.showGame());
             springGameRepository.save(game);
             return Optional.of(game);
         }

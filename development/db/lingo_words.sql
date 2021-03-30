@@ -18562,20 +18562,18 @@ INSERT INTO round(round_game, game_id, word) VALUES
 (2, 1, 'AAIBAAR'),
 (3, 1, 'NAJAAR'),
 (1, 2, 'RISKANT'),
-(2, 2, 'WEDERGA');
+(2, 2, 'WEDERGA'),
+(1, 4, 'BIEST'),
+(2, 4, 'BOKSEN');
 
 INSERT INTO turn(turn_round, round_id, turn_guess, turn_hint) VALUES
 (1, 4, 'AANPAK', 'AANLEG'),
-(1, 5, 'RASUUR', 'VUURGOD');
+(1, 5, 'RASUUR', 'VUURGOD'),
+(1, 6, 'BIEST', 'B'),
+(1, 7, 'BOARDS', 'B');
 
 ALTER SEQUENCE account_account_id_seq INCREMENT 50;
 ALTER SEQUENCE game_game_id_seq INCREMENT 50;
 ALTER SEQUENCE person_person_id_seq INCREMENT 50;
 ALTER SEQUENCE round_round_id_seq INCREMENT 50;
 ALTER SEQUENCE turn_turn_id_seq INCREMENT 50;
-
---
--- SELECT setval('game_game_id_seq', 4, true); --next value will be 5
--- UPDATE game SET game_id=nextval('game_game_id_seq');
-
--- ALTER SEQUENCE public."game_game_id_seq" restart 5;

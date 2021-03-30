@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -154,7 +155,7 @@ public class RoundDTOTest {
         assertEquals("HAM..", hintTurnString);
         assertEquals("HAMSTER", guessTurnString);
 
-        ArrayList<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
+        List<FeedbackItem> feedbackItems = feedbackTurn.getFeedbackItems();
 
         assertSame(7, feedbackItems.size());
 
@@ -183,7 +184,7 @@ public class RoundDTOTest {
         assertEquals("HAM..", hintTurnString11);
         assertEquals("HARDE", guessTurnString11);
 
-        ArrayList<FeedbackItem> feedbackItems11 = feedbackTurn11.getFeedbackItems();
+        List<FeedbackItem> feedbackItems11 = feedbackTurn11.getFeedbackItems();
 
         assertSame(5, feedbackItems11.size());
 
@@ -208,7 +209,7 @@ public class RoundDTOTest {
         assertEquals("HAM..", hintTurnString12);
         assertEquals("HAMEL", guessTurnString12);
 
-        ArrayList<FeedbackItem> feedbackItems12 = feedbackTurn12.getFeedbackItems();
+        List<FeedbackItem> feedbackItems12 = feedbackTurn12.getFeedbackItems();
 
         assertSame(5, feedbackItems12.size());
 
@@ -233,7 +234,7 @@ public class RoundDTOTest {
         assertEquals("HAME.", hintTurnString13);
         assertEquals("RUFTI", guessTurnString13);
 
-        ArrayList<FeedbackItem> feedbackItems13 = feedbackTurn13.getFeedbackItems();
+        List<FeedbackItem> feedbackItems13 = feedbackTurn13.getFeedbackItems();
 
         assertSame(5, feedbackItems13.size());
 
@@ -258,7 +259,7 @@ public class RoundDTOTest {
         assertEquals("HAME.", hintTurnString14);
         assertEquals("GOVER", guessTurnString14);
 
-        ArrayList<FeedbackItem> feedbackItems14 = feedbackTurn14.getFeedbackItems();
+        List<FeedbackItem> feedbackItems14 = feedbackTurn14.getFeedbackItems();
 
         assertSame(5, feedbackItems14.size());
 
