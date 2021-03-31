@@ -208,8 +208,10 @@ class TrainerControllerIntegrationTest {
                 .andExpect(jsonPath("$.score", is(150)))
                 .andExpect(jsonPath("$.roundsDTOS", hasSize(2)))
                 .andExpect(jsonPath("$.roundsDTOS[0].roundOfGame", is(1)))
-                .andExpect(jsonPath("$.roundsDTOS[0].firstHint", is(null)))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.length", is(1)))
                 .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS", hasSize(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].turnOfRound", is(1)))
                 .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[2]", is("CORRECT")))
@@ -222,8 +224,9 @@ class TrainerControllerIntegrationTest {
 
                 .andExpect(jsonPath("$.roundsDTOS[1].roundOfGame", is(2)))
                 .andExpect(jsonPath("$.roundsDTOS[1].firstHint.value", is("B")))
-                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.length", is("1")))
+                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.length", is(1)))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS", hasSize(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].turnOfRound", is(1)))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[2]", is("ABSENT")))
@@ -234,6 +237,8 @@ class TrainerControllerIntegrationTest {
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].hint.length", is(1)))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.value", is("BOARDS")))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.length", is(6)))
+
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].turnOfRound", is(2)))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[0]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[1]", is("CORRECT")))
                 .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[2]", is("CORRECT")))
@@ -253,23 +258,139 @@ class TrainerControllerIntegrationTest {
                 .andExpect(jsonPath("$.person.role", is("ADMINISTRATOR")));
     }
 
-//    @Test
-//    @DisplayName("Start a new round, if the game has no rounds")
-//    void startNewRound1() throws Exception {
-//        RequestBuilder request = MockMvcRequestBuilders
-//                .post("/trainer/games/3/round");
-//        mockMvc.perform(request)
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id", is(3)))
-//                .andExpect(jsonPath("$.score", is(300)))
-//                .andExpect(jsonPath("$.roundsDTOS", hasSize(1)))
-//                .andExpect(jsonPath("$.roundsDTOS[0].roundOfGame", is(1)))
-//                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.length", is(1)))
-//                .andExpect(jsonPath("$.person.id", is(1)))
-//                .andExpect(jsonPath("$.person.name", is("Fons Thijssen")))
-//                .andExpect(jsonPath("$.person.account.id", is(1)))
-//                .andExpect(jsonPath("$.person.account.password", is("1234")))
-//                .andExpect(jsonPath("$.person.account.name", is("FS Fons")))
-//                .andExpect(jsonPath("$.person.role", is("PLAYER")));
-//    }
+    @Test
+    @DisplayName("guess: Take a guess and add a turn to the last round. 1. Has previous rounds and a previous turn, word's being guessed correctly. ")
+    void guess5() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders
+                .patch("/trainer/games/4/guess")
+                .content("BOKSEN");
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(4)))
+                //Score was al 150 in de DB, wordt gegokt in 2 beurten in ronde 2 = +20 punten. Klopt als een bus!
+                .andExpect(jsonPath("$.score", is(170)))
+                .andExpect(jsonPath("$.roundsDTOS", hasSize(2)))
+                .andExpect(jsonPath("$.roundsDTOS[0].roundOfGame", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS", hasSize(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].turnOfRound", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[2]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[3]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[4]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].hint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].hint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].guess.value", is("BIEST")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].guess.length", is(5)))
+
+                .andExpect(jsonPath("$.roundsDTOS[1].roundOfGame", is(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS", hasSize(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].turnOfRound", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[2]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[3]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[4]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[5]", is("PRESENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].hint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].hint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.value", is("BOARDS")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.length", is(6)))
+
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].turnOfRound", is(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[2]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[3]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[4]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[5]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].hint.value", is("BO....")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].hint.length", is(6)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].guess.value", is("BOKSEN")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].guess.length", is(6)))
+
+                .andExpect(jsonPath("$.person.id", is(2)))
+                .andExpect(jsonPath("$.person.name", is("Fons Thijssen")))
+                .andExpect(jsonPath("$.person.account.id", is(2)))
+                .andExpect(jsonPath("$.person.account.password", is("5678")))
+                .andExpect(jsonPath("$.person.account.name", is("fons-001")))
+                .andExpect(jsonPath("$.person.role", is("ADMINISTRATOR")));
+    }
+
+    @Test
+    @DisplayName("startNewRound: start een nieuwe ronde, wanneer een ronde net afgelopen is. ")
+    void startNewRound7() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders
+                .patch("/trainer/games/4/guess")
+                .content("BOKSEN");
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(4)))
+                //Score was al 150 in de DB, wordt gegokt in 2 beurten in ronde 2 = +20 punten. Klopt als een bus!
+                .andExpect(jsonPath("$.score", is(170)))
+                .andExpect(jsonPath("$.roundsDTOS", hasSize(2)))
+                .andExpect(jsonPath("$.roundsDTOS[0].roundOfGame", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[0].firstHint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS", hasSize(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].turnOfRound", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[2]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[3]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].feedback.feedbackItems[4]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].hint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].hint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].guess.value", is("BIEST")))
+                .andExpect(jsonPath("$.roundsDTOS[0].turnDTOS[0].guess.length", is(5)))
+
+                .andExpect(jsonPath("$.roundsDTOS[1].roundOfGame", is(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[1].firstHint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS", hasSize(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].turnOfRound", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[2]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[3]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[4]", is("ABSENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].feedback.feedbackItems[5]", is("PRESENT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].hint.value", is("B")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].hint.length", is(1)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.value", is("BOARDS")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[0].guess.length", is(6)))
+
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].turnOfRound", is(2)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[0]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[1]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[2]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[3]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[4]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].feedback.feedbackItems[5]", is("CORRECT")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].hint.value", is("BO....")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].hint.length", is(6)))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].guess.value", is("BOKSEN")))
+                .andExpect(jsonPath("$.roundsDTOS[1].turnDTOS[1].guess.length", is(6)))
+
+                .andExpect(jsonPath("$.person.id", is(2)))
+                .andExpect(jsonPath("$.person.name", is("Fons Thijssen")))
+                .andExpect(jsonPath("$.person.account.id", is(2)))
+                .andExpect(jsonPath("$.person.account.password", is("5678")))
+                .andExpect(jsonPath("$.person.account.name", is("fons-001")))
+                .andExpect(jsonPath("$.person.role", is("ADMINISTRATOR")));
+
+        RequestBuilder request2 = MockMvcRequestBuilders
+                .patch("/trainer/games/4/round").content("");
+
+        mockMvc.perform(request2)
+                .andExpect(status().isOk());
+    }
+
+
 }

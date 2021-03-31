@@ -53,18 +53,16 @@ public class TrainerController {
             Round lastRound = rounds.get(rounds.size() - 1);
             Word firstHint = Hint.createValidHint(String.valueOf(lastRound.getWord().getValue().charAt(0)));
             lastRound.setFirstHint(firstHint);
-
             //Set nu de arraylist als newGame property
             newGame.setRounds(rounds);
-
             GameDTO gameDTO = GameDTO.createGameDTO(newGame);
             return gameDTO;
-        } catch (NoSuchElementException noSuchElementException) {
-            throw new ApiRequestException("Given game does not exist!", HttpStatus.NOT_FOUND);
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new ApiRequestException("Finish the last round of the game first!", HttpStatus.FORBIDDEN);
         } catch (NumberFormatException numberFormatException) {
             throw new ApiRequestException("Given game does not exist, enter a valid id!", HttpStatus.BAD_REQUEST);
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ApiRequestException("Given game does not exist!", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             throw new ApiRequestException("Error!");
         }
@@ -76,24 +74,29 @@ public class TrainerController {
         try {
             Optional<Game> optionalGame = trainerService.getGameById(id);
             Game game = optionalGame.orElseThrow();
-            System.out.println("This is the game from the DB: ");
-            System.out.println(game.showGame());
             Optional<Game> newOptionalGame = trainerService.guess(game, new Guess(guess));
             Game newGame = newOptionalGame.orElseThrow();
             ArrayList<Round> rounds = new ArrayList<>(newGame.getRounds());
+            for(Round round : rounds) {
+                if(round.getFirstHint() == null) {
+                    Word firstHint = Hint.createValidHint(String.valueOf(round.getWordValue().charAt(0)));
+                    round.setFirstHint(firstHint);
+                }
+                ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
+                Collections.sort(turns);
+                round.setTurns(turns);
+            }
             Collections.sort(rounds);
             newGame.setRounds(rounds);
             GameDTO gameDTO = GameDTO.createGameDTO(newGame);
             return gameDTO;
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ApiRequestException("1. Given game doesn't exist, 2. word has already been guessed/there are no rounds - so start new round.");
         } catch (Exception e) {
             System.out.println(e);
             throw e;
         }
     }
-
-//    catch (NoSuchElementException noSuchElementException) {
-//        throw new ApiRequestException("1. Given game doesn't exist, 2. word has already been guessed/there are no rounds - so start new round.");
-//    }
 
 //    @RequestMapping("/games/{id}")
 //    public GameDTO getGameById(@PathVariable int id) {

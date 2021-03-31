@@ -219,7 +219,7 @@ public class Turn implements Comparable<Turn> {
 
     @Override
     public int compareTo(Turn turn) {
-        return this.getId() - turn.getId();
+        return this.getTurnRound() - turn.getTurnRound();
     }
 
 //    @Override

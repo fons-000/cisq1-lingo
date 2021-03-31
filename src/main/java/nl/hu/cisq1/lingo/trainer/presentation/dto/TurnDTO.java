@@ -3,15 +3,21 @@ package nl.hu.cisq1.lingo.trainer.presentation.dto;
 import nl.hu.cisq1.lingo.trainer.domain.*;
 
 public class TurnDTO {
+    private int turnOfRound;
     private Feedback feedback;
     private Word hint;
     private Word guess;
 
     public TurnDTO(Turn turn) {
         System.out.println("Gaat nu naar returnFeedbackCurrentTurn van turnDTO!");
+        this.turnOfRound = turn.getTurnRound();
         this.feedback = turn.returnFeedbackCurrentTurn();
         this.hint = turn.getHint();
         this.guess = turn.getGuess();
+    }
+
+    public int getTurnOfRound() {
+        return turnOfRound;
     }
 
     public Feedback getFeedback() {
@@ -29,7 +35,8 @@ public class TurnDTO {
     @Override
     public String toString() {
         return "TurnDTO{" +
-                "feedback=" + feedback +
+                "turnOfRound=" + turnOfRound +
+                ", feedback=" + feedback +
                 ", hint=" + hint +
                 ", guess=" + guess +
                 '}';

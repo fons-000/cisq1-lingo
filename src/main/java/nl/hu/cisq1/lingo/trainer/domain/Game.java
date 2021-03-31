@@ -114,6 +114,7 @@ public class Game {
                     out += " round " + roundx.getId() + "\n";
                     out += "   roundofgame: " + roundx.getRoundOfGame() + "\n";
                     out += "   word:        " + roundx.getWordValue() + "\n";
+                    out += "   firstHint:        " + roundx.getFirstHint() + "\n";
                     out += "   turns:\n";
                     for (Turn turnx : roundx.getTurns()) {
                         out += " turn " + turnx.getId() + "\n";
