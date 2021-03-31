@@ -48,13 +48,26 @@ public class TrainerController {
             Game game = optionalGame.orElseThrow();
             Optional<Game> newOptionalGame = trainerService.startNewRound(game);
             Game newGame = newOptionalGame.orElseThrow();
+
             ArrayList<Round> rounds = new ArrayList<>(newGame.getRounds());
-            //Verander deze arraylist round
-            Round lastRound = rounds.get(rounds.size() - 1);
-            Word firstHint = Hint.createValidHint(String.valueOf(lastRound.getWord().getValue().charAt(0)));
-            lastRound.setFirstHint(firstHint);
-            //Set nu de arraylist als newGame property
+            for(Round round : rounds) {
+                if(round.getFirstHint() == null) {
+                    Word firstHint = Hint.createValidHint(String.valueOf(round.getWordValue().charAt(0)));
+                    round.setFirstHint(firstHint);
+                }
+                ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
+                Collections.sort(turns);
+                round.setTurns(turns);
+            }
+            Collections.sort(rounds);
             newGame.setRounds(rounds);
+//            ArrayList<Round> rounds = new ArrayList<>(newGame.getRounds());
+//            //Verander deze arraylist round
+//            Round lastRound = rounds.get(rounds.size() - 1);
+//            Word firstHint = Hint.createValidHint(String.valueOf(lastRound.getWord().getValue().charAt(0)));
+//            lastRound.setFirstHint(firstHint);
+//            //Set nu de arraylist als newGame property
+//            newGame.setRounds(rounds);
             GameDTO gameDTO = GameDTO.createGameDTO(newGame);
             return gameDTO;
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
@@ -93,26 +106,37 @@ public class TrainerController {
         } catch (NoSuchElementException noSuchElementException) {
             throw new ApiRequestException("1. Given game doesn't exist, 2. word has already been guessed/there are no rounds - so start new round.");
         } catch (Exception e) {
+            throw new ApiRequestException("Error!");
+        }
+    }
+
+    @RequestMapping("/games/{id}")
+    public GameDTO getGameById(@PathVariable int id) {
+        //Later wordt authentication + id gebruikt, voor nu even achterwege laten.
+        try {
+            Optional<Game> optionalGame = trainerService.getGameById(id);
+            Game game = optionalGame.orElseThrow();
+            ArrayList<Round> rounds = new ArrayList<>(game.getRounds());
+            for(Round round : rounds) {
+                if(round.getFirstHint() == null) {
+                    Word firstHint = Hint.createValidHint(String.valueOf(round.getWordValue().charAt(0)));
+                    round.setFirstHint(firstHint);
+                }
+                ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
+                Collections.sort(turns);
+                round.setTurns(turns);
+            }
+            Collections.sort(rounds);
+            game.setRounds(rounds);
+            GameDTO gameDTO = GameDTO.createGameDTO(game);
+            return gameDTO;
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ApiRequestException("Given game does not exist!", HttpStatus.NOT_FOUND);
+        } catch (NumberFormatException numberFormatException) {
+            throw new ApiRequestException("Given game does not exist, enter a valid id!", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
             System.out.println(e);
             throw e;
         }
     }
-
-//    @RequestMapping("/games/{id}")
-//    public GameDTO getGameById(@PathVariable int id) {
-//        //Later wordt authentication + id gebruikt, voor nu even achterwege laten.
-//        try {
-//            Optional<Game> optionalGame = trainerService.getGameById(id);
-//            Game game = optionalGame.orElseThrow();
-//            GameDTO gameDTO = GameDTO.createGameDTO(game);
-//            return gameDTO;
-//        } catch (NoSuchElementException noSuchElementException) {
-//            throw new ApiRequestException("Given game does not exist!", HttpStatus.NOT_FOUND);
-//        } catch (NumberFormatException numberFormatException) {
-//            throw new ApiRequestException("Given game does not exist, enter a valid id!", HttpStatus.BAD_REQUEST);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            throw e;
-//        }
-//    }
 }
