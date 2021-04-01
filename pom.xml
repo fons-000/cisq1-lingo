@@ -73,10 +73,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -98,7 +94,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
-
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -106,7 +101,6 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-
                     <execution>
                         <id>post-unit-test</id>
                         <phase>test</phase>
@@ -119,7 +113,6 @@
                             </excludes>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>jacoco-check</id>
                         <goals>
@@ -153,7 +146,6 @@
 
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
@@ -170,7 +162,19 @@
                     <timestampedReports>false</timestampedReports>
                 </configuration>
             </plugin>
-
+<!--            Use mvn site for the following plugin-->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
