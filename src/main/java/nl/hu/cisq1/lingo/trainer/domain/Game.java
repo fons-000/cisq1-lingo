@@ -107,7 +107,7 @@ public class Game {
                 out+= "   username  =" + person.getAccount().getName() +"\n";
                 out+= "   password  =" + person.getAccount().getPassword() +"\n";
                 out+= "  role  =" + person.getRole() +"\n";
-                System.out.println("Lol. deze systeem uit moet er zo uit.");
+                System.out.println("Now pull the dependency changes locally!");
             }
         }
             out+= " rounds:\n";
