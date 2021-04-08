@@ -37,6 +37,9 @@ public class RoundDTOTest {
         Word hint = Hint.createValidHint("HAM..");
         Word guess = Guess.createValidGuess("HAMSTER");
         turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
@@ -45,6 +48,9 @@ public class RoundDTOTest {
         Word hint11 = turn.returnHintForNextTurn();
         Word guess11 = Guess.createValidGuess("HARDE");
         turn11 = new Turn(hint11, guess11, word11);
+        Round round11 = new Round(word11, 1);
+        turn11.setRound(round11);
+        round11.addTurn(turn11);
 
         Feedback feedback11 = turn11.returnFeedbackCurrentTurn();
         turn11.setFeedback(feedback11);
@@ -53,6 +59,9 @@ public class RoundDTOTest {
         Word hint12 = turn11.returnHintForNextTurn();
         Word guess12 = Guess.createValidGuess("HAMEL");
         turn12 = new Turn(hint12, guess12, word12);
+        Round round12 = new Round(word12, 1);
+        turn12.setRound(round12);
+        round12.addTurn(turn12);
 
         Feedback feedback12 = turn12.returnFeedbackCurrentTurn();
         turn12.setFeedback(feedback12);
@@ -61,6 +70,9 @@ public class RoundDTOTest {
         Word hint13 = turn12.returnHintForNextTurn();
         Word guess13 = Guess.createValidGuess("RUFTI");
         turn13 = new Turn(hint13, guess13, word13);
+        Round round13 = new Round(word13, 1);
+        turn13.setRound(round13);
+        round13.addTurn(turn13);
 
         Feedback feedback13 = turn13.returnFeedbackCurrentTurn();
         turn13.setFeedback(feedback13);
@@ -69,6 +81,9 @@ public class RoundDTOTest {
         Word hint14 = turn13.returnHintForNextTurn();
         Word guess14 = Guess.createValidGuess("GOVER");
         turn14 = new Turn(hint14, guess14, word14);
+        Round round14 = new Round(word14, 1);
+        turn14.setRound(round14);
+        round14.addTurn(turn14);
 
         Feedback feedback14 = turn14.returnFeedbackCurrentTurn();
         turn14.setFeedback(feedback14);
@@ -77,6 +92,9 @@ public class RoundDTOTest {
         Word hint15 = turn13.returnHintForNextTurn();
         Word guess15 = Guess.createValidGuess("PEACE");
         turn15 = new Turn(hint15, guess15, word15);
+        Round round15 = new Round(word15, 1);
+        turn15.setRound(round15);
+        round15.addTurn(turn15);
 
         Feedback feedback15 = turn15.returnFeedbackCurrentTurn();
         turn15.setFeedback(feedback15);
@@ -85,6 +103,9 @@ public class RoundDTOTest {
         Word hint2 = Hint.createValidHint("K....");
         Word guess2 = Guess.createValidGuess("KAM");
         turn2 = new Turn(hint2, guess2, word2);
+        Round round2 = new Round(word2, 1);
+        turn2.setRound(round2);
+        round2.addTurn(turn2);
 
         Feedback feedback2 = turn2.returnFeedbackCurrentTurn();
         turn2.setFeedback(feedback2);
@@ -93,6 +114,9 @@ public class RoundDTOTest {
         Word hint3 = Hint.createValidHint("GEB..");
         Word guess3 = Guess.createValidGuess("GEBAK");
         turn3 = new Turn(hint3, guess3, word3);
+        Round round3 = new Round(word3, 1);
+        turn3.setRound(round3);
+        round3.addTurn(turn3);
 
         Feedback feedback3 = turn3.returnFeedbackCurrentTurn();
         turn3.setFeedback(feedback3);
@@ -101,6 +125,9 @@ public class RoundDTOTest {
         Word hint4 = Hint.createValidHint("B....");
         Word guess4 = Guess.createValidGuess("BOOST");
         turn4 = new Turn(hint4, guess4, word4);
+        Round round4 = new Round(word4, 1);
+        turn4.setRound(round4);
+        round4.addTurn(turn4);
 
         Feedback feedback4 = turn4.returnFeedbackCurrentTurn();
         turn4.setFeedback(feedback4);

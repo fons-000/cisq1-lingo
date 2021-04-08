@@ -37,11 +37,11 @@ public class SpringGameRepositoryTest {
         round.setGame(game);
 
         Turn turn1 = new Turn(round.getFirstHint(), Word.createValidWord("ZZZZZ"), round.getWord());
-        Feedback feedback = turn1.returnFeedbackCurrentTurn();
-        turn1.setFeedback(feedback);
         turn1.setTurnRound(round.getTurns().size() + 1);
         turn1.setRound(round);
         assertTrue(round.addTurn(turn1));
+        Feedback feedback = turn1.returnFeedbackCurrentTurn();
+        turn1.setFeedback(feedback);
 
         Turn turn2 = new Turn(turn1.returnHintForNextTurn(), Word.createValidWord("GRAPE"), round.getWord());
         turn2.setTurnRound(round.getTurns().size() + 1);
@@ -64,6 +64,10 @@ public class SpringGameRepositoryTest {
         turn3.setRound(round1);
         game2.addRound(round1);
         round1.setGame(game2);
+
+        List<Round> game2Rounds = new ArrayList<>(game2.getRounds());
+        Collections.sort(game2Rounds);
+        game2.setRounds(game2Rounds);
     }
 
     @Autowired
@@ -74,6 +78,9 @@ public class SpringGameRepositoryTest {
     public void updateGame() {
         springGameRepository.save(this.game2);
         Game dbGame = springGameRepository.findById(this.game2.getId()).orElseThrow();
+        List<Round> dbRoundsList = new ArrayList<>(dbGame.getRounds());
+        Collections.sort(dbRoundsList);
+        dbGame.setRounds(dbRoundsList);
         assertEquals(this.game2, dbGame);
     }
 
@@ -90,12 +97,12 @@ public class SpringGameRepositoryTest {
         Collections.sort(dbTurns);
         dbGame.getRounds().iterator().next().setTurns(dbTurns);
 
-        assertEquals(100, dbGame.getScore());
-        Person dbPerson = dbGame.getPerson();
-        assertEquals(this.game.getPerson(), dbPerson);
-        assertEquals(1, dbGame.getRounds().size());
-        System.out.println(this.game);
-        System.out.println(dbGame);
+//        assertEquals(100, dbGame.getScore());
+//        Person dbPerson = dbGame.getPerson();
+//        assertEquals(this.game.getPerson(), dbPerson);
+//        assertEquals(1, dbGame.getRounds().size());
+//        System.out.println(this.game);
+//        System.out.println(dbGame);
         assertEquals(this.game, dbGame);
     }
 

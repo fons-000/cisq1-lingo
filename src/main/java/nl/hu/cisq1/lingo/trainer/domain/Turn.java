@@ -130,7 +130,12 @@ public class Turn implements Comparable<Turn> {
             }
             return new Feedback(invalidFeedback);
         }
-
+        System.out.println("This is the round of the turn: ");
+        System.out.println(round);
+//        System.out.println("This is the word of the round: ");
+//        System.out.println(round.getWord());
+//        System.out.println("This is the wordValue of the round: ");
+//        System.out.println(round.getWordValue());
         this.word = Word.createValidWord(round.getWordValue());
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(this.word, this.guess);
         //Throwed als de feedback empty is

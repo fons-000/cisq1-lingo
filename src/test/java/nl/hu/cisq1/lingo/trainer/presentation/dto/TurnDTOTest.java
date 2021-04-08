@@ -80,6 +80,9 @@ public class TurnDTOTest {
         Word hint = Hint.createValidHint("HAM");
         Word guess = Guess.createValidGuess("HAMSTER");
         Turn turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
@@ -155,6 +158,9 @@ public class TurnDTOTest {
         Word guess = Guess.createValidGuess("GEBAK");
         Turn turn = new Turn(hint, guess, word);
 
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
 
@@ -192,6 +198,9 @@ public class TurnDTOTest {
         Word hint = Hint.createValidHint("B");
         Word guess = Guess.createValidGuess("BOOST");
         Turn turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
@@ -235,6 +244,9 @@ public class TurnDTOTest {
         Word hint = Hint.createValidHint("B......");
         Word guess = Guess.createValidGuess("BAANER");
         Turn turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
@@ -275,6 +287,9 @@ public class TurnDTOTest {
         Word hint = Hint.createValidHint("OOR");
         Word guess = Guess.createValidGuess("OORFLAP");
         Turn turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);
@@ -317,6 +332,9 @@ public class TurnDTOTest {
         Word hint = Hint.createValidHint("AH");
         Word guess = Guess.createValidGuess("HAHAH");
         Turn turn = new Turn(hint, guess, word);
+        Round round = new Round(word, 1);
+        turn.setRound(round);
+        round.addTurn(turn);
 
         Feedback feedback = turn.returnFeedbackCurrentTurn();
         turn.setFeedback(feedback);

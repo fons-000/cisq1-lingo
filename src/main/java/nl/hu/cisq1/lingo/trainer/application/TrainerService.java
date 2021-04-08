@@ -65,7 +65,8 @@ public class TrainerService {
                 //Zet de meegekregen guess als guess.
                 turn = new Turn(lastRound.getFirstHint(), guess ,lastRound.getWord());
                 System.out.println("Gaat nu naar de returnFeedbackCurrentTurn in TrainerService guess! if getRounds size = 0");
-                turn.setFeedback(turn.returnFeedbackCurrentTurn());
+
+//                turn.setFeedback(turn.returnFeedbackCurrentTurn());
             }
 
             else {
@@ -77,6 +78,7 @@ public class TrainerService {
                 ArrayList<Turn> turns = new ArrayList<>(lastRound.getTurns());
                 Collections.sort(turns);
                 Turn lastTurn = turns.get(turns.size() - 1);
+                lastTurn.setRound(lastRound);
                 //Set the feedback, so we can generate a new hint for the next turn.
                 System.out.println("Gaat nu naar de returnFeedbackCurrentTurn in TrainerService guess! else");
                 Feedback feedback = lastTurn.returnFeedbackCurrentTurn();
@@ -84,14 +86,13 @@ public class TrainerService {
                 Word hint = Hint.createValidHint(lastTurn.getHintString());
                 lastTurn.setHint(hint);
                 turn = new Turn(lastTurn.returnHintForNextTurn(), guess, lastRound.getWord());
-                //Eventueel bijvoegen!
-//                turn.setFeedback(turn.returnFeedbackCurrentTurn());
             }
             System.out.println("Komt hier, maar op 1-of-andere manier gaat het fout nu");
             //2. Kijk nu of je de Turn toe kan voegen aan de laatste ronde van het spel, dit kan namelijk zo foutgaan.
             turn.setTurnRound(lastRound.getTurns().size() + 1);
             turn.setRound(lastRound);
             lastRound.addTurn(turn);
+            turn.setFeedback(turn.returnFeedbackCurrentTurn());
             System.out.println("This is now the round after the turn got added: ");
             System.out.println(lastRound);
             //1. Hoog eventueel de score op
