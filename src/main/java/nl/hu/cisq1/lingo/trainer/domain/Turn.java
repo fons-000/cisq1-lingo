@@ -90,9 +90,9 @@ public class Turn implements Comparable<Turn> {
         return id;
     }
 
-    public void setWord(Word word) {
-        this.word = word;
-    }
+//    public void setWord(Word word) {
+//        this.word = word;
+//    }
 
     public void setRound(Round round) {
         this.round = round;
@@ -111,9 +111,9 @@ public class Turn implements Comparable<Turn> {
     }
 
     //Ga dit later verwijderen
-    public Round getRound() {
-        return round;
-    }
+//    public Round getRound() {
+//        return round;
+//    }
 
     //Deze methode moet eerst uitgevoerd worden, en daarna moet de uitkomst geset worden in de turn,
     //voordat returnHintForNextTurn aangeroepen kan worden.

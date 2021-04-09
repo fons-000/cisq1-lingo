@@ -126,10 +126,10 @@
                                         <limit>
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.90</minimum>
+                                            <minimum>0.85</minimum>
                                         </limit>
                                         <limit>
-                                            <counter>BRANCH</counter>
+                                            <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.90</minimum>
                                         </limit>
@@ -146,20 +146,39 @@
 
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.pitest</groupId>-->
+<!--                <artifactId>pitest-maven</artifactId>-->
+<!--                <version>1.6.4</version>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.pitest</groupId>-->
+<!--                        <artifactId>pitest-junit5-plugin</artifactId>-->
+<!--                        <version>0.14</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--                <configuration>-->
+<!--                    <mutationThreshold>90</mutationThreshold>-->
+<!--                    <timestampedReports>false</timestampedReports>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.6.4</version>
+                <version>1.6.2</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.14</version>
+                        <version>0.12</version>
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <mutationThreshold>90</mutationThreshold>
+                    <mutationThreshold>50</mutationThreshold>
                     <timestampedReports>false</timestampedReports>
+                    <excludedTestClasses>
+                        <param>**IntegrationTest</param>
+                    </excludedTestClasses>
                 </configuration>
             </plugin>
 <!--            Use mvn site for the following plugin-->

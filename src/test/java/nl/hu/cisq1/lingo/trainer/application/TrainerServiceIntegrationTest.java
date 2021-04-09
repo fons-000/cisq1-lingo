@@ -25,13 +25,10 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Sql({"/data/lingo_words.sql"})
-@Import(CiTestConfiguration.class)
+//@Import(CiTestConfiguration.class)
 public class TrainerServiceIntegrationTest {
     @Autowired
     private TrainerService service;
-
-    @Autowired
-    private SpringGameRepository springGameRepository;
 
     Person person = new Person("Yoloman", "9104", "Brandon", Role.PLAYER);
 
@@ -56,7 +53,7 @@ public class TrainerServiceIntegrationTest {
         assertSame(1, game.getRounds().size());
         assertSame(5, game.getRounds().iterator().next().getWord().getValue().length());
 //        Game dbGame = springGameRepository.findById(5).orElseThrow();
-        Game dbGame = service.getGameById(5).orElseThrow();
+        Game dbGame = service.getGameById(5).orElseThrow(() -> new RuntimeException());
         assertEquals(game, dbGame);
     }
 

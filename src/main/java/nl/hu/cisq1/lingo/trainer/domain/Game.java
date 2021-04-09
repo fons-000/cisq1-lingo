@@ -53,10 +53,6 @@ public class Game {
         this.rounds = new LinkedHashSet<>(rounds);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
