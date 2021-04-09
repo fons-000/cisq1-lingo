@@ -88,6 +88,9 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <testExcludes>
+                        <exclude>**IntegrationTest</exclude>
+                    </testExcludes>
                 </configuration>
             </plugin>
             <plugin>
