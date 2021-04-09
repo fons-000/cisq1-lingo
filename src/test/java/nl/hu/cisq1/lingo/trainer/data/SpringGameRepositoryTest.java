@@ -1,5 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.data;
 
+import nl.hu.cisq1.lingo.CiTestConfiguration;
 import nl.hu.cisq1.lingo.trainer.application.TrainerService;
 import nl.hu.cisq1.lingo.trainer.domain.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +19,7 @@ import static org.mockito.Mockito.when;
 import java.util.*;
 
 @SpringBootTest
+@Import(CiTestConfiguration.class)
 @Sql({"/data/lingo_words.sql"})
 public class SpringGameRepositoryTest {
     Game game = new Game();

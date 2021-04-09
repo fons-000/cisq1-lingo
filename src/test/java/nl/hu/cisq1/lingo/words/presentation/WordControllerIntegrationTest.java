@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * and an import script is run.
  */
 @SpringBootTest
-//@Import(CiTestConfiguration.class)
+@Import(CiTestConfiguration.class)
 @AutoConfigureMockMvc
 class WordControllerIntegrationTest {
 

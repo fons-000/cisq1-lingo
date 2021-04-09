@@ -3,6 +3,7 @@ package nl.hu.cisq1.lingo.words;
 import nl.hu.cisq1.lingo.words.data.SpringWordRepository;
 import nl.hu.cisq1.lingo.trainer.domain.Word;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 
 public class WordTestDataFixtures implements CommandLineRunner {
     private final SpringWordRepository repository;

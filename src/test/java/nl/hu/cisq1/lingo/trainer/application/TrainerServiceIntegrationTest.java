@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Sql({"/data/lingo_words.sql"})
-//@Import(CiTestConfiguration.class)
+@Import(CiTestConfiguration.class)
 public class TrainerServiceIntegrationTest {
     @Autowired
     private TrainerService service;
