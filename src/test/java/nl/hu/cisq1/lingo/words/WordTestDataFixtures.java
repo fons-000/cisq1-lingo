@@ -14,6 +14,7 @@ public class WordTestDataFixtures implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("Komt in de run van WordTestDataFixtures");
         this.repository.save(new Word("pizza"));
         this.repository.save(new Word("oranje"));
         this.repository.save(new Word("wanorde"));
