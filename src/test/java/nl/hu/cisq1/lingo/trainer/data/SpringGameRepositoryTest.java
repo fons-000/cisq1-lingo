@@ -56,8 +56,6 @@ public class SpringGameRepositoryTest {
         //Update deze game!
         //Expected heeft geen ID's
         game2 = springGameRepository.findById(4).orElseThrow();
-//        System.out.println("Dit is de game_id: ");
-//        System.out.println(game2.getId());
         game2.setScore(1000);
         //Houd rekening, word van round & turn moet ook in de words table zitten!
         Round round1 = new Round(Word.createValidWord("AMPEX"), game2.getRounds().size() + 1);
@@ -90,7 +88,6 @@ public class SpringGameRepositoryTest {
     @Test
     @DisplayName("saveGame")
     public void saveGame() {
-        System.out.println(game.showGame());
         springGameRepository.save(this.game);
         Game dbGame = springGameRepository.findById(this.game.getId()).orElseThrow();
         //Pakt de eerste en enige ronde uit de DB => en daar de turns van
@@ -104,8 +101,6 @@ public class SpringGameRepositoryTest {
 //        Person dbPerson = dbGame.getPerson();
 //        assertEquals(this.game.getPerson(), dbPerson);
 //        assertEquals(1, dbGame.getRounds().size());
-//        System.out.println(this.game);
-//        System.out.println(dbGame);
         assertEquals(this.game, dbGame);
     }
 

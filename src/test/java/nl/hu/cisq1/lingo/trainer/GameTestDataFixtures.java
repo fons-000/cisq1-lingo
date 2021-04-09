@@ -18,8 +18,6 @@
 //        Person person = new Person("FS Fons", "1234", "Fons Thijssen", Role.PLAYER);
 //        Person person1 = new Person("fons-001", "5678", "Fons Thijssen", Role.ADMINISTRATOR);
 //        Game game = new Game();
-//        System.out.println("This is game.getRounds.size in the run of the GameTestDataFixtures: ");
-//        System.out.println(game.getRounds().size());
 //        Round round = new Round(Word.createValidWord("AAGJE"), game.getRounds().size() + 1);
 //    }
 //}

@@ -34,7 +34,6 @@ public class TrainerServiceIntegrationTest {
 
     @AfterEach
     public void after() {
-        System.out.println("It comes in the after each!");
         person = new Person("Yoloman", "9104", "Brandon", Role.PLAYER);
     }
 
@@ -175,8 +174,6 @@ public class TrainerServiceIntegrationTest {
     @MethodSource("startNewRoundExampels")
     @DisplayName("startNewRound, will add a new round appropiately to it's previous round")
     void startNewRound(Game game, int expectedWordLengthNextRound, int expectedRounds) {
-        System.out.println("This is the game that doesn't want to start a new round: ");
-        System.out.println(game.showGame());
         Optional<Game> optionalGame = service.startNewRound(game);
         if(expectedWordLengthNextRound == 0) {
             assertThrows(NoSuchElementException.class, () -> {
@@ -225,14 +222,10 @@ public class TrainerServiceIntegrationTest {
         game.addRound(round);
         game.setPerson(person);
         person.addGame(game);
-        System.out.println("Workings test game: ");
-        System.out.println(game.showGame());
 
         Game game1 = new Game();
         game1.setPerson(person1);
         person1.addGame(game1);
-        System.out.println("Workings test game: ");
-        System.out.println(game1.showGame());
 
         Game game2 = new Game();
         Round round2 = new Round(new Word("CHARGE"), game2.getRounds().size() + 1);
@@ -247,17 +240,12 @@ public class TrainerServiceIntegrationTest {
         game2.setPerson(person2);
         person2.addGame(game2);
 
-        System.out.println("Failing test game: ");
-        System.out.println(game2.showGame());
-
         Game game3 = new Game();
         Round round3 = new Round(new Word("ECHOPUT"), game.getRounds().size() + 1);
         round3.setGame(game3);
         game3.addRound(round3);
         game3.setPerson(person3);
         person3.addGame(game3);
-        System.out.println("Failing test game: ");
-        System.out.println(game3.showGame());
 
         return Stream.of(
                 //1. Er is een voorgaande ronde/rondes, en er zitten nog geen turns in de laatste ronde.
@@ -335,18 +323,6 @@ public class TrainerServiceIntegrationTest {
         game4.addRound(round4);
         game4.setPerson(person4);
         person4.addGame(game4);
-
-//        System.out.println("This is game: ");
-//        System.out.println(game.showGame());
-//
-//        System.out.println("This is game 1: ");
-//        System.out.println(game1.showGame());
-//
-//        System.out.println("This is game 2: ");
-//        System.out.println(game2.showGame());
-//
-//        System.out.println("This is game 3: ");
-//        System.out.println(game3.showGame());
 
         return Stream.of(
                 //1. Er zijn geen rounds = 5 letter word next round.

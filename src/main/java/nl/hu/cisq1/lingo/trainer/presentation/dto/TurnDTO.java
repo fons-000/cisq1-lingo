@@ -9,7 +9,6 @@ public class TurnDTO {
     private Word guess;
 
     public TurnDTO(Turn turn) {
-        System.out.println("Gaat nu naar returnFeedbackCurrentTurn van turnDTO!");
         this.turnOfRound = turn.getTurnRound();
         this.feedback = turn.returnFeedbackCurrentTurn();
         this.hint = turn.getHint();

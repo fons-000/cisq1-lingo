@@ -122,15 +122,11 @@ public class Round implements Serializable, Comparable<Round> {
 
     @Override
     public boolean equals(Object o) {
-        System.out.println("Comes in the equals of Round");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Round round = (Round) o;
         ArrayList<Turn> dbTurns = new ArrayList<>(turns);
         ArrayList<Turn> turns = new ArrayList<>(round.getTurns());
-        System.out.println(roundOfGame == round.roundOfGame);
-        System.out.println(Objects.equals(wordValue, round.wordValue));
-        System.out.println(dbTurns.equals(turns));
         return roundOfGame == round.roundOfGame && Objects.equals(wordValue, round.wordValue)
             && dbTurns.equals(turns);
         //id == round.id &&

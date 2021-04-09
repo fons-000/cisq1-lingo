@@ -135,8 +135,7 @@ public class TrainerController {
         } catch (NumberFormatException numberFormatException) {
             throw new ApiRequestException("Given game does not exist, enter a valid id!", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            System.out.println(e);
-            throw e;
+            throw new ApiRequestException("Error!");
         }
     }
 }

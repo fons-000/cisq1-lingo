@@ -118,8 +118,6 @@ public class Turn implements Comparable<Turn> {
     //Deze methode moet eerst uitgevoerd worden, en daarna moet de uitkomst geset worden in de turn,
     //voordat returnHintForNextTurn aangeroepen kan worden.
     public Feedback returnFeedbackCurrentTurn() {
-        System.out.println("This is the word of the turn: ");
-        System.out.println(this.word);
         try {
             this.guess = Word.createValidWord(this.guessString);
         } catch (NoSuchElementException noSuchElementException) {
@@ -130,12 +128,7 @@ public class Turn implements Comparable<Turn> {
             }
             return new Feedback(invalidFeedback);
         }
-        System.out.println("This is the round of the turn: ");
-        System.out.println(round);
-//        System.out.println("This is the word of the round: ");
-//        System.out.println(round.getWord());
-//        System.out.println("This is the wordValue of the round: ");
-//        System.out.println(round.getWordValue());
+
         this.word = Word.createValidWord(round.getWordValue());
         Optional<Feedback> optionalFeedback = Feedback.generateFeedback(this.word, this.guess);
         //Throwed als de feedback empty is
@@ -176,12 +169,8 @@ public class Turn implements Comparable<Turn> {
                 newHintValueCharArray[i] = letter;
             }
         }
-        System.out.println("After step 2, this is the newHintValueCharArray: ");
-        System.out.println(newHintValueCharArray);
 
         newHintValue = String.valueOf(newHintValueCharArray);
-        System.out.println("This is the new hint value: ");
-        System.out.println(newHintValue);
         //Deze moet geretourneerd worden, maar eerst verpakt in een Optional!
         Hint newHint = Hint.createValidHint(newHintValue);
         Optional<Hint> validNewHintOptional = Optional.of(newHint);
@@ -189,11 +178,6 @@ public class Turn implements Comparable<Turn> {
         //Stap 4 => Verpak de newHint in een Optional als de hint niet hetzelfde is
         //als het word of return een lege Optional
         if(word.equals(newHint)) {
-            System.out.println("This is word: ");
-            System.out.println(word);
-            System.out.println("This is newHint: ");
-            System.out.println(newHint);
-            System.out.println("Komt in de optional.empty!");
             return Optional.empty();
         }
         return validNewHintOptional;
@@ -214,10 +198,6 @@ public class Turn implements Comparable<Turn> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turn turn = (Turn) o;
-        System.out.println("In de equals van turn: ");
-        System.out.println(turnRound == turn.turnRound);
-        System.out.println(Objects.equals(hintString, turn.hintString));
-        System.out.println(Objects.equals(guessString, turn.guessString));
         return turnRound == turn.turnRound && Objects.equals(hintString, turn.hintString) && Objects.equals(guessString, turn.guessString);
         //id == turn.id &&
     }
@@ -226,10 +206,4 @@ public class Turn implements Comparable<Turn> {
     public int compareTo(Turn turn) {
         return this.getTurnRound() - turn.getTurnRound();
     }
-
-//    @Override
-//    public int hashCode() {
-//        System.out.println(id);
-//        return Objects.hash(turnRound, hintString, guessString);
-//    }
 }
